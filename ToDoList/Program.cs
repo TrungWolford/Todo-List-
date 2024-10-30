@@ -17,7 +17,9 @@ namespace ToDoList
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
-            Console.WriteLine("Vu nhu lon");   
+            Console.WriteLine("Anh Yeu Em");   
+
+
         }
     }
 }
