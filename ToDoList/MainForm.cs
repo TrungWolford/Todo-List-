@@ -31,10 +31,13 @@ namespace ToDoList
         {
 
         }
+<<<<<<< HEAD
 
         private void button2_Click(object sender, EventArgs e)
         {
 
         }
+=======
+>>>>>>> 1bcd547534efbc1096fe0381184b49093bae96b3
     }
 }
