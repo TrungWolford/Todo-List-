@@ -28,20 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pnlMenuTaskBar = new FlowLayoutPanel();
             pnlTitleMain = new Panel();
             lbl_titleMain = new Label();
             pnlMainContent = new Panel();
+            pnlMenu_top = new Panel();
+            panel1 = new Panel();
             pnlTitleMain.SuspendLayout();
+            pnlMenu_top.SuspendLayout();
             SuspendLayout();
-            // 
-            // pnlMenuTaskBar
-            // 
-            pnlMenuTaskBar.BackColor = Color.White;
-            pnlMenuTaskBar.Location = new Point(0, 63);
-            pnlMenuTaskBar.Name = "pnlMenuTaskBar";
-            pnlMenuTaskBar.Size = new Size(235, 914);
-            pnlMenuTaskBar.TabIndex = 0;
             // 
             // pnlTitleMain
             // 
@@ -50,7 +44,7 @@
             pnlTitleMain.Dock = DockStyle.Top;
             pnlTitleMain.Location = new Point(0, 0);
             pnlTitleMain.Name = "pnlTitleMain";
-            pnlTitleMain.Size = new Size(1422, 75);
+            pnlTitleMain.Size = new Size(1422, 80);
             pnlTitleMain.TabIndex = 1;
             // 
             // lbl_titleMain
@@ -72,27 +66,45 @@
             pnlMainContent.Size = new Size(1186, 901);
             pnlMainContent.TabIndex = 2;
             // 
+            // pnlMenu_top
+            // 
+            pnlMenu_top.BackColor = Color.RosyBrown;
+            pnlMenu_top.Controls.Add(panel1);
+            pnlMenu_top.Location = new Point(0, 76);
+            pnlMenu_top.Name = "pnlMenu_top";
+            pnlMenu_top.Size = new Size(238, 901);
+            pnlMenu_top.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.WindowFrame;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(238, 400);
+            panel1.TabIndex = 0;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1422, 977);
+            Controls.Add(pnlMenu_top);
             Controls.Add(pnlMainContent);
             Controls.Add(pnlTitleMain);
-            Controls.Add(pnlMenuTaskBar);
             Name = "Main";
             Text = "CS Todo List";
             pnlTitleMain.ResumeLayout(false);
             pnlTitleMain.PerformLayout();
+            pnlMenu_top.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private FlowLayoutPanel pnlMenuTaskBar;
         private Panel pnlTitleMain;
         private Label lbl_titleMain;
         private Panel pnlMainContent;
+        private Panel pnlMenu_top;
+        private Panel panel1;
     }
 }
