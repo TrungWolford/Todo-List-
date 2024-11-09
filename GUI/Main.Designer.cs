@@ -71,6 +71,7 @@
             pnlMainContent.Name = "pnlMainContent";
             pnlMainContent.Size = new Size(1186, 901);
             pnlMainContent.TabIndex = 2;
+            pnlMainContent.Paint += pnlMainContent_Paint;
             // 
             // Main
             // 

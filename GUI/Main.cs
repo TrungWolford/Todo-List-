@@ -18,6 +18,9 @@ namespace GUI
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        
+        private void pnlMainContent_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
