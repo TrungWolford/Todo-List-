@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pnlTitleMain = new Panel();
+            pnlTitleMain = new Label();
             lbl_titleMain = new Label();
-            pnlMainContent = new Panel();
-            pnlMenu_top = new Panel();
-            panel1 = new Panel();
+            pnlMenutaskbar = new System.Windows.Forms.Panel();
+            pnlMainContent = new System.Windows.Forms.Panel();
+            cpSearching1 = new Components.cpSearching();
+            pnlMenuTop = new System.Windows.Forms.Panel();
+            pnlMenuBottom = new System.Windows.Forms.Panel();
             pnlTitleMain.SuspendLayout();
-            pnlMenu_top.SuspendLayout();
+            pnlMenutaskbar.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTitleMain
@@ -59,29 +61,46 @@
             lbl_titleMain.Text = "CS Todo List";
             lbl_titleMain.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // pnlMenutaskbar
+            // 
+            pnlMenutaskbar.BackColor = Color.White;
+            pnlMenutaskbar.Controls.Add(pnlMenuBottom);
+            pnlMenutaskbar.Controls.Add(pnlMenuTop);
+            pnlMenutaskbar.Location = new Point(0, 78);
+            pnlMenutaskbar.Name = "pnlMenutaskbar";
+            pnlMenutaskbar.Size = new Size(225, 900);
+            pnlMenutaskbar.TabIndex = 2;
+            // 
             // pnlMainContent
             // 
-            pnlMainContent.Location = new Point(236, 76);
+            pnlMainContent.Location = new Point(225, 78);
             pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1186, 901);
-            pnlMainContent.TabIndex = 2;
+            pnlMainContent.Size = new Size(1197, 900);
+            pnlMainContent.TabIndex = 3;
             // 
-            // pnlMenu_top
+            // cpSearching1
             // 
-            pnlMenu_top.BackColor = Color.RosyBrown;
-            pnlMenu_top.Controls.Add(panel1);
-            pnlMenu_top.Location = new Point(0, 76);
-            pnlMenu_top.Name = "pnlMenu_top";
-            pnlMenu_top.Size = new Size(238, 901);
-            pnlMenu_top.TabIndex = 3;
+            cpSearching1.BackColor = Color.FromArgb(37, 100, 207);
+            cpSearching1.Location = new Point(545, 0);
+            cpSearching1.Name = "cpSearching1";
+            cpSearching1.Size = new Size(569, 72);
+            cpSearching1.TabIndex = 4;
             // 
-            // panel1
+            // pnlMenuTop
             // 
-            panel1.BackColor = SystemColors.WindowFrame;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(238, 400);
-            panel1.TabIndex = 0;
+            pnlMenuTop.BackColor = SystemColors.WindowFrame;
+            pnlMenuTop.Location = new Point(0, 0);
+            pnlMenuTop.Name = "pnlMenuTop";
+            pnlMenuTop.Size = new Size(225, 403);
+            pnlMenuTop.TabIndex = 0;
+            // 
+            // pnlMenuBottom
+            // 
+            pnlMenuBottom.BackColor = Color.Yellow;
+            pnlMenuBottom.Location = new Point(0, 402);
+            pnlMenuBottom.Name = "pnlMenuBottom";
+            pnlMenuBottom.Size = new Size(225, 498);
+            pnlMenuBottom.TabIndex = 1;
             // 
             // Main
             // 
@@ -89,22 +108,25 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1422, 977);
-            Controls.Add(pnlMenu_top);
+            Controls.Add(cpSearching1);
             Controls.Add(pnlMainContent);
+            Controls.Add(pnlMenutaskbar);
             Controls.Add(pnlTitleMain);
             Name = "Main";
             Text = "CS Todo List";
             pnlTitleMain.ResumeLayout(false);
             pnlTitleMain.PerformLayout();
-            pnlMenu_top.ResumeLayout(false);
+            pnlMenutaskbar.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel pnlTitleMain;
+        private Label pnlTitleMain;
         private Label lbl_titleMain;
-        private Panel pnlMainContent;
-        private Panel pnlMenu_top;
-        private Panel panel1;
+        private System.Windows.Forms.Panel pnlMenutaskbar;
+        private System.Windows.Forms.Panel pnlMainContent;
+        private Components.cpSearching cpSearching1;
+        private System.Windows.Forms.Panel pnlMenuBottom;
+        private System.Windows.Forms.Panel pnlMenuTop;
     }
 }
