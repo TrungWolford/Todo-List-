@@ -16,5 +16,7 @@ namespace GUI.Panel
         {
             InitializeComponent();
         }
+
+        
     }
 }
