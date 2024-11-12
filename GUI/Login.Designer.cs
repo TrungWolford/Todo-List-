@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            panel1 = new Label();
             lbl_title = new Label();
             lbl_login = new Label();
             lbl_sologan = new Label();
@@ -180,7 +180,7 @@
 
         #endregion
 
-        private Panel panel1;
+        private Label panel1;
         private Label lbl_title;
         private Label lbl_login;
         private Label lbl_sologan;

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1Reg = new Panel();
+            panel1Reg = new Label();
             lbl_titleReg = new Label();
             lbl_register = new Label();
-            panel2 = new Panel();
+            panel2 = new Label();
             lbl_btnLoginReg = new Label();
             lbl_toLoginFrame = new Label();
             lbl_askingReg = new Label();
@@ -234,10 +234,10 @@
 
         #endregion
 
-        private Panel panel1Reg;
+        private Label panel1Reg;
         private Label lbl_titleReg;
         private Label lbl_register;
-        private Panel panel2;
+        private Label panel2;
         private Label lbl_sologanReg;
         private Label lbl_repasswordReg;
         private Label lbl_emailReg;
@@ -247,7 +247,6 @@
         private TextBox txt_emailReg;
         private TextBox txt_repasswordReg;
         private TextBox txt_passwordReg;
-        private Panel pnl_btnLogin;
         private Label lbl_btnLoginReg;
         private Label lbl_toLoginFrame;
         private Label lbl_askingReg;

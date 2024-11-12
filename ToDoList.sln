@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO", "DAO\DAO.csproj", "{6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{DAFDFE42-D30A-4B8A-8EA9-1C64FA24904C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "database", "database\database.csproj", "{2E1DB3BC-FB42-4082-BB4B-507229C7C590}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "database", "database\database.csproj", "{2E1DB3BC-FB42-4082-BB4B-507229C7C590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
