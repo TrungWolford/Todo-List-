@@ -26,6 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+
         private void InitializeComponent()
         {
             pnlTitleMain = new Label();
@@ -73,7 +74,7 @@
             pnlMainContent.Size = new Size(1197, 900);
             pnlMainContent.TabIndex = 3;
             // 
-            // pnlMenu_top
+            // cpSearching1
             // 
             cpSearching1.BackColor = Color.FromArgb(37, 100, 207);
             cpSearching1.Location = new Point(545, 0);
@@ -97,7 +98,6 @@
             pnlTitleMain.PerformLayout();
             ResumeLayout(false);
         }
-
         #endregion
         private Label pnlTitleMain;
         private Label lbl_titleMain;
