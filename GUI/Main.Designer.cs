@@ -33,10 +33,7 @@
             pnlMenutaskbar = new System.Windows.Forms.Panel();
             pnlMainContent = new System.Windows.Forms.Panel();
             cpSearching1 = new Components.cpSearching();
-            pnlMenuTop = new System.Windows.Forms.Panel();
-            pnlMenuBottom = new System.Windows.Forms.Panel();
             pnlTitleMain.SuspendLayout();
-            pnlMenutaskbar.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTitleMain
@@ -64,8 +61,6 @@
             // pnlMenutaskbar
             // 
             pnlMenutaskbar.BackColor = Color.White;
-            pnlMenutaskbar.Controls.Add(pnlMenuBottom);
-            pnlMenutaskbar.Controls.Add(pnlMenuTop);
             pnlMenutaskbar.Location = new Point(0, 78);
             pnlMenutaskbar.Name = "pnlMenutaskbar";
             pnlMenutaskbar.Size = new Size(225, 900);
@@ -86,22 +81,6 @@
             cpSearching1.Size = new Size(569, 72);
             cpSearching1.TabIndex = 4;
             // 
-            // pnlMenuTop
-            // 
-            pnlMenuTop.BackColor = SystemColors.WindowFrame;
-            pnlMenuTop.Location = new Point(0, 0);
-            pnlMenuTop.Name = "pnlMenuTop";
-            pnlMenuTop.Size = new Size(225, 403);
-            pnlMenuTop.TabIndex = 0;
-            // 
-            // pnlMenuBottom
-            // 
-            pnlMenuBottom.BackColor = Color.Yellow;
-            pnlMenuBottom.Location = new Point(0, 402);
-            pnlMenuBottom.Name = "pnlMenuBottom";
-            pnlMenuBottom.Size = new Size(225, 498);
-            pnlMenuBottom.TabIndex = 1;
-            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -116,7 +95,6 @@
             Text = "CS Todo List";
             pnlTitleMain.ResumeLayout(false);
             pnlTitleMain.PerformLayout();
-            pnlMenutaskbar.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -126,7 +104,5 @@
         private System.Windows.Forms.Panel pnlMenutaskbar;
         private System.Windows.Forms.Panel pnlMainContent;
         private Components.cpSearching cpSearching1;
-        private System.Windows.Forms.Panel pnlMenuBottom;
-        private System.Windows.Forms.Panel pnlMenuTop;
     }
 }
