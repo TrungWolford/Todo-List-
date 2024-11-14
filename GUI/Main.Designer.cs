@@ -69,9 +69,9 @@
             // 
             // pnlMainContent
             // 
-            pnlMainContent.Location = new Point(225, 78);
+            pnlMainContent.Location = new Point(222, 78);
             pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1197, 900);
+            pnlMainContent.Size = new Size(1200, 900);
             pnlMainContent.TabIndex = 3;
             // 
             // cpSearching1
