@@ -39,6 +39,7 @@
             lbl_btnLogin = new Label();
             lbl_asking = new Label();
             lbl_toRegisterFrame = new Label();
+            checkBox1 = new CheckBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,7 +68,7 @@
             // 
             lbl_login.AutoSize = true;
             lbl_login.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbl_login.Location = new Point(280, 78);
+            lbl_login.Location = new Point(280, 101);
             lbl_login.Name = "lbl_login";
             lbl_login.Size = new Size(97, 41);
             lbl_login.TabIndex = 2;
@@ -78,7 +79,7 @@
             // 
             lbl_sologan.AutoSize = true;
             lbl_sologan.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_sologan.Location = new Point(159, 119);
+            lbl_sologan.Location = new Point(159, 142);
             lbl_sologan.Name = "lbl_sologan";
             lbl_sologan.Size = new Size(360, 28);
             lbl_sologan.TabIndex = 3;
@@ -127,7 +128,7 @@
             lbl_btnLogin.Cursor = Cursors.Hand;
             lbl_btnLogin.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_btnLogin.ForeColor = Color.White;
-            lbl_btnLogin.Location = new Point(80, 409);
+            lbl_btnLogin.Location = new Point(78, 428);
             lbl_btnLogin.Name = "lbl_btnLogin";
             lbl_btnLogin.Size = new Size(520, 30);
             lbl_btnLogin.TabIndex = 12;
@@ -137,7 +138,7 @@
             // lbl_asking
             // 
             lbl_asking.AutoSize = true;
-            lbl_asking.Location = new Point(147, 458);
+            lbl_asking.Location = new Point(159, 486);
             lbl_asking.Name = "lbl_asking";
             lbl_asking.Size = new Size(243, 20);
             lbl_asking.TabIndex = 14;
@@ -149,17 +150,28 @@
             lbl_toRegisterFrame.Cursor = Cursors.Hand;
             lbl_toRegisterFrame.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             lbl_toRegisterFrame.ForeColor = Color.FromArgb(37, 100, 207);
-            lbl_toRegisterFrame.Location = new Point(396, 458);
+            lbl_toRegisterFrame.Location = new Point(420, 486);
             lbl_toRegisterFrame.Name = "lbl_toRegisterFrame";
             lbl_toRegisterFrame.Size = new Size(44, 20);
             lbl_toRegisterFrame.TabIndex = 15;
             lbl_toRegisterFrame.Text = "Login";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(446, 371);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(134, 24);
+            checkBox1.TabIndex = 16;
+            checkBox1.Text = "Show password";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 603);
+            Controls.Add(checkBox1);
             Controls.Add(lbl_toRegisterFrame);
             Controls.Add(lbl_asking);
             Controls.Add(lbl_btnLogin);
@@ -191,5 +203,6 @@
         private Label lbl_btnLogin;
         private Label lbl_asking;
         private Label lbl_toRegisterFrame;
+        private CheckBox checkBox1;
     }
 }

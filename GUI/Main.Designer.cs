@@ -26,6 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+
         private void InitializeComponent()
         {
             pnlTitleMain = new Label();
@@ -97,7 +98,6 @@
             pnlTitleMain.PerformLayout();
             ResumeLayout(false);
         }
-
         #endregion
         private Label pnlTitleMain;
         private Label lbl_titleMain;
