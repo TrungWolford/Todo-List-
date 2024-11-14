@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI.Panel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -97,16 +98,22 @@ namespace GUI.Components
         private void lbl_itemMyday_Click(object sender, EventArgs e)
         {
             SelectLabel(lbl_itemMyday);
+            Myday md = new Myday();
+            main.setForm(md);
         }
 
         private void lbl_itemImportant_Click(object sender, EventArgs e)
         {
             SelectLabel(lbl_itemImportant);
+            Important imp = new Important();
+            main.setForm(imp);
         }
 
         private void lbl_itemTasks_Click(object sender, EventArgs e)
         {
             SelectLabel(lbl_itemTasks);
+            Tasks tasks = new Tasks();
+            main.setForm(tasks);
         }
     }
 }

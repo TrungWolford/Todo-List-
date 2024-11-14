@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="icon\" />
-    <Folder Include="Panel\" />
   </ItemGroup>
 
   <ItemGroup>

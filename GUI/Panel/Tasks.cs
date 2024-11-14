@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace GUI.Panel
 {
-    public partial class Myday : Form
+    public partial class Tasks : Form
     {
-        public Myday()
+        public Tasks()
         {
             InitializeComponent();
         }
-
     }
 }
