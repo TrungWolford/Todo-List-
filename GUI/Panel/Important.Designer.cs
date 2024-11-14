@@ -79,8 +79,9 @@
             // lblImp_important
             // 
             lblImp_important.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblImp_important.Cursor = Cursors.Hand;
             lblImp_important.Image = (Image)resources.GetObject("lblImp_important.Image");
-            lblImp_important.Location = new Point(66, 55);
+            lblImp_important.Location = new Point(67, 51);
             lblImp_important.Name = "lblImp_important";
             lblImp_important.Size = new Size(57, 44);
             lblImp_important.TabIndex = 2;
@@ -88,11 +89,16 @@
             // lblImp_calendar
             // 
             lblImp_calendar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblImp_calendar.Cursor = Cursors.Hand;
+            lblImp_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblImp_calendar.Image = Properties.Resources.calendar;
-            lblImp_calendar.Location = new Point(3, 55);
+            lblImp_calendar.ImageAlign = ContentAlignment.MiddleLeft;
+            lblImp_calendar.Location = new Point(15, 51);
             lblImp_calendar.Name = "lblImp_calendar";
-            lblImp_calendar.Size = new Size(57, 44);
+            lblImp_calendar.Size = new Size(170, 44);
             lblImp_calendar.TabIndex = 1;
+            lblImp_calendar.TextAlign = ContentAlignment.MiddleRight;
+            lblImp_calendar.Click += lblImp_calendar_Click;
             // 
             // txtImportantTask
             // 

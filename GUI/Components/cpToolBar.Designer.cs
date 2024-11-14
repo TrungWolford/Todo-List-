@@ -78,9 +78,9 @@
             // lblTop_currentTime
             // 
             lblTop_currentTime.Font = new Font("Segoe UI", 10.2F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblTop_currentTime.Location = new Point(0, 78);
+            lblTop_currentTime.Location = new Point(0, 72);
             lblTop_currentTime.Name = "lblTop_currentTime";
-            lblTop_currentTime.Size = new Size(216, 19);
+            lblTop_currentTime.Size = new Size(216, 36);
             lblTop_currentTime.TabIndex = 2;
             lblTop_currentTime.Text = "label3";
             lblTop_currentTime.TextAlign = ContentAlignment.MiddleCenter;
@@ -93,7 +93,7 @@
             lblTop_title.Name = "lblTop_title";
             lblTop_title.Size = new Size(209, 72);
             lblTop_title.TabIndex = 1;
-            lblTop_title.TextAlign = ContentAlignment.MiddleCenter;
+            lblTop_title.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cpToolBar
             // 

@@ -62,16 +62,16 @@
             // pnlMenutaskbar
             // 
             pnlMenutaskbar.BackColor = Color.White;
-            pnlMenutaskbar.Location = new Point(0, 78);
+            pnlMenutaskbar.Location = new Point(0, 81);
             pnlMenutaskbar.Name = "pnlMenutaskbar";
-            pnlMenutaskbar.Size = new Size(225, 900);
+            pnlMenutaskbar.Size = new Size(225, 897);
             pnlMenutaskbar.TabIndex = 2;
             // 
             // pnlMainContent
             // 
-            pnlMainContent.Location = new Point(222, 78);
+            pnlMainContent.Location = new Point(222, 81);
             pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1200, 900);
+            pnlMainContent.Size = new Size(1200, 897);
             pnlMainContent.TabIndex = 3;
             // 
             // cpSearching1
