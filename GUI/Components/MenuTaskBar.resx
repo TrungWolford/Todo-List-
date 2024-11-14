@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="lbl_itemTasks.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        6QAAAOkBVJIUSwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKKSURBVFhHzZfL
+        4wAAAOMBD+bfpwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKKSURBVFhHzZfL
         q01RHMcvISXyjgwUhbzKIwMj7zAw8AeI5DEwkGd5myBhYCITjxFJBkaYeBRFFIo88ixkwtzI53PWXrXa
         dx/nrH3OLZ/6dH9n3b3X/q6z1l5n754WTMSX+B1X2JAwFz/iB5xjQ8JK9JwXaB+1OYpHcDHesyHhMq7H
         DXjJhoT7uAg9X2tzCjfiZHxqQ8J1XFponeKxnuO59pHFPNyEm/EOxgBfirboM4wBrNP/eWwMYB+22ad9
@@ -136,10 +136,10 @@
         gg==
 </value>
   </data>
-  <data name="label1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="lbl_itemImportant.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAI
-        2gAACNoBH+sbpwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKmSURBVFhHtZc9
+        2AAACNgBYBXYLgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKmSURBVFhHtZc9
         axRhFIXfmIBo0oggqJUhsUiRxh9gIUlhUiwEEghpLKwExSKNWthEERsRLBRCsBRMmz+QxkJFEBQRETtt
         TKX4PZ5n9u4ymT37McvuhSfMnHPfc3dmZ3YmKcuyvlCNiDPBiOvpBSt2I4Y/EewA2319CCt2Q7Uifov5
         gO0V19sNK3ZCxdG/FpsFbTO0ymfBip1QLQmOeLKgTYa2VOztBSu2Q8XRvxJbxtsKr9JZsGI7VDXxR0wZ
@@ -154,10 +154,10 @@
         c+KQ87MsS/8BwbWT+qUOvPkAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="label3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="lbl_itemNewGroup.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        6QAAAOkBVJIUSwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIJSURBVFhHxZff
+        4wAAAOMBD+bfpwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIJSURBVFhHxZff
         ThpREMZ5Da2iooVi8W9VVMAL2H0L6WOg0pZgbWuMGoyxjdW0lraSFkJbwivpCzjDhXsznbNs6uGsN5Uw
         TPLd7Ln4fefMnJmzgYfGoyY+H2ri9XADr4O/Met9lonhRmuQ4Q7DieE0UkdnpN4a8JZ7H7z7jAan0RpS
         qIYZb7n3EWygrcPHqqwK2t5y7yP4C20dHvrRBwM6fLyC9PiboAEG2zp84nsfDHTAv0ob4Hzr8HAZKXoh
