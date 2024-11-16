@@ -48,7 +48,7 @@ namespace GUI.Components
 
         private void UpdateCurrentTime()
         {
-            lblTop_currentTime.Text = DateTime.Now.ToString("dddd, dd/mm/yyyy");
+            lblTop_currentTime.Text = DateTime.Now.ToString("dddd, dd/MM/yyyy");
         }
     }
 }

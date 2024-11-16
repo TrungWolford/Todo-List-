@@ -132,8 +132,9 @@
             // lblMd_important
             // 
             lblMd_important.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblMd_important.Cursor = Cursors.Hand;
             lblMd_important.Image = (Image)resources.GetObject("lblMd_important.Image");
-            lblMd_important.Location = new Point(66, 51);
+            lblMd_important.Location = new Point(67, 51);
             lblMd_important.Name = "lblMd_important";
             lblMd_important.Size = new Size(57, 44);
             lblMd_important.TabIndex = 2;
@@ -141,11 +142,16 @@
             // lblMd_calendar
             // 
             lblMd_calendar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblMd_calendar.Cursor = Cursors.Hand;
+            lblMd_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMd_calendar.Image = Properties.Resources.calendar;
-            lblMd_calendar.Location = new Point(3, 51);
+            lblMd_calendar.ImageAlign = ContentAlignment.MiddleLeft;
+            lblMd_calendar.Location = new Point(15, 51);
             lblMd_calendar.Name = "lblMd_calendar";
-            lblMd_calendar.Size = new Size(57, 44);
+            lblMd_calendar.Size = new Size(170, 44);
             lblMd_calendar.TabIndex = 1;
+            lblMd_calendar.TextAlign = ContentAlignment.MiddleRight;
+            lblMd_calendar.Click += lblMd_calendar_Click;
             // 
             // txtMydayTask
             // 

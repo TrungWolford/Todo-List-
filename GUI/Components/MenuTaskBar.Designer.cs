@@ -90,7 +90,7 @@
             lbl_itemImportant.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lbl_itemImportant.Image = (Image)resources.GetObject("lbl_itemImportant.Image");
             lbl_itemImportant.ImageAlign = ContentAlignment.MiddleLeft;
-            lbl_itemImportant.Location = new Point(-1, 129);
+            lbl_itemImportant.Location = new Point(-1, 122);
             lbl_itemImportant.Name = "lbl_itemImportant";
             lbl_itemImportant.Padding = new Padding(10, 0, 30, 5);
             lbl_itemImportant.Size = new Size(213, 50);

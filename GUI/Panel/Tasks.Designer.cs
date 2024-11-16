@@ -78,8 +78,9 @@
             // lblTasks_important
             // 
             lblTasks_important.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblTasks_important.Cursor = Cursors.Hand;
             lblTasks_important.Image = (Image)resources.GetObject("lblTasks_important.Image");
-            lblTasks_important.Location = new Point(66, 55);
+            lblTasks_important.Location = new Point(67, 51);
             lblTasks_important.Name = "lblTasks_important";
             lblTasks_important.Size = new Size(57, 44);
             lblTasks_important.TabIndex = 2;
@@ -87,11 +88,16 @@
             // lblTasks_calendar
             // 
             lblTasks_calendar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblTasks_calendar.Cursor = Cursors.Hand;
+            lblTasks_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTasks_calendar.Image = Properties.Resources.calendar;
-            lblTasks_calendar.Location = new Point(3, 55);
+            lblTasks_calendar.ImageAlign = ContentAlignment.MiddleLeft;
+            lblTasks_calendar.Location = new Point(15, 51);
             lblTasks_calendar.Name = "lblTasks_calendar";
-            lblTasks_calendar.Size = new Size(57, 44);
+            lblTasks_calendar.Size = new Size(170, 44);
             lblTasks_calendar.TabIndex = 1;
+            lblTasks_calendar.TextAlign = ContentAlignment.MiddleRight;
+            lblTasks_calendar.Click += lblTasks_calendar_Click;
             // 
             // txtTasksTask
             // 
