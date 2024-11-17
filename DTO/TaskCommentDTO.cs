@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class TaskCommentDTO
+    public class TaskCommentDTO
     {
         public int CommentID { get; set; }
         public string CommentText { get; set; } = string.Empty;

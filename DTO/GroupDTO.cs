@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class GroupDTO
+    public class GroupDTO
     {
         public int GroupID { get; set; }
         public string Title { get; set; }

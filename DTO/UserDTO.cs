@@ -1,6 +1,6 @@
 ﻿namespace DTO
 {
-    internal class UserDTO
+    public class UserDTO
     {
         public int UserID { get; set; }
         public string UserName { get; set; }

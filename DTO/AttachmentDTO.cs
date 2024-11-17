@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class AttachmentDTO
+    public class AttachmentDTO
     {
         public int AttachmentID { get; set; }
         public int TaskID { get; set; }

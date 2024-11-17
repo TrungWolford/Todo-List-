@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class GroupMemberShipDTO
+    public class GroupMemberShipDTO
     {
         public int MemberShipID { get; set; }
         public int GroupID { get; set; }

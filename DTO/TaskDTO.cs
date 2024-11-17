@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class TaskDTO
+    public class TaskDTO
     {
         public int TaskID { get; set; }
         public string Title { get; set; }
@@ -14,13 +14,13 @@ namespace DTO
         public string DueDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsImportant { get; set; }
-        public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime CompletedDate { get; set; }
         public string CreatedBy { get; set; }
 
         public TaskDTO() { }
 
-        public TaskDTO(int taskID, string title, string description, string dueDate, DateTime createdDate, bool isImportant, bool isCompleted, bool isDeleted, string createdBy)
+        public TaskDTO(int taskID, string title, string description, string dueDate, DateTime createdDate, bool isImportant, bool isDeleted, DateTime completedDate, string createdBy)
         {
             TaskID = taskID;
             Title = title;
@@ -28,7 +28,7 @@ namespace DTO
             DueDate = dueDate;
             CreatedDate = createdDate;
             IsImportant = isImportant;
-            IsCompleted = isCompleted;
+            CompletedDate = completedDate;
             IsDeleted = isDeleted;
             CreatedBy = createdBy;
         }
@@ -36,7 +36,7 @@ namespace DTO
         public override string ToString()
         {
             return $"TaskDTO [TaskID={TaskID}, Title={Title}, Description={Description}, DueDate={DueDate}, CreatedDate={CreatedDate}, " +
-                   $"IsImportant={IsImportant}, IsCompleted={IsCompleted}, IsDeleted={IsDeleted}, CreatedBy={CreatedBy}]";
+                   $"IsImportant={IsImportant}, IsDeleted={IsDeleted}, CompletedDate={CompletedDate}, CreatedBy={CreatedBy}]";
         }
 
         public override bool Equals(object obj)
@@ -53,8 +53,8 @@ namespace DTO
                    DueDate == other.DueDate &&
                    CreatedDate == other.CreatedDate &&
                    IsImportant == other.IsImportant &&
-                   IsCompleted == other.IsCompleted &&
                    IsDeleted == other.IsDeleted &&
+                   CompletedDate == other.CompletedDate &&
                    CreatedBy == other.CreatedBy;
         }
 
@@ -67,8 +67,8 @@ namespace DTO
             hash = hash * 31 + (DueDate != null ? DueDate.GetHashCode() : 0);
             hash = hash * 31 + CreatedDate.GetHashCode();
             hash = hash * 31 + IsImportant.GetHashCode();
-            hash = hash * 31 + IsCompleted.GetHashCode();
             hash = hash * 31 + IsDeleted.GetHashCode();
+            hash = hash * 31 + CompletedDate.GetHashCode();
             hash = hash * 31 + (CreatedBy != null ? CreatedBy.GetHashCode() : 0);
             return hash;
         }
