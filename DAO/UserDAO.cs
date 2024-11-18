@@ -11,6 +11,13 @@ namespace DAO
 {
     public class UserDAO : InterfaceDAO<UserDTO>
     {
+        private static UserDAO instance;
+        public static UserDAO Instance
+        {
+            get { if (instance == null) instance = new UserDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private UserDAO() { }
         public void Insert(UserDTO user)
         {
             string query = "INSERT INTO User (Username, Password_hash, Email, CreatedDate) VALUES (@username, @password_hash, @email, @createdDate)";
@@ -49,6 +56,19 @@ namespace DAO
                 new SqlParameter("@userID", SqlDbType.Int) { Value = user.UserID }
             };
             DatabaseAccess.ExecuteNonQuery(query, parameters);
+        }
+
+        public bool CheckLogin(string username, string password_hash)
+        {
+            string query = "SELECT COUNT(*) FROM User WHERE Username = @username AND Password_hash = @password_hash";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter ("@username", SqlDbType.NVarChar) { Value = username },
+                new SqlParameter ("@password_hash", SqlDbType.NVarChar) { Value = password_hash }
+            };
+            // Sử dụng ExecuteScalar để kiểm tra số lượng bản ghi
+            int result = Convert.ToInt32(DatabaseAccess.ExecuteScalar(query, parameters));
+            return result > 0; // Nếu có ít nhất 1 bản ghi thì thông tin đăng nhập hợp lệ
         }
     }
 }
