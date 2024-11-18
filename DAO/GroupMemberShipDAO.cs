@@ -11,6 +11,13 @@ namespace DAO
 {
     public class GroupMemberShipDAO : InterfaceDAO<GroupMemberShipDTO>
     {
+        private static GroupMemberShipDAO instance;
+        public static GroupMemberShipDAO Instance
+        {
+            get { if (instance == null) instance = new GroupMemberShipDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private GroupMemberShipDAO() { }
         public void Insert(GroupMemberShipDTO groupMemberShip)
         {
             string query = "INSERT INTO GroupMemberShip (GroupID, UserID, JoinedDate) VALUES (@groupID, @userID, @joinedDate)";

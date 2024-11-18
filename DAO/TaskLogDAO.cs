@@ -11,6 +11,13 @@ namespace DAO
 {
     public class TaskLogDAO : InterfaceDAO<TaskLogDTO>
     {
+        private static TaskLogDAO instance;
+        public static TaskLogDAO Instance
+        {
+            get { if (instance == null) instance = new TaskLogDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private TaskLogDAO() { }
         public void Insert(TaskLogDTO taskLog)
         {
             string query = "INSERT INTO TaskLog (TaskID, Action, ActionDate, PerformedBy) VALUES (@taskId, @action, @actionDate, @performedBy)";

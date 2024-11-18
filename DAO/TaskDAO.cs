@@ -12,6 +12,13 @@ namespace DAO
 {
     public class TaskDAO : InterfaceDAO<TaskDTO>
     {
+        private static TaskDAO instance;
+        public static TaskDAO Instance
+        {
+            get { if (instance == null) instance = new TaskDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private TaskDAO() { }
         public void Insert(TaskDTO task)
         {
             string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy)";

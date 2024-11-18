@@ -12,6 +12,13 @@ namespace DAO
 {
     public class GroupDAO : InterfaceDAO<GroupDTO>
     {
+        private static GroupDAO instance;
+        public static GroupDAO Instance
+        {
+            get { if (instance == null) instance = new GroupDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private GroupDAO() { }
         public void Insert(GroupDTO group)
         {
             string query = "INSERT INTO Group (Title, CreatedBy, CreatedDate) VALUES (@title, @createdBy, @createdDate)";

@@ -11,6 +11,13 @@ namespace DAO
 {
     public class AttachmentDAO : InterfaceDAO<AttachmentDTO>
     {
+        private static AttachmentDAO instance;
+        public static AttachmentDAO Instance
+        {
+            get { if (instance == null) instance = new AttachmentDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private AttachmentDAO() { }
         public void Insert(AttachmentDTO attachment)
         {
             string query = "INSERT INTO Attachment (TaskID, FilePath, UploadedBy) VALUES (@taskID, @filePath, @uploadedBy)";

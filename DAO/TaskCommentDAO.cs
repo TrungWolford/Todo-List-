@@ -11,6 +11,13 @@ namespace DAO
 {
     public class TaskCommentDAO : InterfaceDAO<TaskCommentDTO>
     {
+        private static TaskCommentDAO instance;
+        public static TaskCommentDAO Instance
+        {
+            get { if (instance == null) instance = new TaskCommentDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private TaskCommentDAO() { }
         public void Insert(TaskCommentDTO taskComment)
         {
             string query = "INSERT INTO TaskComment (UserID, TaskID, Comment, CreatedDate) VALUES (@userID, @taskID, @comment, @createdDate)";

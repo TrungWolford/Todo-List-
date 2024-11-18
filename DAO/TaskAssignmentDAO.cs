@@ -11,6 +11,13 @@ namespace DAO
 {
     public class TaskAssignmentDAO : InterfaceDAO<TaskAssignmentDTO>
     {
+        private static TaskAssignmentDAO instance;
+        public static TaskAssignmentDAO Instance
+        {
+            get { if (instance == null) instance = new TaskAssignmentDAO(); return instance; }
+            private set { instance = value; }
+        }
+        private TaskAssignmentDAO() { }
         public void Insert(TaskAssignmentDTO taskAssignment)
         {
             string query = "INSERT INTO TaskAssignment (UserID, TaskID, AssignedBy, AssignedDate) VALUES (@userID, @taskID, @assignedBy, @assignedDate)";

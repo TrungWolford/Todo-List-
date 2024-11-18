@@ -27,7 +27,8 @@ namespace DAO
     }
     public class DatabaseAccess
     {
-        // INSERT, UPDATE, DELETE, lệnh DDL
+        // Thực thi các lệnh không trả về kết quả, chẳng hạn như: INSERT, UPDATE, DELETE, hoặc lệnh DDL (Data Definition Language).
+        // Trả về số dòng bị ảnh hưởng bởi lệnh SQL.
         public static int ExecuteNonQuery(string query, List<SqlParameter> parameters)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
@@ -44,7 +45,8 @@ namespace DAO
             }
         }
 
-        //	Truy vấn trả về một giá trị duy nhất
+        // Thực thi các lệnh SQL trả về một giá trị duy nhất từ cột đầu tiên của dòng đầu tiên trong kết quả.
+        // Thường được sử dụng với các lệnh như SELECT COUNT(*), SELECT MAX(...), hoặc truy vấn để lấy một giá trị đơn lẻ.
         public static object ExecuteScalar(string query, List<SqlParameter> parameters)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
@@ -61,7 +63,9 @@ namespace DAO
             }
         }
 
-        //	Đọc nhiều bản ghi từ kết quả truy vấn
+        // Thực thi lệnh SQL trả về nhiều dòng dữ liệu (DataReader).
+        // Sử dụng để duyệt qua kết quả truy vấn theo từng dòng, phù hợp với các lệnh SELECT.
+        // Lưu ý: Kết nối phải được mở trong suốt quá trình đọc và sẽ được đóng khi DataReader kết thúc (CommandBehavior.CloseConnection).
         public static SqlDataReader ExecuteReader(string query, List<SqlParameter> parameters)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
