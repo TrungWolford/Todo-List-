@@ -21,10 +21,34 @@ namespace DAO
                 new SqlParameter("@assignedBy", SqlDbType.Int) { Value = taskAssignment.AssignedBy },
                 new SqlParameter("@assignedDate", SqlDbType.DateTime) { Value = taskAssignment.AssignedDate }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            // Lấy ID tự tăng của row vừa tạo và gán vào DTO
+            object result = DatabaseAccess.ExecuteScalar(query, parameters);
+            int newId = Convert.ToInt32(result);
+
+            taskAssignment.AssignmentID = newId;
         }
 
-        public void Update(TaskAssignmentDTO taskAssignment) { }
-        public void Delete(TaskAssignmentDTO taskAssignment) { }
+        public void Update(TaskAssignmentDTO taskAssignment) 
+        {
+            string query = "UPDATE TaskAssignment SET UserID = @userID, TaskID = @taskID, AssignedBy = @assignedBy, AssignedDate = @assignedDate WHERE AssignmentID = @assignmentID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@userID", SqlDbType.Int) { Value = taskAssignment.UserID },
+                new SqlParameter("@taskID", SqlDbType.Int) { Value = taskAssignment.TaskID },
+                new SqlParameter("@assignedBy", SqlDbType.Int) { Value = taskAssignment.AssignedBy },
+                new SqlParameter("@assignedDate", SqlDbType.DateTime) { Value = taskAssignment.AssignedDate },
+                new SqlParameter("@AssignmentID", SqlDbType.Int) { Value = taskAssignment.AssignmentID }
+            };
+            DatabaseAccess.ExecuteNonQuery(query, parameters);
+        }
+        public void Delete(TaskAssignmentDTO taskAssignment) 
+        {
+            string query = "DELETE FROM TaskAssignment WHERE AssignmentID = @assignmentID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@assignmentID", SqlDbType.Int) { Value = taskAssignment.AssignmentID }
+            };
+            DatabaseAccess.ExecuteNonQuery(query, parameters);
+        }
     }
 }

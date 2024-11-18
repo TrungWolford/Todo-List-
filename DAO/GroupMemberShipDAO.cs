@@ -20,9 +20,32 @@ namespace DAO
                 new SqlParameter("@userID", SqlDbType.Int) { Value = groupMemberShip.UserID },
                 new SqlParameter("@joinedDate", SqlDbType.DateTime) { Value = groupMemberShip.JoinedDate }
             };
+            // Lấy ID tự tăng của row vừa tạo và gán vào DTO
+            object result = DatabaseAccess.ExecuteScalar(query, parameters);
+            int newId = Convert.ToInt32(result);
+
+            groupMemberShip.MemberShipID = newId;
+        }
+        public void Update(GroupMemberShipDTO groupMemberShip) 
+        {
+            string query = "UPDATE GroupMemberShip SET GroupID = @groupID, UserID = @userID, JoinedDate = @joinedDate WHERE MemberShipID = @memberShipID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@groupID", SqlDbType.Int) { Value = groupMemberShip.GroupID },
+                new SqlParameter("@userID", SqlDbType.Int) { Value = groupMemberShip.UserID },
+                new SqlParameter("@joinedDate", SqlDbType.DateTime) { Value = groupMemberShip.JoinedDate },
+                new SqlParameter("@memberShipID", SqlDbType.Int) { Value = groupMemberShip.MemberShipID }
+            };
             DatabaseAccess.ExecuteNonQuery(query, parameters);
         }
-        public void Update(GroupMemberShipDTO groupMemberShip) { }
-        public void Delete(GroupMemberShipDTO groupMemberShip) { }
+        public void Delete(GroupMemberShipDTO groupMemberShip) 
+        {
+            string query = "DELETE FROM GroupMemberShip WHERE MemberShipID = @memberShipID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@memberShipID", SqlDbType.Int) { Value = groupMemberShip.MemberShipID }
+            };
+            DatabaseAccess.ExecuteNonQuery(query, parameters);
+        }
     }
 }
