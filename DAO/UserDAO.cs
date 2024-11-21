@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using System.Net.Mail;
 
 namespace DAO
 {
@@ -18,7 +19,7 @@ namespace DAO
             private set { instance = value; }
         }
         private UserDAO() { }
-        public void Insert(UserDTO user)
+        public int Insert(UserDTO user)
         {
             string query = "INSERT INTO User (Username, Password_hash, Email, CreatedDate) VALUES (@username, @password_hash, @email, @createdDate)";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -30,12 +31,16 @@ namespace DAO
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
-            int newId = Convert.ToInt32(result);
-
-            user.UserID = newId;
+            if (result != null && result != DBNull.Value)
+            {
+                int newId = Convert.ToInt32(result);
+                user.UserID = newId;
+                return newId;
+            }
+            return -1;
         }
 
-        public void Update(UserDTO user) 
+        public int Update(UserDTO user) 
         {
             string query = "UPDATE User SET Username = @username, Password_hash = @password_hash, Email = @email, CreatedDate = @createdDate WHERE UserID = @userID";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -46,16 +51,26 @@ namespace DAO
                 new SqlParameter("@createdDate", SqlDbType.DateTime) { Value = user.CreatedDate },
                 new SqlParameter("@userID", SqlDbType.Int) { Value = user.UserID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
-        public void Delete(UserDTO user) 
+        public int Delete(UserDTO user) 
         {
             string query = "DELETE FROM User WHERE UserID = @userID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@userID", SqlDbType.Int) { Value = user.UserID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
 
         public bool CheckLogin(string username, string password_hash)

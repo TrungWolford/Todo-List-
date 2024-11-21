@@ -13,7 +13,7 @@ namespace DAO
     {
         public static SqlConnection Connect()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionStringName"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDatabaseConnection"].ConnectionString;
             SqlConnection conn = new SqlConnection(connectionString);
             return conn;
         }
@@ -45,8 +45,8 @@ namespace DAO
             }
         }
 
-        // Thực thi các lệnh SQL trả về một giá trị duy nhất từ cột đầu tiên của dòng đầu tiên trong kết quả.
         // Thường được sử dụng với các lệnh như SELECT COUNT(*), SELECT MAX(...), hoặc truy vấn để lấy một giá trị đơn lẻ.
+        // Thực thi các lệnh SQL trả về một giá trị duy nhất từ cột đầu tiên của dòng đầu tiên trong kết quả.
         public static object ExecuteScalar(string query, List<SqlParameter> parameters)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
@@ -63,9 +63,9 @@ namespace DAO
             }
         }
 
-        // Thực thi lệnh SQL trả về nhiều dòng dữ liệu (DataReader).
         // Sử dụng để duyệt qua kết quả truy vấn theo từng dòng, phù hợp với các lệnh SELECT.
         // Lưu ý: Kết nối phải được mở trong suốt quá trình đọc và sẽ được đóng khi DataReader kết thúc (CommandBehavior.CloseConnection).
+        // Thực thi lệnh SQL trả về nhiều dòng dữ liệu (DataReader).
         public static SqlDataReader ExecuteReader(string query, List<SqlParameter> parameters)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
@@ -122,6 +122,5 @@ namespace DAO
             }
             return ds;
         }
-        
     }
 }

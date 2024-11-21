@@ -19,7 +19,7 @@ namespace DAO
             private set { instance = value; }
         }
         private GroupDAO() { }
-        public void Insert(GroupDTO group)
+        public int Insert(GroupDTO group)
         {
             string query = "INSERT INTO Group (Title, CreatedBy, CreatedDate) VALUES (@title, @createdBy, @createdDate)";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -30,11 +30,15 @@ namespace DAO
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
-            int newId = Convert.ToInt32(result);
-
-            group.GroupID = newId;
+            if (result != null && result != DBNull.Value)
+            {
+                int newId = Convert.ToInt32(result);
+                group.GroupID = newId;
+                return newId;
+            }
+            return -1;
         }
-        public void Update(GroupDTO group) 
+        public int Update(GroupDTO group) 
         {
             string query = "UPDATE Group SET Title = @title, CreatedBy = @createdBy, CreatedDate = @createdDate WHERE GroupID = @groupID";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -44,16 +48,26 @@ namespace DAO
                 new SqlParameter("@CreatedDate", SqlDbType.DateTime) { Value = group.CreatedDate },
                 new SqlParameter("@groupID", SqlDbType.Int) { Value = group.GroupID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
-        public void Delete(GroupDTO group) 
+        public int Delete(GroupDTO group) 
         {
             string query = "DELETE FROM Group WHERE GroupID = @groupID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@groupID", SqlDbType.Int) { Value = group.GroupID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
     }
 }
