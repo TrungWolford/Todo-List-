@@ -24,9 +24,11 @@ namespace GUI.Panel
         public Myday()
         {
             InitializeComponent();
+
             taskBUS = new TaskBUS();
-            //listTasks = taskBUS.GetAll();
+            listTasks = taskBUS.GetAll();
             isImportant = false;
+
             calendar = new MonthCalendar
             {
                 Visible = false,
@@ -82,19 +84,26 @@ namespace GUI.Panel
 
         private void btnMd_add_Click(object sender, EventArgs e)
         {
-            if (checkValidation())
+            try
             {
-                string dateString = lblMd_calendar.Text;
-                TaskDTO newTask = new TaskDTO
+                if (checkValidation())
                 {
-                    Title = txtMydayTask.Text,
-                    DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                    IsImportant = isImportant,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = 1
-                };
-                taskBUS.listTasks.Add(newTask);
-                MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string dateString = lblMd_calendar.Text;
+                    TaskDTO newTask = new TaskDTO
+                    {
+                        Title = txtMydayTask.Text,
+                        DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                        IsImportant = isImportant,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = 1
+                    };
+                    taskBUS.insert(newTask);
+                    MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Console.WriteLine(newTask);
+                }
+            } catch(Exception ex)
+            {
+                Console.WriteLine("Error while inserting task: " + ex.Message);
             }
         }
     }

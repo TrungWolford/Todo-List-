@@ -68,5 +68,10 @@ namespace DAO
             }
             return -1; // Không có cập nhật được thực hiện
         }
+
+        public List<AttachmentDTO> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

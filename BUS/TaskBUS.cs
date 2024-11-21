@@ -15,32 +15,32 @@ namespace BUS
         public List<TaskDTO> listTasks;
         private static readonly TaskDAO taskDAO = TaskDAO.Instance;
 
-        //public TaskBUS()
-        //{
-        //    listTasks = taskDAO.GetAll();
-        //}
+        public TaskBUS()
+        {
+            listTasks = taskDAO.GetAll();
+        }
 
-        //public List<TaskDTO> GetAll()
-        //{
-        //    return taskDAO.GetAll();
-        //}
+        public List<TaskDTO> GetAll()
+        {
+            return taskDAO.GetAll();
+        }
 
-        //public Boolean insert(TaskDTO taskDTO)
-        //{
-        //    try
-        //    {
-        //        bool check = taskDAO.Insert(taskDTO) != -1;
-        //        if (check)
-        //        {
-        //            this.listTasks.Add(taskDTO);
-        //        }
-        //        return check;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error while inserting task: " + ex.Message);
-        //        return false;
-        //    }
-        //}
+        public Boolean insert(TaskDTO taskDTO)
+        {
+            try
+            {
+                bool check = taskDAO.Insert(taskDTO) != -1;
+                if (check)
+                {
+                    this.listTasks.Add(taskDTO);
+                }
+                return check;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while inserting task: " + ex.Message);
+                return false;
+            }
+        }
     }
 }

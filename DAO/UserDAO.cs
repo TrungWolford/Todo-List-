@@ -85,5 +85,10 @@ namespace DAO
             int result = Convert.ToInt32(DatabaseAccess.ExecuteScalar(query, parameters));
             return result > 0; // Nếu có ít nhất 1 bản ghi thì thông tin đăng nhập hợp lệ
         }
+
+        public List<UserDTO> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
