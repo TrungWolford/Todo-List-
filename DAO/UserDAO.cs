@@ -21,7 +21,7 @@ namespace DAO
         private UserDAO() { }
         public int Insert(UserDTO user)
         {
-            string query = "INSERT INTO User (Username, Password_hash, Email, CreatedDate) VALUES (@username, @password_hash, @email, @createdDate)";
+            string query = "INSERT INTO User (Username, Password_hash, Email, CreatedDate) VALUES (@username, @password_hash, @email, @createdDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@username", SqlDbType.NVarChar) { Value = user.UserName },

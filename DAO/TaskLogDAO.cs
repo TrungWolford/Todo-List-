@@ -21,7 +21,7 @@ namespace DAO
         private TaskLogDAO() { }
         public int Insert(TaskLogDTO taskLog)
         {
-            string query = "INSERT INTO TaskLog (TaskID, Action, ActionDate, PerformedBy) VALUES (@taskId, @action, @actionDate, @performedBy)";
+            string query = "INSERT INTO TaskLog (TaskID, Action, ActionDate, PerformedBy) VALUES (@taskId, @action, @actionDate, @performedBy); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@taskId", SqlDbType.Int) { Value = taskLog.TaskID },

@@ -21,7 +21,7 @@ namespace DAO
         private GroupMemberShipDAO() { }
         public int Insert(GroupMemberShipDTO groupMemberShip)
         {
-            string query = "INSERT INTO GroupMemberShip (GroupID, UserID, JoinedDate) VALUES (@groupID, @userID, @joinedDate)";
+            string query = "INSERT INTO GroupMemberShip (GroupID, UserID, JoinedDate) VALUES (@groupID, @userID, @joinedDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@groupID", SqlDbType.Int) { Value = groupMemberShip.GroupID },
