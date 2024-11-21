@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTO\DTO.csproj" />
+    <Reference Include="DTO">
+      <HintPath>..\DTO\bin\Debug\net8.0\DTO.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
