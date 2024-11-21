@@ -30,7 +30,10 @@ namespace BUS
             
             try
             {
-                bool check = taskDAO.Insert(taskDTO) != 0;
+
+
+                bool check = taskDAO.Insert(taskDTO) != -1;
+
                 if (check)
                 {
                     this.listTasks.Add(taskDTO);
