@@ -15,6 +15,7 @@ namespace ToDoList
         public MainForm()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
@@ -31,13 +32,6 @@ namespace ToDoList
         {
 
         }
-<<<<<<< HEAD
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-=======
->>>>>>> 1bcd547534efbc1096fe0381184b49093bae96b3
     }
 }

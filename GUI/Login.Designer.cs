@@ -39,7 +39,7 @@
             lbl_btnLogin = new Label();
             lbl_asking = new Label();
             lbl_toRegisterFrame = new Label();
-            checkBox1 = new CheckBox();
+            checkbox_showpwd = new CheckBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -115,7 +115,7 @@
             // 
             lbl_password.AutoSize = true;
             lbl_password.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_password.Location = new Point(95, 312);
+            lbl_password.Location = new Point(105, 312);
             lbl_password.Name = "lbl_password";
             lbl_password.Size = new Size(138, 38);
             lbl_password.TabIndex = 11;
@@ -130,7 +130,7 @@
             lbl_btnLogin.ForeColor = Color.White;
             lbl_btnLogin.Location = new Point(78, 428);
             lbl_btnLogin.Name = "lbl_btnLogin";
-            lbl_btnLogin.Size = new Size(520, 30);
+            lbl_btnLogin.Size = new Size(520, 37);
             lbl_btnLogin.TabIndex = 12;
             lbl_btnLogin.Text = "Login";
             lbl_btnLogin.TextAlign = ContentAlignment.TopCenter;
@@ -148,30 +148,30 @@
             // 
             lbl_toRegisterFrame.AutoSize = true;
             lbl_toRegisterFrame.Cursor = Cursors.Hand;
-            lbl_toRegisterFrame.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lbl_toRegisterFrame.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             lbl_toRegisterFrame.ForeColor = Color.FromArgb(37, 100, 207);
-            lbl_toRegisterFrame.Location = new Point(420, 486);
+            lbl_toRegisterFrame.Location = new Point(417, 479);
             lbl_toRegisterFrame.Name = "lbl_toRegisterFrame";
-            lbl_toRegisterFrame.Size = new Size(44, 20);
+            lbl_toRegisterFrame.Size = new Size(81, 28);
             lbl_toRegisterFrame.TabIndex = 15;
-            lbl_toRegisterFrame.Text = "Login";
+            lbl_toRegisterFrame.Text = "Register";
             // 
-            // checkBox1
+            // checkbox_showpwd
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(446, 371);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(134, 24);
-            checkBox1.TabIndex = 16;
-            checkBox1.Text = "Show password";
-            checkBox1.UseVisualStyleBackColor = true;
+            checkbox_showpwd.AutoSize = true;
+            checkbox_showpwd.Location = new Point(446, 371);
+            checkbox_showpwd.Name = "checkbox_showpwd";
+            checkbox_showpwd.Size = new Size(134, 24);
+            checkbox_showpwd.TabIndex = 16;
+            checkbox_showpwd.Text = "Show password";
+            checkbox_showpwd.UseVisualStyleBackColor = true;
             // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 603);
-            Controls.Add(checkBox1);
+            Controls.Add(checkbox_showpwd);
             Controls.Add(lbl_toRegisterFrame);
             Controls.Add(lbl_asking);
             Controls.Add(lbl_btnLogin);
@@ -203,6 +203,6 @@
         private Label lbl_btnLogin;
         private Label lbl_asking;
         private Label lbl_toRegisterFrame;
-        private CheckBox checkBox1;
+        private CheckBox checkbox_showpwd;
     }
 }

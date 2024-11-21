@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tasks));
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar(form: this);
             pnlContentTasks_center = new System.Windows.Forms.Panel();
+            lblTasks_importantSelected = new Label();
             btnTasks_add = new Button();
             lblTasks_important = new Label();
             lblTasks_calendar = new Label();
@@ -41,6 +43,9 @@
             clDuedate_tasks = new DataGridViewTextBoxColumn();
             clImportance_tasks = new DataGridViewTextBoxColumn();
             clDone_tasks = new DataGridViewTextBoxColumn();
+            toolTip_tasksCalendar = new ToolTip(components);
+            toolTip_tasksImportant = new ToolTip(components);
+            toolTip_tasksImportantSelected = new ToolTip(components);
             pnlContentTasks_center.SuspendLayout();
             pnlContentTasks_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
@@ -57,6 +62,7 @@
             // 
             pnlContentTasks_center.BackColor = Color.White;
             pnlContentTasks_center.BorderStyle = BorderStyle.Fixed3D;
+            pnlContentTasks_center.Controls.Add(lblTasks_importantSelected);
             pnlContentTasks_center.Controls.Add(btnTasks_add);
             pnlContentTasks_center.Controls.Add(lblTasks_important);
             pnlContentTasks_center.Controls.Add(lblTasks_calendar);
@@ -65,6 +71,19 @@
             pnlContentTasks_center.Name = "pnlContentTasks_center";
             pnlContentTasks_center.Size = new Size(1040, 108);
             pnlContentTasks_center.TabIndex = 2;
+            // 
+            // lblTasks_importantSelected
+            // 
+            lblTasks_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblTasks_importantSelected.Cursor = Cursors.Hand;
+            lblTasks_importantSelected.Image = (Image)resources.GetObject("lblTasks_importantSelected.Image");
+            lblTasks_importantSelected.Location = new Point(67, 51);
+            lblTasks_importantSelected.Name = "lblTasks_importantSelected";
+            lblTasks_importantSelected.Size = new Size(57, 44);
+            lblTasks_importantSelected.TabIndex = 6;
+            toolTip_tasksImportantSelected.SetToolTip(lblTasks_importantSelected, "Remove importance level");
+            lblTasks_importantSelected.Visible = false;
+            lblTasks_importantSelected.Click += lblTasks_importantSelected_Click;
             // 
             // btnTasks_add
             // 
@@ -84,6 +103,8 @@
             lblTasks_important.Name = "lblTasks_important";
             lblTasks_important.Size = new Size(57, 44);
             lblTasks_important.TabIndex = 2;
+            toolTip_tasksImportant.SetToolTip(lblTasks_important, "Mark the task as important");
+            lblTasks_important.Click += lblTasks_important_Click;
             // 
             // lblTasks_calendar
             // 
@@ -97,6 +118,7 @@
             lblTasks_calendar.Size = new Size(170, 44);
             lblTasks_calendar.TabIndex = 1;
             lblTasks_calendar.TextAlign = ContentAlignment.MiddleRight;
+            toolTip_tasksCalendar.SetToolTip(lblTasks_calendar, "Add Due Date");
             lblTasks_calendar.Click += lblTasks_calendar_Click;
             // 
             // txtTasksTask
@@ -202,5 +224,9 @@
         private DataGridViewTextBoxColumn clDuedate_tasks;
         private DataGridViewTextBoxColumn clImportance_tasks;
         private DataGridViewTextBoxColumn clDone_tasks;
+        private Label lblTasks_importantSelected;
+        private ToolTip toolTip_tasksImportantSelected;
+        private ToolTip toolTip_tasksCalendar;
+        private ToolTip toolTip_tasksImportant;
     }
 }

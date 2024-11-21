@@ -24,13 +24,14 @@ namespace DAO
             string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
+
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = task.Title },
-                new SqlParameter("@description", SqlDbType.NVarChar) { Value = task.Description },
+                new SqlParameter("@description", SqlDbType.NVarChar) { Value = task.Description ?? (object)DBNull.Value},
                 new SqlParameter("@dueDate", SqlDbType.NVarChar) { Value = task.DueDate },
                 new SqlParameter("@createdDate", SqlDbType.DateTime) { Value = task.CreatedDate },
                 new SqlParameter("@isImportant", SqlDbType.Bit) { Value = task.IsImportant },
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
-                new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate },
+                new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy }
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
@@ -41,7 +42,7 @@ namespace DAO
                 task.TaskID = newId;
                 return newId;
             }
-            return -1;
+            return 0;
         }
         public int Update(TaskDTO task) 
         {
@@ -63,7 +64,7 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return -1; // Không có cập nhật được thực hiện
+            return -1; 
         }
         public int Delete(TaskDTO task) 
         {
@@ -77,7 +78,35 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return -1; // Không có cập nhật được thực hiện
+            return -1; 
+        }
+
+        public List<TaskDTO> GetAll()
+        {
+            List<TaskDTO> listTask = new List<TaskDTO>();
+            string query = "SELECT * FROM Task";
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, null)) // 'using' với reader nhưng không đóng kết nối
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                    };
+                    listTask.Add(task);
+                }
+            }
+
+            return listTask;
         }
     }
 }

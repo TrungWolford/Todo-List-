@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Important));
-            cpToolBar = new Components.cpToolBar(this);
+            cpToolBar = new Components.cpToolBar(form: this);
             pnlContentImp_center = new System.Windows.Forms.Panel();
+            lblImp_importantSelected = new Label();
             btnImp_add = new Button();
             lblImp_important = new Label();
             lblImp_calendar = new Label();
@@ -41,6 +43,9 @@
             clDuedate_imp = new DataGridViewTextBoxColumn();
             clImportance_imp = new DataGridViewTextBoxColumn();
             clDone_imp = new DataGridViewTextBoxColumn();
+            toolTip_impCalendar = new ToolTip(components);
+            toolTip_impImportant = new ToolTip(components);
+            toolTip_impImportantSelected = new ToolTip(components);
             pnlContentImp_center.SuspendLayout();
             pnlContentImp_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
@@ -58,6 +63,7 @@
             // 
             pnlContentImp_center.BackColor = Color.White;
             pnlContentImp_center.BorderStyle = BorderStyle.Fixed3D;
+            pnlContentImp_center.Controls.Add(lblImp_importantSelected);
             pnlContentImp_center.Controls.Add(btnImp_add);
             pnlContentImp_center.Controls.Add(lblImp_important);
             pnlContentImp_center.Controls.Add(lblImp_calendar);
@@ -66,6 +72,19 @@
             pnlContentImp_center.Name = "pnlContentImp_center";
             pnlContentImp_center.Size = new Size(1040, 108);
             pnlContentImp_center.TabIndex = 2;
+            // 
+            // lblImp_importantSelected
+            // 
+            lblImp_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblImp_importantSelected.Cursor = Cursors.Hand;
+            lblImp_importantSelected.Image = (Image)resources.GetObject("lblImp_importantSelected.Image");
+            lblImp_importantSelected.Location = new Point(67, 51);
+            lblImp_importantSelected.Name = "lblImp_importantSelected";
+            lblImp_importantSelected.Size = new Size(57, 44);
+            lblImp_importantSelected.TabIndex = 5;
+            toolTip_impImportantSelected.SetToolTip(lblImp_importantSelected, "Remove importance level");
+            lblImp_importantSelected.Visible = false;
+            lblImp_importantSelected.Click += lblImp_importantSelected_Click;
             // 
             // btnImp_add
             // 
@@ -85,6 +104,8 @@
             lblImp_important.Name = "lblImp_important";
             lblImp_important.Size = new Size(57, 44);
             lblImp_important.TabIndex = 2;
+            toolTip_impImportant.SetToolTip(lblImp_important, "Mark the task as important");
+            lblImp_important.Click += lblImp_important_Click;
             // 
             // lblImp_calendar
             // 
@@ -98,6 +119,7 @@
             lblImp_calendar.Size = new Size(170, 44);
             lblImp_calendar.TabIndex = 1;
             lblImp_calendar.TextAlign = ContentAlignment.MiddleRight;
+            toolTip_impCalendar.SetToolTip(lblImp_calendar, "Add Due Date");
             lblImp_calendar.Click += lblImp_calendar_Click;
             // 
             // txtImportantTask
@@ -203,5 +225,9 @@
         private DataGridViewTextBoxColumn clDuedate_imp;
         private DataGridViewTextBoxColumn clImportance_imp;
         private DataGridViewTextBoxColumn clDone_imp;
+        private Label lblImp_importantSelected;
+        private ToolTip toolTip_impCalendar;
+        private ToolTip toolTip_impImportant;
+        private ToolTip toolTip_impImportantSelected;
     }
 }
