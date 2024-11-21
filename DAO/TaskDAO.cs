@@ -63,7 +63,7 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return -1; // Không có cập nhật được thực hiện
+            return -1; 
         }
         public int Delete(TaskDTO task) 
         {
@@ -77,7 +77,35 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return -1; // Không có cập nhật được thực hiện
+            return -1; 
+        }
+
+        public List<TaskDTO> GetAll()
+        {
+            List<TaskDTO> listTask = new List<TaskDTO>();
+            string query = "SELECT * FROM Task";
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, null)) // 'using' với reader nhưng không đóng kết nối
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                    };
+                    listTask.Add(task);
+                }
+            }
+
+            return listTask;
         }
     }
 }
