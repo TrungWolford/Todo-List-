@@ -29,6 +29,7 @@ namespace GUI.Panel
         {
             lblTasks_calendar.Text = e.Start.ToString("dd/MM/yyyy");
             lblTasks_important.Left = lblTasks_calendar.Right + 20;
+            lblTasks_importantSelected.Left = lblTasks_calendar.Right + 20;
             calendar.Visible = false;
         }
 
@@ -37,6 +38,19 @@ namespace GUI.Panel
             calendar.Location = new Point(lblTasks_calendar.Left + 70, lblTasks_calendar.Bottom + 180);
             calendar.BringToFront();
             calendar.Visible = true;
+        }
+
+        private void lblTasks_important_Click(object sender, EventArgs e)
+        {
+            lblTasks_important.Visible = false;
+            lblTasks_importantSelected.Visible = true;
+
+        }
+
+        private void lblTasks_importantSelected_Click(object sender, EventArgs e)
+        {
+            lblTasks_important.Visible = true;
+            lblTasks_importantSelected.Visible = false;
         }
     }
 }

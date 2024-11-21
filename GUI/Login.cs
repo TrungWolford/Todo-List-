@@ -18,6 +18,14 @@ namespace GUI
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
+        public void Validation()
+        {
+            if (true)
+            {
+                
+            }
+        }
+
         
     }
 }

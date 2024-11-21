@@ -130,6 +130,25 @@
     <value>True</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblMd_importantSelected.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAI5SURBVFhH7ZfP
+        SxRhHManJEkhhCg0CUmJdmdH8OAlOnTwUIQHLwZ66CqUB/Hn7oyCAyF16iId9ZZB/gMeEkQ8LJjgHxB5
+        LAgi7WCh7tPzyld3fHvFeWd3vNgDHxbf9/s+z868331ndP6rEt31cfPeKG7In+erbAHTro8DRc5HIMPn
+        o8wUWhm8TyDse3m0yHT64hW/ioQf8VKm05UXopZh37RwxdfOAVyRsvTkBugzhB/i+eiVsvTEoBU9OMJH
+        KUtH7RNwGVLSQqOU2KAZKa+u1P7y9r81hJ6ADTqbqBduD6OOAYPKgEYL/Fzi5yeyRXaUuSVqjVq7Ll7K
+        U3k/vxPiqsSWxfAPnDQZVR1+kXcSWxYnfuuFKfJLYsvi4KpWlBpZH8sSWxa34BYnN/TiFCi2B2iU2JNS
+        zcGC99qCqsErX+wMUS9xpwmXcgFCk0EFlHiHXzshLkvI2eLjtp8LdzWjJKjmfia2dnLzeMjFPyJmdgT4
+        np3EA7FLJu7bptE8HkWxSSY+eq/TRL31mMzjsJeZwDWxs1cujx6DqRXspUdiZy+3gDcmUxu4hTNiZy8a
+        VHww8dxfEzs7teXRQIPoi6eJIlnXxnT+xDh8/hV/Qt0GsyN+cn7IeYoadbhwnwc4tq3VHOMV0CW28ZUN
+        MGoyIwveOJqk7Fjs9mZ+KfMjvYAXUhZf7iTuc3H0J/g5TkfzGH/C2i+RdXv8n6FDpu3Eu/CYXTxPRtQb
+        kwyfKbXnbL4xXvlcott/geQ4fwGR6nO8Yddc7wAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="toolTip_mdImportantSelected.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>414, 17</value>
+  </metadata>
   <data name="lblMd_important.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAI
@@ -148,4 +167,10 @@
         c+KQ87MsS/8BwbWT+qUOvPkAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="toolTip_mdImportant.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>212, 17</value>
+  </metadata>
+  <metadata name="toolTip_mdCalendar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
