@@ -25,15 +25,17 @@ namespace BUS
             return taskDAO.GetAll();
         }
 
-        public Boolean insert(TaskDTO taskDTO)
+        public bool insert(TaskDTO taskDTO)
         {
+            
             try
             {
-                bool check = taskDAO.Insert(taskDTO) != -1;
+                bool check = taskDAO.Insert(taskDTO) != 0;
                 if (check)
                 {
                     this.listTasks.Add(taskDTO);
                 }
+
                 return check;
             }
             catch (Exception ex)

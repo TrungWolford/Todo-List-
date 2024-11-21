@@ -97,8 +97,19 @@ namespace GUI.Panel
                         CreatedDate = DateTime.Now,
                         CreatedBy = 1
                     };
-                    taskBUS.insert(newTask);
-                    MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bool test = taskBUS.insert(newTask);
+                    if (test)
+                    {
+                        MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Task added fail!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+
+
+
                     Console.WriteLine(newTask);
                 }
             } catch(Exception ex)

@@ -21,7 +21,7 @@ namespace DAO
         private GroupDAO() { }
         public int Insert(GroupDTO group)
         {
-            string query = "INSERT INTO Group (Title, CreatedBy, CreatedDate) VALUES (@title, @createdBy, @createdDate)";
+            string query = "INSERT INTO Group (Title, CreatedBy, CreatedDate) VALUES (@title, @createdBy, @createdDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = group.Title },

@@ -21,16 +21,18 @@ namespace DAO
         private TaskDAO() { }
         public int Insert(TaskDTO task)
         {
-            string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy)";
+            // sua TaskID
+            string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
+
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = task.Title },
-                new SqlParameter("@description", SqlDbType.NVarChar) { Value = task.Description },
+                new SqlParameter("@description", SqlDbType.NVarChar) { Value = task.Description ?? (object)DBNull.Value},
                 new SqlParameter("@dueDate", SqlDbType.NVarChar) { Value = task.DueDate },
                 new SqlParameter("@createdDate", SqlDbType.DateTime) { Value = task.CreatedDate },
                 new SqlParameter("@isImportant", SqlDbType.Bit) { Value = task.IsImportant },
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
-                new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate },
+                new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy }
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
@@ -41,7 +43,7 @@ namespace DAO
                 task.TaskID = newId;
                 return newId;
             }
-            return -1;
+            return 0;
         }
         public int Update(TaskDTO task) 
         {
