@@ -11,5 +11,6 @@ namespace DAO
         public void Insert(T t);
         public void Update(T t);
         public void Delete(T t);
+
     }
 }

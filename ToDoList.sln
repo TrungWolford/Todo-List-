@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "database", "database\database.csproj", "{2E1DB3BC-FB42-4082-BB4B-507229C7C590}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2E1DB3BC-FB42-4082-BB4B-507229C7C590}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E1DB3BC-FB42-4082-BB4B-507229C7C590}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E1DB3BC-FB42-4082-BB4B-507229C7C590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

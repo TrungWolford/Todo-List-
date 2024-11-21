@@ -11,16 +11,16 @@ namespace DTO
         public int TaskID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string DueDate { get; set; }
+        public DateTime DueDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsImportant { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime CompletedDate { get; set; }
-        public string CreatedBy { get; set; }
+        public DateTime? CompletedDate { get; set; }
+        public int CreatedBy { get; set; }
 
         public TaskDTO() { }
 
-        public TaskDTO(int taskID, string title, string description, string dueDate, DateTime createdDate, bool isImportant, bool isDeleted, DateTime completedDate, string createdBy)
+        public TaskDTO(int taskID, string title, string description, DateTime dueDate, DateTime createdDate, bool isImportant, bool isDeleted, DateTime completedDate, int createdBy)
         {
             TaskID = taskID;
             Title = title;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Myday));
             pnlContentMD_bottom = new System.Windows.Forms.Panel();
             tableMyday = new DataGridView();
@@ -36,11 +37,15 @@
             clImportance_md = new DataGridViewTextBoxColumn();
             clDone_md = new DataGridViewTextBoxColumn();
             pnlContentMD_center = new System.Windows.Forms.Panel();
+            lblMd_importantSelected = new Label();
             btnMd_add = new Button();
             lblMd_important = new Label();
             lblMd_calendar = new Label();
             txtMydayTask = new TextBox();
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar();
+            toolTip_mdCalendar = new ToolTip(components);
+            toolTip_mdImportant = new ToolTip(components);
+            toolTip_mdImportantSelected = new ToolTip(components);
             pnlContentMD_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
             pnlContentMD_center.SuspendLayout();
@@ -111,6 +116,7 @@
             // 
             pnlContentMD_center.BackColor = Color.White;
             pnlContentMD_center.BorderStyle = BorderStyle.Fixed3D;
+            pnlContentMD_center.Controls.Add(lblMd_importantSelected);
             pnlContentMD_center.Controls.Add(btnMd_add);
             pnlContentMD_center.Controls.Add(lblMd_important);
             pnlContentMD_center.Controls.Add(lblMd_calendar);
@@ -120,6 +126,19 @@
             pnlContentMD_center.Size = new Size(1040, 108);
             pnlContentMD_center.TabIndex = 1;
             // 
+            // lblMd_importantSelected
+            // 
+            lblMd_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblMd_importantSelected.Cursor = Cursors.Hand;
+            lblMd_importantSelected.Image = (Image)resources.GetObject("lblMd_importantSelected.Image");
+            lblMd_importantSelected.Location = new Point(67, 51);
+            lblMd_importantSelected.Name = "lblMd_importantSelected";
+            lblMd_importantSelected.Size = new Size(57, 44);
+            lblMd_importantSelected.TabIndex = 4;
+            toolTip_mdImportantSelected.SetToolTip(lblMd_importantSelected, "Remove importance level");
+            lblMd_importantSelected.Visible = false;
+            lblMd_importantSelected.Click += lblMd_importantSelected_Click;
+            // 
             // btnMd_add
             // 
             btnMd_add.Location = new Point(927, 51);
@@ -128,6 +147,7 @@
             btnMd_add.TabIndex = 3;
             btnMd_add.Text = "Add";
             btnMd_add.UseVisualStyleBackColor = true;
+            btnMd_add.Click += btnMd_add_Click;
             // 
             // lblMd_important
             // 
@@ -138,6 +158,8 @@
             lblMd_important.Name = "lblMd_important";
             lblMd_important.Size = new Size(57, 44);
             lblMd_important.TabIndex = 2;
+            toolTip_mdImportant.SetToolTip(lblMd_important, "Mark the task as important");
+            lblMd_important.Click += lblMd_important_Click;
             // 
             // lblMd_calendar
             // 
@@ -151,6 +173,7 @@
             lblMd_calendar.Size = new Size(170, 44);
             lblMd_calendar.TabIndex = 1;
             lblMd_calendar.TextAlign = ContentAlignment.MiddleRight;
+            toolTip_mdCalendar.SetToolTip(lblMd_calendar, "Add Due Date");
             lblMd_calendar.Click += lblMd_calendar_Click;
             // 
             // txtMydayTask
@@ -202,5 +225,9 @@
         private DataGridViewTextBoxColumn clDuedate_md;
         private DataGridViewTextBoxColumn clImportance_md;
         private DataGridViewTextBoxColumn clDone_md;
+        private ToolTip toolTip_mdCalendar;
+        private Label lblMd_importantSelected;
+        private ToolTip toolTip_mdImportantSelected;
+        private ToolTip toolTip_mdImportant;
     }
 }
