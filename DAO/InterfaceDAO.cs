@@ -8,8 +8,9 @@ namespace DAO
 {
     public interface InterfaceDAO<T>
     {
-        public void Insert(T t);
-        public void Update(T t);
-        public void Delete(T t);
+        public int Insert(T t);
+        public int Update(T t);
+        public int Delete(T t);
+        //public List<T> GetAll();
     }
 }

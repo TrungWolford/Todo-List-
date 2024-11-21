@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using System.Net.Mail;
 
 namespace DAO
 {
@@ -18,7 +19,7 @@ namespace DAO
             private set { instance = value; }
         }
         private TaskLogDAO() { }
-        public void Insert(TaskLogDTO taskLog)
+        public int Insert(TaskLogDTO taskLog)
         {
             string query = "INSERT INTO TaskLog (TaskID, Action, ActionDate, PerformedBy) VALUES (@taskId, @action, @actionDate, @performedBy)";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -30,11 +31,15 @@ namespace DAO
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
-            int newId = Convert.ToInt32(result);
-
-            taskLog.TaskLogID = newId;
+            if (result != null && result != DBNull.Value)
+            {
+                int newId = Convert.ToInt32(result);
+                taskLog.TaskLogID = newId;
+                return newId;
+            }
+            return -1;
         }
-        public void Update(TaskLogDTO taskLog) 
+        public int Update(TaskLogDTO taskLog) 
         {
             string query = "UPDATE TaskLog SET TaskID = @taskId, Action = @action, ActionDate = @actionDate, PerformedBy = @performedBy WHERE TaskLogID = @taskLogID";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -45,16 +50,26 @@ namespace DAO
                 new SqlParameter("@performedBy", SqlDbType.Int) { Value = taskLog.PerformedBy },
                 new SqlParameter("@taskLogID", SqlDbType.Int) { Value = taskLog.TaskLogID },
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
-        public void Delete(TaskLogDTO taskLog) 
+        public int Delete(TaskLogDTO taskLog) 
         {
             string query = "DELETE FROM TaskLog WHERE TaskLogID = @taskLogID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@taskLogID", SqlDbType.Int) { Value = taskLog.TaskLogID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
     }
 }

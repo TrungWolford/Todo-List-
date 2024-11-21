@@ -19,7 +19,7 @@ namespace DAO
             private set { instance = value; }
         }
         private TaskDAO() { }
-        public void Insert(TaskDTO task)
+        public int Insert(TaskDTO task)
         {
             string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy)";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -35,11 +35,15 @@ namespace DAO
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
-            int newId = Convert.ToInt32(result);
-
-            task.TaskID = newId;
+            if (result != null && result != DBNull.Value)
+            {
+                int newId = Convert.ToInt32(result);
+                task.TaskID = newId;
+                return newId;
+            }
+            return -1;
         }
-        public void Update(TaskDTO task) 
+        public int Update(TaskDTO task) 
         {
             string query = "UPDATE Task SET Title = @title, Description = @description, DueDate = @dueDate, CreatedDate = @createdDate, IsImportant = @isImportant , IsDeleted = @isDeleted , CompletedDate = @completedDate , CreatedBy = @createdBy WHERE TaskID = @taskID";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -54,16 +58,26 @@ namespace DAO
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy },
                 new SqlParameter("@taskID", SqlDbType.Int) { Value = task.TaskID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
-        public void Delete(TaskDTO task) 
+        public int Delete(TaskDTO task) 
         {
             string query = "DELETE FROM Task WHERE TaskID = @taskID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@taskID", SqlDbType.Int) { Value = task.TaskID }
             };
-            DatabaseAccess.ExecuteNonQuery(query, parameters);
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
         }
     }
 }
