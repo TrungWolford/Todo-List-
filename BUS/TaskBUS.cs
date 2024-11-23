@@ -32,7 +32,7 @@ namespace BUS
             {
 
 
-                bool check = taskDAO.Insert(taskDTO) != -1;
+                bool check = taskDAO.Insert(taskDTO) != 0;
 
                 if (check)
                 {
