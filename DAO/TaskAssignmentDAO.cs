@@ -21,7 +21,7 @@ namespace DAO
         private TaskAssignmentDAO() { }
         public int Insert(TaskAssignmentDTO taskAssignment)
         {
-            string query = "INSERT INTO TaskAssignment (UserID, TaskID, AssignedBy, AssignedDate) VALUES (@userID, @taskID, @assignedBy, @assignedDate)";
+            string query = "INSERT INTO TaskAssignment (UserID, TaskID, AssignedBy, AssignedDate) VALUES (@userID, @taskID, @assignedBy, @assignedDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@userID", SqlDbType.Int) { Value = taskAssignment.UserID },

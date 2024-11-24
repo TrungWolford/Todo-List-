@@ -107,12 +107,14 @@ namespace GUI.Panel
                         MessageBox.Show("Task added fail!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     }
-
-
-
+                    txtMydayTask.Text = "";
+                    lblMd_calendar.Text = "";
+                    lblMd_importantSelected.Location = new Point(67, 51);
+                    lblMd_important.Location = new Point(67, 51);
+   
                     Console.WriteLine(newTask);
                 }
-            } catch(Exception ex)
+            } catch(Exception ex)   
             {
                 Console.WriteLine("Error while inserting task: " + ex.Message);
             }

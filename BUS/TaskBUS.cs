@@ -30,7 +30,13 @@ namespace BUS
             
             try
             {
+<<<<<<< HEAD
                 bool check = taskDAO.Insert(taskDTO) != -1;
+=======
+
+
+                bool check = taskDAO.Insert(taskDTO) != 0;
+>>>>>>> 10ab3e3e37e3a785427a61ca084b68c4667f6b95
 
                 if (check)
                 {

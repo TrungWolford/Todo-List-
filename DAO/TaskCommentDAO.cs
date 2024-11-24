@@ -21,7 +21,7 @@ namespace DAO
         private TaskCommentDAO() { }
         public int Insert(TaskCommentDTO taskComment)
         {
-            string query = "INSERT INTO TaskComment (UserID, TaskID, Comment, CreatedDate) VALUES (@userID, @taskID, @comment, @createdDate)";
+            string query = "INSERT INTO TaskComment (UserID, TaskID, Comment, CreatedDate) VALUES (@userID, @taskID, @comment, @createdDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@userID", SqlDbType.Int) { Value = taskComment.UserID },
