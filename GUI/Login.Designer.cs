@@ -134,6 +134,7 @@
             lbl_btnLogin.TabIndex = 12;
             lbl_btnLogin.Text = "Login";
             lbl_btnLogin.TextAlign = ContentAlignment.TopCenter;
+            lbl_btnLogin.Click += lbl_btnLogin_Click;
             // 
             // lbl_asking
             // 
@@ -155,6 +156,7 @@
             lbl_toRegisterFrame.Size = new Size(81, 28);
             lbl_toRegisterFrame.TabIndex = 15;
             lbl_toRegisterFrame.Text = "Register";
+            lbl_toRegisterFrame.Click += lbl_toRegisterFrame_Click;
             // 
             // checkbox_showpwd
             // 
@@ -165,6 +167,7 @@
             checkbox_showpwd.TabIndex = 16;
             checkbox_showpwd.Text = "Show password";
             checkbox_showpwd.UseVisualStyleBackColor = true;
+            checkbox_showpwd.CheckedChanged += checkbox_showpwd_CheckedChanged;
             // 
             // Login
             // 

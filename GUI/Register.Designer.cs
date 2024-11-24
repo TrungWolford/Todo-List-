@@ -113,6 +113,7 @@
             lbl_btnLoginReg.TabIndex = 0;
             lbl_btnLoginReg.Text = "Submit";
             lbl_btnLoginReg.TextAlign = ContentAlignment.TopCenter;
+            lbl_btnLoginReg.Click += lbl_btnLoginReg_Click;
             // 
             // lbl_toLoginFrame
             // 
@@ -125,6 +126,7 @@
             lbl_toLoginFrame.Size = new Size(44, 20);
             lbl_toLoginFrame.TabIndex = 14;
             lbl_toLoginFrame.Text = "Login";
+            lbl_toLoginFrame.Click += lbl_toLoginFrame_Click;
             // 
             // lbl_askingReg
             // 

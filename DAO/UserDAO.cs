@@ -21,7 +21,7 @@ namespace DAO
         private UserDAO() { }
         public int Insert(UserDTO user)
         {
-            string query = "INSERT INTO User (Username, Password_hash, Email, CreatedDate) VALUES (@username, @password_hash, @email, @createdDate)";
+            string query = "INSERT INTO [User] (Username, Password_hash, Email, CreatedDate) VALUES (@username, @password_hash, @email, @createdDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@username", SqlDbType.NVarChar) { Value = user.UserName },
@@ -42,7 +42,7 @@ namespace DAO
 
         public int Update(UserDTO user) 
         {
-            string query = "UPDATE User SET Username = @username, Password_hash = @password_hash, Email = @email, CreatedDate = @createdDate WHERE UserID = @userID";
+            string query = "UPDATE [User] SET Username = @username, Password_hash = @password_hash, Email = @email, CreatedDate = @createdDate WHERE UserID = @userID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@username", SqlDbType.NVarChar) { Value = user.UserName },
@@ -60,7 +60,7 @@ namespace DAO
         }
         public int Delete(UserDTO user) 
         {
-            string query = "DELETE FROM User WHERE UserID = @userID";
+            string query = "DELETE FROM [User] WHERE UserID = @userID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@userID", SqlDbType.Int) { Value = user.UserID }
@@ -75,7 +75,7 @@ namespace DAO
 
         public bool CheckLogin(string username, string password_hash)
         {
-            string query = "SELECT COUNT(*) FROM User WHERE Username = @username AND Password_hash = @password_hash";
+            string query = "SELECT COUNT(*) FROM [User] WHERE Username = @username AND Password_hash = @password_hash";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter ("@username", SqlDbType.NVarChar) { Value = username },
@@ -86,9 +86,22 @@ namespace DAO
             return result > 0; // Nếu có ít nhất 1 bản ghi thì thông tin đăng nhập hợp lệ
         }
 
+        public int SelectByID(string username)
+        {
+            string query = "SELECT COUNT(*) FROM [User] WHERE Username = @username";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter ("@username", SqlDbType.NVarChar) {Value = username }
+            };
+            int result = Convert.ToInt32(DatabaseAccess.ExecuteScalar(query, parameters));
+            return result;
+        }
+
         public List<UserDTO> GetAll()
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }
