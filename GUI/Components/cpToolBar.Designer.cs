@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cpToolBar));
             pnlContent_top = new System.Windows.Forms.Panel();
+            cb_Sortby = new ComboBox();
             lblTop_arrange = new Label();
             lblTop_currentTime = new Label();
             lblTop_title = new Label();
-            cb_Sortby = new ComboBox();
             pnlContent_top.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,6 +49,16 @@
             pnlContent_top.Name = "pnlContent_top";
             pnlContent_top.Size = new Size(910, 102);
             pnlContent_top.TabIndex = 2;
+            // 
+            // cb_Sortby
+            // 
+            cb_Sortby.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cb_Sortby.FormattingEnabled = true;
+            cb_Sortby.Items.AddRange(new object[] { "Importance", "Due date", "Alphabetically", "Creation date" });
+            cb_Sortby.Location = new Point(771, 8);
+            cb_Sortby.Name = "cb_Sortby";
+            cb_Sortby.Size = new Size(122, 29);
+            cb_Sortby.TabIndex = 7;
             // 
             // lblTop_arrange
             // 
@@ -84,16 +94,6 @@
             lblTop_title.TabIndex = 1;
             lblTop_title.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // cb_Sortby
-            // 
-            cb_Sortby.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cb_Sortby.FormattingEnabled = true;
-            cb_Sortby.Items.AddRange(new object[] { "Importance", "Due date", "Alphabetically", "Creation date" });
-            cb_Sortby.Location = new Point(771, 8);
-            cb_Sortby.Name = "cb_Sortby";
-            cb_Sortby.Size = new Size(122, 29);
-            cb_Sortby.TabIndex = 7;
-            // 
             // cpToolBar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -102,7 +102,7 @@
             Controls.Add(pnlContent_top);
             Margin = new Padding(3, 2, 3, 2);
             Name = "cpToolBar";
-            Size = new Size(910, 266);
+            Size = new Size(910, 104);
             pnlContent_top.ResumeLayout(false);
             ResumeLayout(false);
         }
