@@ -30,6 +30,16 @@ namespace BUS
             return taskDAO.selectedByID(id);
         }
 
+        public List<TaskDTO> getAllTaskCurrentDate(int id)
+        {
+            return taskDAO.selecteTaskCurrentDate(id);
+        }
+
+        public List<TaskDTO> getAllTaskImportant(int id)
+        {
+            return taskDAO.selecteAllTaskImportant(id);
+        }
+
         public bool insert(TaskDTO taskDTO)
         {
             
