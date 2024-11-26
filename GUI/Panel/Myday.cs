@@ -20,13 +20,15 @@ namespace GUI.Panel
         private bool isImportant;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
+        private UserDTO user;
 
-        public Myday()
+        public Myday(UserDTO user)
         {
+            this.user = user;
             InitializeComponent();
 
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.GetAll();
+            listTasks = taskBUS.getAllTaskCurrentDate(user.UserID);
             isImportant = false;
 
             calendar = new MonthCalendar
@@ -95,29 +97,110 @@ namespace GUI.Panel
                         DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
-                        CreatedBy = 1
+                        CreatedBy = user.UserID
                     };
                     bool test = taskBUS.insert(newTask);
                     if (test)
                     {
                         MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        listTasks = taskBUS.getAllTaskCurrentDate(user.UserID);
+                        loadDataTable(listTasks);
                     }
                     else
                     {
                         MessageBox.Show("Task added fail!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     }
-                    txtMydayTask.Text = "";
-                    lblMd_calendar.Text = "";
-                    lblMd_importantSelected.Location = new Point(67, 51);
-                    lblMd_important.Location = new Point(67, 51);
-   
-                    Console.WriteLine(newTask);
+                    ResetForm();
                 }
-            } catch(Exception ex)   
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error while inserting task: " + ex.Message);
             }
+        }
+
+        private void ResetForm()
+        {
+            txtMydayTask.Clear();
+            lblMd_calendar.Text = "";
+            lblMd_important.Visible = true;
+            lblMd_importantSelected.Visible = false;
+            isImportant = false;
+            lblMd_importantSelected.Location = new Point(67, 51);
+            lblMd_important.Location = new Point(67, 51);
+        }
+
+        private void loadDataTable(List<TaskDTO> tasks)
+        {
+            if (tasks == null || tasks.Count == 0)
+            {
+                return;
+            }
+
+            tableMyday.Rows.Clear();
+
+            foreach (var task in tasks)
+            {
+                int rowIndex = tableMyday.Rows.Add();
+
+                tableMyday.Rows[rowIndex].Cells["clTitle_md"].Value = task.Title;
+                tableMyday.Rows[rowIndex].Cells["clDuedate_md"].Value = task.DueDate.ToString("dd/MM/yyyy");
+                if (!task.IsImportant)
+                {
+                    tableMyday.Rows[rowIndex].Cells["clImportance_md"].Value = Properties.Resources.Important_24px;
+                }
+                else
+                {
+                    tableMyday.Rows[rowIndex].Cells["clImportance_md"].Value = Properties.Resources.ImportantSelected_24px;
+                }
+            }
+        }
+
+        private void tableMyday_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == tableMyday.Columns["clImportance_md"].Index)
+            {
+                try
+                {
+                    var selectedTask = listTasks[e.RowIndex];
+                    var index = listTasks.FindIndex(t => t.TaskID == selectedTask.TaskID);
+
+                    bool previousState = selectedTask.IsImportant;
+                    selectedTask.IsImportant = !selectedTask.IsImportant;
+
+                    bool check = taskBUS.update(selectedTask);
+
+                    if (check)
+                    {
+                        listTasks[index].IsImportant = !previousState;
+
+                        tableMyday.Refresh();
+                        loadDataTable(listTasks);
+                    }
+                    else
+                    {
+                        selectedTask.IsImportant = previousState;
+                        MessageBox.Show("Failed to update task.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void Myday_Load(object sender, EventArgs e)
+        {
+            if (tableMyday.Columns.Count == 0)
+            {
+                tableMyday.Columns.Add("clTitle_md", "Title");
+                tableMyday.Columns.Add("clDuedate_md", "Due Date");
+                tableMyday.Columns.Add("clImportance_md", "Important");
+            }
+
+            loadDataTable(listTasks);
         }
     }
 }

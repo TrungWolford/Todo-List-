@@ -11,6 +11,7 @@ using DTO;
 using Helper;
 using BUS;
 using Microsoft.VisualBasic.ApplicationServices;
+using DAO;
 
 namespace GUI
 {
@@ -59,14 +60,16 @@ namespace GUI
                     {
                         MessageBox.Show("Welcome to my todolist!", "Information",
                               MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Main main = new Main();
+
+                        UserDTO user = UserDAO.Instance.selectedByName(userDTO.UserName);
+                        
+                        Main main = new Main(user);
                         main.Show();
                         this.Hide();
                     } else
                     {
                         MessageBox.Show("Username or password is wrong!", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Main main = new Main();
                     }
                 }
 

@@ -76,5 +76,10 @@ namespace DAO
         {
             throw new NotImplementedException();
         }
+
+        public TaskLogDTO selectedByID(int t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

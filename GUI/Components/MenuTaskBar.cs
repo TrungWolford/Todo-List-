@@ -1,4 +1,6 @@
-﻿using GUI.Panel;
+﻿using DTO;
+using GUI.Panel;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,9 +18,18 @@ namespace GUI.Components
     {
         private Main main;
         private Label selectedLabel;
+        private UserDTO user;
+
         public MenuTaskBar(Main main)
         {
             this.main = main;
+            InitializeComponent();
+            SelectLabel(lbl_itemMyday);
+        }
+        public MenuTaskBar(Main main, UserDTO user)
+        {
+            this.main = main;
+            this.user = user;
             InitializeComponent();
             SelectLabel(lbl_itemMyday);
         }
@@ -97,22 +108,37 @@ namespace GUI.Components
 
         private void lbl_itemMyday_Click(object sender, EventArgs e)
         {
+            if (user == null)
+            {
+                MessageBox.Show("User information is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             SelectLabel(lbl_itemMyday);
-            Myday md = new Myday();
+            Myday md = new Myday(user);
             main.setForm(md);
         }
 
         private void lbl_itemImportant_Click(object sender, EventArgs e)
         {
+            if (user == null)
+            {
+                MessageBox.Show("User information is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             SelectLabel(lbl_itemImportant);
-            Important imp = new Important();
+            Important imp = new Important(user);
             main.setForm(imp);
         }
 
         private void lbl_itemTasks_Click(object sender, EventArgs e)
         {
+            if (user == null)
+            {
+                MessageBox.Show("User information is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             SelectLabel(lbl_itemTasks);
-            Tasks tasks = new Tasks();
+            Tasks tasks = new Tasks(user);
             main.setForm(tasks);
         }
     }

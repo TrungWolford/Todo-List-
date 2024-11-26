@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Myday));
             pnlContentMD_bottom = new System.Windows.Forms.Panel();
             tableMyday = new DataGridView();
             clTitle_md = new DataGridViewTextBoxColumn();
             clDuedate_md = new DataGridViewTextBoxColumn();
-            clImportance_md = new DataGridViewTextBoxColumn();
+            clImportance_md = new DataGridViewImageColumn();
             clDone_md = new DataGridViewTextBoxColumn();
             pnlContentMD_center = new System.Windows.Forms.Panel();
             lblMd_importantSelected = new Label();
@@ -69,12 +70,21 @@
             tableMyday.BackgroundColor = Color.White;
             tableMyday.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableMyday.Columns.AddRange(new DataGridViewColumn[] { clTitle_md, clDuedate_md, clImportance_md, clDone_md });
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            tableMyday.DefaultCellStyle = dataGridViewCellStyle1;
             tableMyday.Dock = DockStyle.Fill;
             tableMyday.Location = new Point(0, 0);
             tableMyday.Name = "tableMyday";
             tableMyday.RowHeadersWidth = 51;
             tableMyday.Size = new Size(1040, 525);
             tableMyday.TabIndex = 0;
+            tableMyday.CellContentClick += tableMyday_CellContentClick;
             // 
             // clTitle_md
             // 
@@ -98,9 +108,12 @@
             // 
             clImportance_md.FillWeight = 96.04276F;
             clImportance_md.HeaderText = "Importance";
+            clImportance_md.Image = Properties.Resources.Important_24px;
             clImportance_md.MinimumWidth = 6;
             clImportance_md.Name = "clImportance_md";
             clImportance_md.ReadOnly = true;
+            clImportance_md.Resizable = DataGridViewTriState.True;
+            clImportance_md.SortMode = DataGridViewColumnSortMode.Automatic;
             clImportance_md.Width = 118;
             // 
             // clDone_md
@@ -205,6 +218,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Myday";
             Text = "Myday";
+            Load += Myday_Load;
             pnlContentMD_bottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tableMyday).EndInit();
             pnlContentMD_center.ResumeLayout(false);
@@ -221,13 +235,13 @@
         private Button btnMd_add;
         private DataGridView tableMyday;
         private Components.cpToolBar cpToolBar1;
-        private DataGridViewTextBoxColumn clTitle_md;
-        private DataGridViewTextBoxColumn clDuedate_md;
-        private DataGridViewTextBoxColumn clImportance_md;
-        private DataGridViewTextBoxColumn clDone_md;
         private ToolTip toolTip_mdCalendar;
         private Label lblMd_importantSelected;
         private ToolTip toolTip_mdImportantSelected;
         private ToolTip toolTip_mdImportant;
+        private DataGridViewTextBoxColumn clTitle_md;
+        private DataGridViewTextBoxColumn clDuedate_md;
+        private DataGridViewImageColumn clImportance_md;
+        private DataGridViewTextBoxColumn clDone_md;
     }
 }
