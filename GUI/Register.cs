@@ -109,7 +109,6 @@ public partial class Register : Form
                 userDTO.Password    = PasswordHasher.HashPassword(txt_passwordReg.Text.Trim());
                 userDTO.CreatedDate = today;
 
-
                 bool test = userRegBUS.insert(userDTO) > 0;
 
                 if (test)
