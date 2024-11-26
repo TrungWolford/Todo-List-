@@ -20,9 +20,11 @@ namespace GUI.Panel
         private bool isImportant;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
+        private UserDTO user;
 
-        public Myday()
+        public Myday(UserDTO user)
         {
+            this.user = user;
             InitializeComponent();
 
             taskBUS = new TaskBUS();

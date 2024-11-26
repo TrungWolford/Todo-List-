@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Important));
-            cpToolBar = new Components.cpToolBar(form: this);
+            cpToolBar = new Components.cpToolBar(this);
             pnlContentImp_center = new System.Windows.Forms.Panel();
             lblImp_importantSelected = new Label();
             btnImp_add = new Button();
@@ -38,7 +38,7 @@
             lblImp_calendar = new Label();
             txtImportantTask = new TextBox();
             pnlContentImp_bottom = new System.Windows.Forms.Panel();
-            tableMyday = new DataGridView();
+            tableImportant = new DataGridView();
             clTitle_imp = new DataGridViewTextBoxColumn();
             clDuedate_imp = new DataGridViewTextBoxColumn();
             clImportance_imp = new DataGridViewTextBoxColumn();
@@ -48,7 +48,7 @@
             toolTip_impImportantSelected = new ToolTip(components);
             pnlContentImp_center.SuspendLayout();
             pnlContentImp_bottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tableImportant).BeginInit();
             SuspendLayout();
             // 
             // cpToolBar
@@ -134,27 +134,27 @@
             // 
             // pnlContentImp_bottom
             // 
-            pnlContentImp_bottom.Controls.Add(tableMyday);
+            pnlContentImp_bottom.Controls.Add(tableImportant);
             pnlContentImp_bottom.Location = new Point(71, 297);
             pnlContentImp_bottom.Name = "pnlContentImp_bottom";
             pnlContentImp_bottom.Size = new Size(1040, 525);
             pnlContentImp_bottom.TabIndex = 3;
             // 
-            // tableMyday
+            // tableImportant
             // 
-            tableMyday.AllowUserToAddRows = false;
-            tableMyday.AllowUserToDeleteRows = false;
-            tableMyday.AllowUserToResizeColumns = false;
-            tableMyday.AllowUserToResizeRows = false;
-            tableMyday.BackgroundColor = Color.White;
-            tableMyday.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tableMyday.Columns.AddRange(new DataGridViewColumn[] { clTitle_imp, clDuedate_imp, clImportance_imp, clDone_imp });
-            tableMyday.Dock = DockStyle.Fill;
-            tableMyday.Location = new Point(0, 0);
-            tableMyday.Name = "tableMyday";
-            tableMyday.RowHeadersWidth = 51;
-            tableMyday.Size = new Size(1040, 525);
-            tableMyday.TabIndex = 1;
+            tableImportant.AllowUserToAddRows = false;
+            tableImportant.AllowUserToDeleteRows = false;
+            tableImportant.AllowUserToResizeColumns = false;
+            tableImportant.AllowUserToResizeRows = false;
+            tableImportant.BackgroundColor = Color.White;
+            tableImportant.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tableImportant.Columns.AddRange(new DataGridViewColumn[] { clTitle_imp, clDuedate_imp, clImportance_imp, clDone_imp });
+            tableImportant.Dock = DockStyle.Fill;
+            tableImportant.Location = new Point(0, 0);
+            tableImportant.Name = "tableImportant";
+            tableImportant.RowHeadersWidth = 51;
+            tableImportant.Size = new Size(1040, 525);
+            tableImportant.TabIndex = 1;
             // 
             // clTitle_imp
             // 
@@ -207,7 +207,7 @@
             pnlContentImp_center.ResumeLayout(false);
             pnlContentImp_center.PerformLayout();
             pnlContentImp_bottom.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)tableMyday).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tableImportant).EndInit();
             ResumeLayout(false);
         }
 
@@ -220,7 +220,7 @@
         private Label lblImp_calendar;
         private TextBox txtImportantTask;
         private System.Windows.Forms.Panel pnlContentImp_bottom;
-        private DataGridView tableMyday;
+        private DataGridView tableImportant;
         private DataGridViewTextBoxColumn clTitle_imp;
         private DataGridViewTextBoxColumn clDuedate_imp;
         private DataGridViewTextBoxColumn clImportance_imp;

@@ -74,5 +74,10 @@ namespace DAO
         {
             throw new NotImplementedException();
         }
+
+        public GroupDTO selectedByID(int t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

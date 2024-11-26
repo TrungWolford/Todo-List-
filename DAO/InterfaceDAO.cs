@@ -12,6 +12,8 @@ namespace DAO
         public int Update(T t);
         public int Delete(T t);
 
+        public T selectedByID(int t);
+
         public List<T> GetAll();
     }
 }

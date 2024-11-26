@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,8 +15,10 @@ namespace GUI.Panel
     public partial class Important : Form
     {
         private MonthCalendar calendar;
-        public Important()
+        private UserDTO user;
+        public Important(UserDTO user)
         {
+            this.user = user;
             InitializeComponent();
             calendar = new MonthCalendar
             {

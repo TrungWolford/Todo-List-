@@ -77,5 +77,10 @@ namespace DAO
         {
             throw new NotImplementedException();
         }
+
+        public TaskCommentDTO selectedByID(int t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

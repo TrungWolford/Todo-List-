@@ -74,5 +74,10 @@ namespace DAO
         {
             throw new NotImplementedException();
         }
+
+        public GroupMemberShipDTO selectedByID(int t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

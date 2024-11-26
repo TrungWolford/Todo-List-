@@ -73,5 +73,10 @@ namespace DAO
         {
             throw new NotImplementedException();
         }
+
+        public AttachmentDTO selectedByID(int t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

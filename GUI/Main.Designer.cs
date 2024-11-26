@@ -34,6 +34,7 @@
             pnlMenutaskbar = new System.Windows.Forms.Panel();
             pnlMainContent = new System.Windows.Forms.Panel();
             cpSearching1 = new Components.cpSearching();
+            lbl_titleInfoUser = new Label();
             pnlTitleMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -77,10 +78,22 @@
             // cpSearching1
             // 
             cpSearching1.BackColor = Color.FromArgb(37, 100, 207);
-            cpSearching1.Location = new Point(545, 0);
+            cpSearching1.Location = new Point(494, 0);
             cpSearching1.Name = "cpSearching1";
             cpSearching1.Size = new Size(569, 72);
             cpSearching1.TabIndex = 4;
+            // 
+            // lbl_titleInfoUser
+            // 
+            lbl_titleInfoUser.BackColor = Color.FromArgb(37, 100, 207);
+            lbl_titleInfoUser.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_titleInfoUser.ForeColor = Color.White;
+            lbl_titleInfoUser.Location = new Point(1213, 16);
+            lbl_titleInfoUser.Name = "lbl_titleInfoUser";
+            lbl_titleInfoUser.Size = new Size(197, 46);
+            lbl_titleInfoUser.TabIndex = 5;
+            lbl_titleInfoUser.TextAlign = ContentAlignment.MiddleLeft;
+            lbl_titleInfoUser.Text = user.UserName;
             // 
             // Main
             // 
@@ -88,6 +101,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1422, 977);
+            Controls.Add(lbl_titleInfoUser);
             Controls.Add(cpSearching1);
             Controls.Add(pnlMainContent);
             Controls.Add(pnlMenutaskbar);
@@ -104,5 +118,6 @@
         private System.Windows.Forms.Panel pnlMenutaskbar;
         private System.Windows.Forms.Panel pnlMainContent;
         private Components.cpSearching cpSearching1;
+        private Label lbl_titleInfoUser;
     }
 }

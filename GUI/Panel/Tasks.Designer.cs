@@ -30,7 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tasks));
-            cpToolBar1 = new Components.cpToolBar(form: this);
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            cpToolBar1 = new Components.cpToolBar(this);
             pnlContentTasks_center = new System.Windows.Forms.Panel();
             lblTasks_importantSelected = new Label();
             btnTasks_add = new Button();
@@ -38,17 +39,17 @@
             lblTasks_calendar = new Label();
             txtTasksTask = new TextBox();
             pnlContentTasks_bottom = new System.Windows.Forms.Panel();
-            tableMyday = new DataGridView();
+            tableTasks = new DataGridView();
             clTitle_tasks = new DataGridViewTextBoxColumn();
             clDuedate_tasks = new DataGridViewTextBoxColumn();
-            clImportance_tasks = new DataGridViewTextBoxColumn();
+            clImportance_tasks = new DataGridViewImageColumn();
             clDone_tasks = new DataGridViewTextBoxColumn();
             toolTip_tasksCalendar = new ToolTip(components);
             toolTip_tasksImportant = new ToolTip(components);
             toolTip_tasksImportantSelected = new ToolTip(components);
             pnlContentTasks_center.SuspendLayout();
             pnlContentTasks_bottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tableTasks).BeginInit();
             SuspendLayout();
             // 
             // cpToolBar1
@@ -93,6 +94,7 @@
             btnTasks_add.TabIndex = 3;
             btnTasks_add.Text = "Add";
             btnTasks_add.UseVisualStyleBackColor = true;
+            btnTasks_add.Click += btnTasks_add_Click;
             // 
             // lblTasks_important
             // 
@@ -133,27 +135,36 @@
             // 
             // pnlContentTasks_bottom
             // 
-            pnlContentTasks_bottom.Controls.Add(tableMyday);
+            pnlContentTasks_bottom.Controls.Add(tableTasks);
             pnlContentTasks_bottom.Location = new Point(71, 297);
             pnlContentTasks_bottom.Name = "pnlContentTasks_bottom";
             pnlContentTasks_bottom.Size = new Size(1040, 525);
             pnlContentTasks_bottom.TabIndex = 3;
             // 
-            // tableMyday
+            // tableTasks
             // 
-            tableMyday.AllowUserToAddRows = false;
-            tableMyday.AllowUserToDeleteRows = false;
-            tableMyday.AllowUserToResizeColumns = false;
-            tableMyday.AllowUserToResizeRows = false;
-            tableMyday.BackgroundColor = Color.White;
-            tableMyday.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tableMyday.Columns.AddRange(new DataGridViewColumn[] { clTitle_tasks, clDuedate_tasks, clImportance_tasks, clDone_tasks });
-            tableMyday.Dock = DockStyle.Fill;
-            tableMyday.Location = new Point(0, 0);
-            tableMyday.Name = "tableMyday";
-            tableMyday.RowHeadersWidth = 51;
-            tableMyday.Size = new Size(1040, 525);
-            tableMyday.TabIndex = 2;
+            tableTasks.AllowUserToAddRows = false;
+            tableTasks.AllowUserToDeleteRows = false;
+            tableTasks.AllowUserToResizeColumns = false;
+            tableTasks.AllowUserToResizeRows = false;
+            tableTasks.BackgroundColor = Color.White;
+            tableTasks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tableTasks.Columns.AddRange(new DataGridViewColumn[] { clTitle_tasks, clDuedate_tasks, clImportance_tasks, clDone_tasks });
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            tableTasks.DefaultCellStyle = dataGridViewCellStyle1;
+            tableTasks.Dock = DockStyle.Fill;
+            tableTasks.Location = new Point(0, 0);
+            tableTasks.Name = "tableTasks";
+            tableTasks.RowHeadersWidth = 51;
+            tableTasks.Size = new Size(1040, 525);
+            tableTasks.TabIndex = 2;
+            tableTasks.CellContentClick += tableTasks_CellContentClick;
             // 
             // clTitle_tasks
             // 
@@ -177,9 +188,12 @@
             // 
             clImportance_tasks.FillWeight = 96.04276F;
             clImportance_tasks.HeaderText = "Importance";
+            clImportance_tasks.Image = Properties.Resources.Important_24px;
             clImportance_tasks.MinimumWidth = 6;
             clImportance_tasks.Name = "clImportance_tasks";
             clImportance_tasks.ReadOnly = true;
+            clImportance_tasks.Resizable = DataGridViewTriState.True;
+            clImportance_tasks.SortMode = DataGridViewColumnSortMode.Automatic;
             clImportance_tasks.Width = 118;
             // 
             // clDone_tasks
@@ -203,10 +217,11 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Tasks";
             Text = "Tasks";
+            Load += Tasks_Load;
             pnlContentTasks_center.ResumeLayout(false);
             pnlContentTasks_center.PerformLayout();
             pnlContentTasks_bottom.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)tableMyday).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tableTasks).EndInit();
             ResumeLayout(false);
         }
 
@@ -219,14 +234,14 @@
         private Label lblTasks_calendar;
         private TextBox txtTasksTask;
         private System.Windows.Forms.Panel pnlContentTasks_bottom;
-        private DataGridView tableMyday;
-        private DataGridViewTextBoxColumn clTitle_tasks;
-        private DataGridViewTextBoxColumn clDuedate_tasks;
-        private DataGridViewTextBoxColumn clImportance_tasks;
-        private DataGridViewTextBoxColumn clDone_tasks;
+        private DataGridView tableTasks;
         private Label lblTasks_importantSelected;
         private ToolTip toolTip_tasksImportantSelected;
         private ToolTip toolTip_tasksCalendar;
         private ToolTip toolTip_tasksImportant;
+        private DataGridViewTextBoxColumn clTitle_tasks;
+        private DataGridViewTextBoxColumn clDuedate_tasks;
+        private DataGridViewImageColumn clImportance_tasks;
+        private DataGridViewTextBoxColumn clDone_tasks;
     }
 }

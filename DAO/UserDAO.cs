@@ -103,6 +103,45 @@ namespace DAO
             throw new NotImplementedException();
         }
 
-        
+        public UserDTO selectedByID(int t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserDTO selectedByName(string name)
+        {
+            try
+            {
+                UserDTO user = null; 
+                string query = "SELECT * FROM [User] WHERE Username = @username"; 
+
+                List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@username", SqlDbType.NVarChar) { Value = name }
+                };
+
+                using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+                {
+                    if (reader.Read()) 
+                    {
+                        user = new UserDTO
+                        {
+                            UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                            UserName = reader.GetString(reader.GetOrdinal("Username")),
+                            Password = reader.GetString(reader.GetOrdinal("Password_hash")),
+                            Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
+                            CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"))
+                        };
+                    }
+                }
+
+                return user; 
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return null; 
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GUI.Components;
+﻿using DTO;
+using GUI.Components;
 using GUI.Panel;
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,20 @@ namespace GUI
 
         private MenuTaskBar menuTaskBar;
         private Myday myday;
-        public Main()
-        {
-            InitializeComponent();
+        private UserDTO user;
+        
 
-            menuTaskBar = new MenuTaskBar(this);
-            menuTaskBar.TopLevel = false; 
+        public Main(UserDTO user)
+        {
+            this.user = user;
+            InitializeComponent();
+            menuTaskBar = new MenuTaskBar(this, user);
+            menuTaskBar.TopLevel = false;
             pnlMenutaskbar.Controls.Add(menuTaskBar);
             menuTaskBar.Dock = DockStyle.Fill;
             menuTaskBar.Show();
 
-            myday = new Myday();
+            myday = new Myday(user);
             myday.TopLevel = false;
             pnlMainContent.Controls.Add(myday);
             myday.Dock = DockStyle.Fill;
