@@ -29,19 +29,17 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Important));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             cpToolBar = new Components.cpToolBar(this);
             pnlContentImp_center = new System.Windows.Forms.Panel();
-            lblImp_importantSelected = new Label();
             btnImp_add = new Button();
-            lblImp_important = new Label();
             lblImp_calendar = new Label();
             txtImportantTask = new TextBox();
             pnlContentImp_bottom = new System.Windows.Forms.Panel();
             tableImportant = new DataGridView();
             clTitle_imp = new DataGridViewTextBoxColumn();
             clDuedate_imp = new DataGridViewTextBoxColumn();
-            clImportance_imp = new DataGridViewTextBoxColumn();
+            clImportance_imp = new DataGridViewImageColumn();
             clDone_imp = new DataGridViewTextBoxColumn();
             toolTip_impCalendar = new ToolTip(components);
             toolTip_impImportant = new ToolTip(components);
@@ -63,28 +61,13 @@
             // 
             pnlContentImp_center.BackColor = Color.White;
             pnlContentImp_center.BorderStyle = BorderStyle.Fixed3D;
-            pnlContentImp_center.Controls.Add(lblImp_importantSelected);
             pnlContentImp_center.Controls.Add(btnImp_add);
-            pnlContentImp_center.Controls.Add(lblImp_important);
             pnlContentImp_center.Controls.Add(lblImp_calendar);
             pnlContentImp_center.Controls.Add(txtImportantTask);
             pnlContentImp_center.Location = new Point(71, 167);
             pnlContentImp_center.Name = "pnlContentImp_center";
             pnlContentImp_center.Size = new Size(1040, 108);
             pnlContentImp_center.TabIndex = 2;
-            // 
-            // lblImp_importantSelected
-            // 
-            lblImp_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            lblImp_importantSelected.Cursor = Cursors.Hand;
-            lblImp_importantSelected.Image = (Image)resources.GetObject("lblImp_importantSelected.Image");
-            lblImp_importantSelected.Location = new Point(67, 51);
-            lblImp_importantSelected.Name = "lblImp_importantSelected";
-            lblImp_importantSelected.Size = new Size(57, 44);
-            lblImp_importantSelected.TabIndex = 5;
-            toolTip_impImportantSelected.SetToolTip(lblImp_importantSelected, "Remove importance level");
-            lblImp_importantSelected.Visible = false;
-            lblImp_importantSelected.Click += lblImp_importantSelected_Click;
             // 
             // btnImp_add
             // 
@@ -94,18 +77,7 @@
             btnImp_add.TabIndex = 3;
             btnImp_add.Text = "Add";
             btnImp_add.UseVisualStyleBackColor = true;
-            // 
-            // lblImp_important
-            // 
-            lblImp_important.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            lblImp_important.Cursor = Cursors.Hand;
-            lblImp_important.Image = (Image)resources.GetObject("lblImp_important.Image");
-            lblImp_important.Location = new Point(67, 51);
-            lblImp_important.Name = "lblImp_important";
-            lblImp_important.Size = new Size(57, 44);
-            lblImp_important.TabIndex = 2;
-            toolTip_impImportant.SetToolTip(lblImp_important, "Mark the task as important");
-            lblImp_important.Click += lblImp_important_Click;
+            btnImp_add.Click += btnImp_add_Click;
             // 
             // lblImp_calendar
             // 
@@ -149,12 +121,21 @@
             tableImportant.BackgroundColor = Color.White;
             tableImportant.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableImportant.Columns.AddRange(new DataGridViewColumn[] { clTitle_imp, clDuedate_imp, clImportance_imp, clDone_imp });
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            tableImportant.DefaultCellStyle = dataGridViewCellStyle1;
             tableImportant.Dock = DockStyle.Fill;
             tableImportant.Location = new Point(0, 0);
             tableImportant.Name = "tableImportant";
             tableImportant.RowHeadersWidth = 51;
             tableImportant.Size = new Size(1040, 525);
             tableImportant.TabIndex = 1;
+            tableImportant.CellContentClick += tableImportant_CellContentClick;
             // 
             // clTitle_imp
             // 
@@ -178,9 +159,12 @@
             // 
             clImportance_imp.FillWeight = 96.04276F;
             clImportance_imp.HeaderText = "Importance";
+            clImportance_imp.Image = Properties.Resources.Important_24px;
             clImportance_imp.MinimumWidth = 6;
             clImportance_imp.Name = "clImportance_imp";
             clImportance_imp.ReadOnly = true;
+            clImportance_imp.Resizable = DataGridViewTriState.True;
+            clImportance_imp.SortMode = DataGridViewColumnSortMode.Automatic;
             clImportance_imp.Width = 118;
             // 
             // clDone_imp
@@ -204,6 +188,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Important";
             Text = "Important";
+            Load += Important_Load;
             pnlContentImp_center.ResumeLayout(false);
             pnlContentImp_center.PerformLayout();
             pnlContentImp_bottom.ResumeLayout(false);
@@ -216,18 +201,16 @@
         private Components.cpToolBar cpToolBar;
         private System.Windows.Forms.Panel pnlContentImp_center;
         private Button btnImp_add;
-        private Label lblImp_important;
         private Label lblImp_calendar;
         private TextBox txtImportantTask;
         private System.Windows.Forms.Panel pnlContentImp_bottom;
         private DataGridView tableImportant;
-        private DataGridViewTextBoxColumn clTitle_imp;
-        private DataGridViewTextBoxColumn clDuedate_imp;
-        private DataGridViewTextBoxColumn clImportance_imp;
-        private DataGridViewTextBoxColumn clDone_imp;
-        private Label lblImp_importantSelected;
         private ToolTip toolTip_impCalendar;
         private ToolTip toolTip_impImportant;
         private ToolTip toolTip_impImportantSelected;
+        private DataGridViewTextBoxColumn clTitle_imp;
+        private DataGridViewTextBoxColumn clDuedate_imp;
+        private DataGridViewImageColumn clImportance_imp;
+        private DataGridViewTextBoxColumn clDone_imp;
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DAO
 {
@@ -140,6 +141,67 @@ namespace DAO
             }
 
             return listTaskByID;
+        }
+
+        public List<TaskDTO> selecteTaskCurrentDate(int userID)
+        {
+            List<TaskDTO> listTaskCurrentDate = new List<TaskDTO>();
+
+            // CAST(DueDate AS DATE): Chuyển đổi cột DueDate thành kiểu DATE(chỉ lấy phần ngày, bỏ phần giờ).
+            // CAST(GETDATE() AS DATE): Lấy ngày hiện tại của hệ thống(chỉ lấy phần ngày, bỏ phần giờ).
+            string query = "SELECT * FROM Task WHERE CAST(DueDate AS DATE) = CAST(GETDATE() AS DATE) AND CreatedBy = @UserID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@UserID", userID)
+            };
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                    };
+                    listTaskCurrentDate.Add(task);
+                }
+            }
+
+            return listTaskCurrentDate;
+        }
+
+        public List<TaskDTO> selecteAllTaskImportant(int userID)
+        {
+            List<TaskDTO> listTaskImportant = new List<TaskDTO>();
+            string query = "SELECT * FROM Task WHERE IsImportant = 1";
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, null))
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                    };
+                    listTaskImportant.Add(task);
+                }
+            }
+
+            return listTaskImportant;
         }
 
         TaskDTO InterfaceDAO<TaskDTO>.selectedByID(int t)

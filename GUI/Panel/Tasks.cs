@@ -138,9 +138,9 @@ namespace GUI.Panel
             
             if (tableTasks.Columns.Count == 0)
             {
-                tableTasks.Columns.Add("ColumnName_Title", "Title");
-                tableTasks.Columns.Add("ColumnName_DueDate", "Due Date");
-                tableTasks.Columns.Add("ColumnName_IsImportant", "Important");
+                tableTasks.Columns.Add("clTitle_tasks", "Title");
+                tableTasks.Columns.Add("clDuedate_tasks", "Due Date");
+                tableTasks.Columns.Add("clImportance_tasks", "Important");
             }
 
             loadDataTable(listTasks);

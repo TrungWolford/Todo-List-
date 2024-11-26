@@ -63,16 +63,18 @@
             // pnlMenutaskbar
             // 
             pnlMenutaskbar.BackColor = Color.White;
-            pnlMenutaskbar.Location = new Point(0, 81);
+            pnlMenutaskbar.Dock = DockStyle.Left;
+            pnlMenutaskbar.Location = new Point(0, 80);
             pnlMenutaskbar.Name = "pnlMenutaskbar";
             pnlMenutaskbar.Size = new Size(225, 897);
             pnlMenutaskbar.TabIndex = 2;
             // 
             // pnlMainContent
             // 
-            pnlMainContent.Location = new Point(222, 81);
+            pnlMainContent.Dock = DockStyle.Fill;
+            pnlMainContent.Location = new Point(225, 80);
             pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1200, 897);
+            pnlMainContent.Size = new Size(1197, 897);
             pnlMainContent.TabIndex = 3;
             // 
             // cpSearching1
@@ -93,7 +95,6 @@
             lbl_titleInfoUser.Size = new Size(197, 46);
             lbl_titleInfoUser.TabIndex = 5;
             lbl_titleInfoUser.TextAlign = ContentAlignment.MiddleLeft;
-            lbl_titleInfoUser.Text = user.UserName;
             // 
             // Main
             // 
