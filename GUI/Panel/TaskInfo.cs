@@ -13,10 +13,30 @@ namespace GUI.Panel
 {
     public partial class TaskInfo : Form
     {
+        private MonthCalendar calendar;
         private List<string> filesToUpload = new List<string>();
         public TaskInfo()
         {
             InitializeComponent();
+            calendar = new MonthCalendar
+            {
+                Visible = false,
+                MaxSelectionCount = 1
+            };
+            calendar.DateSelected += Calendar_DateSelected;
+            Controls.Add(calendar);
+        }
+        private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
+        {
+            lbl_detailDueDate.Text = e.Start.ToString("dd/MM/yyyy");
+            calendar.Visible = false;
+        }
+
+        private void pnl_detailDueDate_Click(object sender, EventArgs e)
+        {
+            calendar.Location = new Point(lbl_detailDueDate_icon.Left + 30, lbl_detailDueDate_icon.Bottom + 80);
+            calendar.BringToFront();
+            calendar.Visible = true;
         }
 
         private void pnl_detailAddFile_Title_Click(object sender, EventArgs e)
