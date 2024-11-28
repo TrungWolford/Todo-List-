@@ -137,7 +137,7 @@ namespace GUI.Panel
 
         private void Tasks_Load(object sender, EventArgs e)
         {
-            
+
             if (tableTasks.Columns.Count == 0)
             {
                 tableTasks.Columns.Add("clTitle_tasks", "Title");
@@ -204,7 +204,7 @@ namespace GUI.Panel
 
                     if (check)
                     {
-                        listTasks[index].IsImportant = !previousState; 
+                        listTasks[index].IsImportant = !previousState;
 
                         //tableTasks.Refresh();
                         loadDataTable(listTasks);
@@ -253,6 +253,23 @@ namespace GUI.Panel
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void tableTasks_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = tableTasks.Columns[e.ColumnIndex].Name;
+                object cellValue = tableTasks.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                var selectedTask = listTasks[e.RowIndex];
+                int taskid = selectedTask.TaskID;
+
+                TaskInfo taskInfoForm = new TaskInfo(taskid);
+                taskInfoForm.ShowDialog();
+
+               
             }
         }
     }
