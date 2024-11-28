@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tasks));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar();
             pnlContentTasks_center = new System.Windows.Forms.Panel();
             lblTasks_importantSelected = new Label();
             btnTasks_add = new Button();
@@ -54,6 +54,7 @@
             // 
             // cpToolBar1
             // 
+            cpToolBar1.BackColor = Color.Transparent;
             cpToolBar1.Location = new Point(71, 31);
             cpToolBar1.Name = "cpToolBar1";
             cpToolBar1.Size = new Size(1040, 108);
@@ -164,7 +165,9 @@
             tableTasks.RowHeadersWidth = 51;
             tableTasks.Size = new Size(1040, 525);
             tableTasks.TabIndex = 2;
+            tableTasks.CellClick += tableTasks_CellContentClick;
             tableTasks.CellContentClick += tableTasks_CellContentClick;
+            tableTasks.CellDoubleClick += tableTasks_CellDoubleClick;
             // 
             // clTitle_tasks
             // 

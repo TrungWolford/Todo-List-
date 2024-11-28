@@ -8,16 +8,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BUS;
+using DTO;
 
 namespace GUI.Panel
 {
     public partial class TaskInfo : Form
     {
+
         private List<string> filesToUpload = new List<string>();
-        public TaskInfo()
+        
+        TaskInfoBUS TaskInfoBUS = new TaskInfoBUS();
+        TaskDTO taskDTO;
+
+        int TaskID;
+        public TaskInfo(int TaskID)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
+            this.TaskID = TaskID;
+            Console.WriteLine(TaskID);
+            taskDTO = TaskInfoBUS.getTitle(TaskID);
+            txt_detailTitle.Text = taskDTO.Title;
         }
+
+
 
         private void pnl_detailAddFile_Title_Click(object sender, EventArgs e)
         {
@@ -54,5 +69,10 @@ namespace GUI.Panel
                 item.Dispose();
             }
         }
+
+
+
+
+
     }
 }

@@ -14,7 +14,7 @@ namespace GUI
             Application.Run(new Login());
             //Application.Run(new Register());
             //Application.Run(new Main());
-            //Application.Run(new Panel.TaskDetails());
+            //Application.Run(new Panel.TaskInfo());
         }
     }
 }
