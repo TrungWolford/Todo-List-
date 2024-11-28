@@ -121,6 +121,12 @@
   <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\calendar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Important_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\Important_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportantSelected_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\ImportantSelected_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="sunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\sunny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,10 +148,7 @@
   <data name="sunny2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\sunny2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Important_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icon\Important_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImportantSelected_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icon\ImportantSelected_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sort2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\sort2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
