@@ -46,7 +46,7 @@ namespace DAO
             }
             return 0;
         }
-        public int Update(TaskDTO task) 
+        public int Update(TaskDTO task)
         {
             string query = "UPDATE Task SET Title = @title, Description = @description, DueDate = @dueDate, CreatedDate = @createdDate, IsImportant = @isImportant , IsDeleted = @isDeleted , CompletedDate = @completedDate , CreatedBy = @createdBy WHERE TaskID = @taskID";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -66,9 +66,9 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return 0; 
+            return 0;
         }
-        public int Delete(TaskDTO task) 
+        public int Delete(TaskDTO task)
         {
             string query = "DELETE FROM Task WHERE TaskID = @taskID";
             List<SqlParameter> parameters = new List<SqlParameter>
@@ -80,7 +80,7 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return -1; 
+            return -1;
         }
 
         public List<TaskDTO> GetAll()
@@ -120,7 +120,7 @@ namespace DAO
                 new SqlParameter("@UserID", userID)
             };
 
-            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters)) 
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
             {
                 while (reader.Read())
                 {
@@ -208,5 +208,34 @@ namespace DAO
         {
             throw new NotImplementedException();
         }
+
+        public List<TaskDTO> GetTitlesByTaskID(int taskID)
+        {
+            string query = "SELECT Title FROM Task WHERE TaskID=@taskID";
+
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", taskID)
+            };
+
+            List<TaskDTO> listTask = new List<TaskDTO>();
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        Title = reader.GetString(reader.GetOrdinal("Title"))
+                    };
+                    listTask.Add(task);
+                }
+            }
+
+            return listTask;
+        }
+
+       
+
     }
 }
