@@ -16,6 +16,8 @@ namespace GUI.Panel
     public partial class TaskInfo : Form
     {
 
+        private MonthCalendar calendar;
+
         private List<string> filesToUpload = new List<string>();
         
         TaskInfoBUS TaskInfoBUS = new TaskInfoBUS();
@@ -30,6 +32,25 @@ namespace GUI.Panel
             Console.WriteLine(TaskID);
             taskDTO = TaskInfoBUS.getTitle(TaskID);
             txt_detailTitle.Text = taskDTO.Title;
+            calendar = new MonthCalendar
+            {
+                Visible = false,
+                MaxSelectionCount = 1
+            };
+            calendar.DateSelected += Calendar_DateSelected;
+            Controls.Add(calendar);
+        }
+        private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
+        {
+            lbl_detailDueDate.Text = e.Start.ToString("dd/MM/yyyy");
+            calendar.Visible = false;
+        }
+
+        private void pnl_detailDueDate_Click(object sender, EventArgs e)
+        {
+            calendar.Location = new Point(lbl_detailDueDate_icon.Left + 30, lbl_detailDueDate_icon.Bottom + 80);
+            calendar.BringToFront();
+            calendar.Visible = true;
         }
 
 

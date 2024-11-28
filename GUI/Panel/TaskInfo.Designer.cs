@@ -33,13 +33,13 @@
             txt_detailTitle = new TextBox();
             pnl_detailTop = new System.Windows.Forms.Panel();
             pnl_detailDuedate = new System.Windows.Forms.Panel();
-            label1 = new Label();
+            lbl_detailDueDate_icon = new Label();
             lbl_detailDueDate = new Label();
             pnl_detailMiddle = new System.Windows.Forms.Panel();
             pnl_FileItems = new FlowLayoutPanel();
             pnl_detailAddFile_Title = new System.Windows.Forms.Panel();
-            label2 = new Label();
-            label3 = new Label();
+            lbl_detailAddFile_icon = new Label();
+            lbl_detailAddFile = new Label();
             txt_detailDescription = new TextBox();
             label19 = new Label();
             pnl_detailBottom = new System.Windows.Forms.Panel();
@@ -111,7 +111,7 @@
             // 
             pnl_detailDuedate.BackColor = Color.White;
             pnl_detailDuedate.BorderStyle = BorderStyle.FixedSingle;
-            pnl_detailDuedate.Controls.Add(label1);
+            pnl_detailDuedate.Controls.Add(lbl_detailDueDate_icon);
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate);
             pnl_detailDuedate.Location = new Point(23, 79);
             pnl_detailDuedate.Margin = new Padding(0);
@@ -119,14 +119,18 @@
             pnl_detailDuedate.Size = new Size(640, 53);
             pnl_detailDuedate.TabIndex = 2;
             // 
-            // label1
+            // lbl_detailDueDate_icon
             // 
-            label1.Image = Properties.Resources.calendar;
-            label1.Location = new Point(0, 0);
-            label1.Margin = new Padding(0);
-            label1.Name = "label1";
-            label1.Size = new Size(53, 53);
-            label1.TabIndex = 7;
+
+
+            lbl_detailDueDate_icon.Image = Properties.Resources.calendar;
+            lbl_detailDueDate_icon.Location = new Point(0, 0);
+            lbl_detailDueDate_icon.Margin = new Padding(0);
+            lbl_detailDueDate_icon.Name = "lbl_detailDueDate_icon";
+            lbl_detailDueDate_icon.Size = new Size(46, 40);
+            lbl_detailDueDate_icon.TabIndex = 7;
+            lbl_detailDueDate_icon.Click += pnl_detailDueDate_Click;
+
             // 
             // lbl_detailDueDate
             // 
@@ -139,6 +143,7 @@
             lbl_detailDueDate.TabIndex = 6;
             lbl_detailDueDate.Text = "10/10/2024";
             lbl_detailDueDate.TextAlign = ContentAlignment.MiddleLeft;
+            lbl_detailDueDate.Click += pnl_detailDueDate_Click;
             // 
             // pnl_detailMiddle
             // 
@@ -165,38 +170,42 @@
             // pnl_detailAddFile_Title
             // 
             pnl_detailAddFile_Title.BorderStyle = BorderStyle.FixedSingle;
-            pnl_detailAddFile_Title.Controls.Add(label2);
-            pnl_detailAddFile_Title.Controls.Add(label3);
-            pnl_detailAddFile_Title.Location = new Point(23, 16);
+
+            pnl_detailAddFile_Title.Controls.Add(lbl_detailAddFile_icon);
+            pnl_detailAddFile_Title.Controls.Add(lbl_detailAddFile);
+            pnl_detailAddFile_Title.Location = new Point(20, 12);
+
             pnl_detailAddFile_Title.Margin = new Padding(0);
             pnl_detailAddFile_Title.Name = "pnl_detailAddFile_Title";
             pnl_detailAddFile_Title.Size = new Size(640, 53);
             pnl_detailAddFile_Title.TabIndex = 3;
             pnl_detailAddFile_Title.Click += pnl_detailAddFile_Title_Click;
             // 
-            // label2
+            // lbl_detailAddFile_icon
             // 
-            label2.BackColor = Color.White;
-            label2.Image = Properties.Resources.sort;
-            label2.Location = new Point(0, 0);
-            label2.Margin = new Padding(0);
-            label2.Name = "label2";
-            label2.Size = new Size(59, 53);
-            label2.TabIndex = 7;
-            label2.Click += pnl_detailAddFile_Title_Click;
+
+            lbl_detailAddFile_icon.BackColor = Color.White;
+            lbl_detailAddFile_icon.Image = Properties.Resources.sort2;
+            lbl_detailAddFile_icon.Location = new Point(0, 0);
+            lbl_detailAddFile_icon.Margin = new Padding(0);
+            lbl_detailAddFile_icon.Name = "lbl_detailAddFile_icon";
+            lbl_detailAddFile_icon.Size = new Size(52, 40);
+            lbl_detailAddFile_icon.TabIndex = 7;
+            lbl_detailAddFile_icon.Click += pnl_detailAddFile_Title_Click;
             // 
-            // label3
+            // lbl_detailAddFile
             // 
-            label3.BackColor = Color.White;
-            label3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(59, 0);
-            label3.Margin = new Padding(0);
-            label3.Name = "label3";
-            label3.Size = new Size(581, 53);
-            label3.TabIndex = 6;
-            label3.Text = "Add file";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
-            label3.Click += pnl_detailAddFile_Title_Click;
+
+            lbl_detailAddFile.BackColor = Color.White;
+            lbl_detailAddFile.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_detailAddFile.Location = new Point(52, 0);
+            lbl_detailAddFile.Margin = new Padding(0);
+            lbl_detailAddFile.Name = "lbl_detailAddFile";
+            lbl_detailAddFile.Size = new Size(508, 40);
+            lbl_detailAddFile.TabIndex = 6;
+            lbl_detailAddFile.Text = "Add file";
+            lbl_detailAddFile.TextAlign = ContentAlignment.MiddleLeft;
+            lbl_detailAddFile.Click += pnl_detailAddFile_Title_Click;
             // 
             // txt_detailDescription
             // 
@@ -359,12 +368,12 @@
         private TextBox txt_detailTitle;
         private System.Windows.Forms.Panel pnl_detailTop;
         private System.Windows.Forms.Panel pnl_detailDuedate;
-        private Label label1;
+        private Label lbl_detailDueDate_icon;
         private Label lbl_detailDueDate;
         private System.Windows.Forms.Panel pnl_detailMiddle;
         private System.Windows.Forms.Panel pnl_detailAddFile_Title;
-        private Label label2;
-        private Label label3;
+        private Label lbl_detailAddFile_icon;
+        private Label lbl_detailAddFile;
         private FlowLayoutPanel pnl_FileItems;
         private TextBox txt_detailDescription;
         private Label label19;
