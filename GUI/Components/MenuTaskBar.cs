@@ -96,6 +96,22 @@ namespace GUI.Components
             }
         }
 
+        private void lbl_itemCompleted_MouseEnter(object sender, EventArgs e)
+        {
+            if (selectedLabel != lbl_itemCompleted)
+            {
+                lbl_itemCompleted.BackColor = Color.FromArgb(246, 246, 246);
+            }
+        }
+
+        private void lbl_itemCompleted_MouseLeave(object sender, EventArgs e)
+        {
+            if (selectedLabel != lbl_itemCompleted)
+            {
+                lbl_itemCompleted.BackColor = Color.White;
+            }
+        }
+
         private void lbl_itemNewGroup_MouseEnter(object sender, EventArgs e)
         {
             lbl_itemNewGroup.BackColor = Color.FromArgb(246, 246, 246);
@@ -141,5 +157,19 @@ namespace GUI.Components
             Tasks tasks = new Tasks(user);
             main.setForm(tasks);
         }
+
+        private void lbl_itemCompleted_Click(object sender, EventArgs e)
+        {
+            if (user == null)
+            {
+                MessageBox.Show("User information is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            SelectLabel(lbl_itemCompleted);
+            Completed completed = new Completed(user);
+            main.setForm(completed);
+        }
+
+        
     }
 }

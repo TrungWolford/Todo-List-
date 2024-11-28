@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuTaskBar));
             pnlMenu_top = new System.Windows.Forms.Panel();
+            lbl_itemCompleted = new Label();
             lbl_itemMyday = new Label();
             lbl_itemTasks = new Label();
             lbl_itemImportant = new Label();
@@ -41,13 +42,30 @@
             // 
             // pnlMenu_top
             // 
+            pnlMenu_top.Controls.Add(lbl_itemCompleted);
             pnlMenu_top.Controls.Add(lbl_itemMyday);
             pnlMenu_top.Controls.Add(lbl_itemTasks);
             pnlMenu_top.Controls.Add(lbl_itemImportant);
             pnlMenu_top.Location = new Point(-1, -1);
             pnlMenu_top.Name = "pnlMenu_top";
-            pnlMenu_top.Size = new Size(208, 277);
+            pnlMenu_top.Size = new Size(208, 336);
             pnlMenu_top.TabIndex = 0;
+            // 
+            // lbl_itemCompleted
+            // 
+            lbl_itemCompleted.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbl_itemCompleted.Image = Properties.Resources.completed_32;
+            lbl_itemCompleted.ImageAlign = ContentAlignment.MiddleLeft;
+            lbl_itemCompleted.Location = new Point(-1, 268);
+            lbl_itemCompleted.Name = "lbl_itemCompleted";
+            lbl_itemCompleted.Padding = new Padding(10, 0, 15, 5);
+            lbl_itemCompleted.Size = new Size(213, 50);
+            lbl_itemCompleted.TabIndex = 3;
+            lbl_itemCompleted.Text = "Completed ";
+            lbl_itemCompleted.TextAlign = ContentAlignment.MiddleRight;
+            lbl_itemCompleted.Click += lbl_itemCompleted_Click;
+            lbl_itemCompleted.MouseEnter += lbl_itemCompleted_MouseEnter;
+            lbl_itemCompleted.MouseLeave += lbl_itemCompleted_MouseLeave;
             // 
             // lbl_itemMyday
             // 
@@ -104,9 +122,9 @@
             // pnlMenu_center
             // 
             pnlMenu_center.Controls.Add(lbl_itemNewGroup);
-            pnlMenu_center.Location = new Point(-1, 282);
+            pnlMenu_center.Location = new Point(-1, 341);
             pnlMenu_center.Name = "pnlMenu_center";
-            pnlMenu_center.Size = new Size(208, 571);
+            pnlMenu_center.Size = new Size(208, 512);
             pnlMenu_center.TabIndex = 1;
             // 
             // lbl_itemNewGroup
@@ -149,5 +167,7 @@
         private Label lbl_itemImportant;
         private Label lbl_itemMyday;
         private Label lbl_itemNewGroup;
+        private Label label2;
+        private Label lbl_itemCompleted;
     }
 }

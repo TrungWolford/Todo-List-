@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tasks));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar();
             pnlContentTasks_center = new System.Windows.Forms.Panel();
             lblTasks_importantSelected = new Label();
             btnTasks_add = new Button();
@@ -40,13 +40,13 @@
             txtTasksTask = new TextBox();
             pnlContentTasks_bottom = new System.Windows.Forms.Panel();
             tableTasks = new DataGridView();
-            clTitle_tasks = new DataGridViewTextBoxColumn();
-            clDuedate_tasks = new DataGridViewTextBoxColumn();
-            clImportance_tasks = new DataGridViewImageColumn();
-            clDone_tasks = new DataGridViewTextBoxColumn();
             toolTip_tasksCalendar = new ToolTip(components);
             toolTip_tasksImportant = new ToolTip(components);
             toolTip_tasksImportantSelected = new ToolTip(components);
+            clTitle_tasks = new DataGridViewTextBoxColumn();
+            clDuedate_tasks = new DataGridViewTextBoxColumn();
+            clImportance_tasks = new DataGridViewImageColumn();
+            clDone_tasks = new DataGridViewImageColumn();
             pnlContentTasks_center.SuspendLayout();
             pnlContentTasks_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableTasks).BeginInit();
@@ -173,7 +173,7 @@
             clTitle_tasks.MinimumWidth = 6;
             clTitle_tasks.Name = "clTitle_tasks";
             clTitle_tasks.ReadOnly = true;
-            clTitle_tasks.Width = 640;
+            clTitle_tasks.Width = 630;
             // 
             // clDuedate_tasks
             // 
@@ -200,10 +200,13 @@
             // 
             clDone_tasks.FillWeight = 57.9811935F;
             clDone_tasks.HeaderText = "Done";
+            clDone_tasks.Image = Properties.Resources.notDone_24;
             clDone_tasks.MinimumWidth = 6;
             clDone_tasks.Name = "clDone_tasks";
             clDone_tasks.ReadOnly = true;
-            clDone_tasks.Width = 72;
+            clDone_tasks.Resizable = DataGridViewTriState.True;
+            clDone_tasks.SortMode = DataGridViewColumnSortMode.Automatic;
+            clDone_tasks.Width = 82;
             // 
             // Tasks
             // 
@@ -242,6 +245,6 @@
         private DataGridViewTextBoxColumn clTitle_tasks;
         private DataGridViewTextBoxColumn clDuedate_tasks;
         private DataGridViewImageColumn clImportance_tasks;
-        private DataGridViewTextBoxColumn clDone_tasks;
+        private DataGridViewImageColumn clDone_tasks;
     }
 }

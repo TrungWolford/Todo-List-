@@ -21,6 +21,7 @@ namespace GUI.Panel
         private MonthCalendar calendar;
         private UserDTO user;
         private bool isImportant;
+        //private DateTime? completedDate;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
 
@@ -33,6 +34,7 @@ namespace GUI.Panel
             taskBUS = new TaskBUS();
             listTasks = taskBUS.getAllByUserID(user.UserID);
             isImportant = false;
+            //completedDate = null;
 
             calendar = new MonthCalendar
             {
@@ -141,6 +143,7 @@ namespace GUI.Panel
                 tableTasks.Columns.Add("clTitle_tasks", "Title");
                 tableTasks.Columns.Add("clDuedate_tasks", "Due Date");
                 tableTasks.Columns.Add("clImportance_tasks", "Important");
+                tableTasks.Columns.Add("clDone_tasks", "Done");
             }
 
             loadDataTable(listTasks);
@@ -168,11 +171,21 @@ namespace GUI.Panel
                 {
                     tableTasks.Rows[rowIndex].Cells["clImportance_tasks"].Value = Properties.Resources.ImportantSelected_24px;
                 }
+                if (task.CompletedDate == null)
+                {
+                    tableTasks.Rows[rowIndex].Cells["clDone_tasks"].Value = Properties.Resources.notDone_24;
+                }
+                else
+                {
+                    tableTasks.Rows[rowIndex].Cells["clDone_tasks"].Value = Properties.Resources.done_24;
+                }
             }
         }
 
         private void tableTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
+
             if (e.RowIndex >= 0 && e.ColumnIndex == tableTasks.Columns["clImportance_tasks"].Index)
             {
                 try
@@ -193,13 +206,47 @@ namespace GUI.Panel
                     {
                         listTasks[index].IsImportant = !previousState; 
 
-                        tableTasks.Refresh();
+                        //tableTasks.Refresh();
                         loadDataTable(listTasks);
                     }
                     else
                     {
                         selectedTask.IsImportant = previousState;
                         MessageBox.Show("Failed to update task.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (e.RowIndex >= 0 && e.ColumnIndex == tableTasks.Columns["clDone_tasks"].Index)
+            {
+                try
+                {
+                    var selectedTask = listTasks[e.RowIndex];
+                    var index = listTasks.FindIndex(t => t.TaskID == selectedTask.TaskID);
+
+                    DateTime? previousDate = selectedTask.CompletedDate;
+
+                    selectedTask.CompletedDate = previousDate == null ? DateTime.Now : (DateTime?)null;
+
+                    bool check = taskBUS.update(selectedTask);
+                    if (check)
+                    {
+                        
+                        listTasks[index].CompletedDate = selectedTask.CompletedDate;
+                        if (selectedTask.CompletedDate != null)
+                        {
+                            tableTasks.Rows.RemoveAt(e.RowIndex);
+                            listTasks.RemoveAt(index);
+                        }
+                        loadDataTable(listTasks);
+                    }
+                    else
+                    {
+                        selectedTask.CompletedDate = previousDate;
+                        MessageBox.Show("Failed to update task completion.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)

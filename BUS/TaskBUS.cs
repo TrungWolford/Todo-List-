@@ -40,6 +40,11 @@ namespace BUS
             return taskDAO.selecteAllTaskImportant(id);
         }
 
+        public List<TaskDTO> getAllTaskCompleted(int id)
+        {
+            return taskDAO.selecteAllTaskCompleted(id);
+        }
+
         public bool insert(TaskDTO taskDTO)
         {
             
@@ -82,14 +87,14 @@ namespace BUS
 
                     if (existingTask != null)
                     {
-                        taskDTO.Title = existingTask.Title;
-                        taskDTO.Description = existingTask.Description;
-                        taskDTO.DueDate = existingTask.DueDate;
-                        taskDTO.CreatedDate = existingTask.CreatedDate;
-                        taskDTO.IsImportant = existingTask.IsImportant;
-                        taskDTO.IsDeleted = existingTask.IsDeleted;
-                        taskDTO.CompletedDate = existingTask.CompletedDate;
-                                            }
+                        existingTask.Title = taskDTO.Title;
+                        existingTask.Description = taskDTO.Description;
+                        existingTask.DueDate = taskDTO.DueDate;
+                        existingTask.CreatedDate = taskDTO.CreatedDate;
+                        existingTask.IsImportant = taskDTO.IsImportant;
+                        existingTask.IsDeleted = taskDTO.IsDeleted;
+                        existingTask.CompletedDate = taskDTO.CompletedDate;
+                    }
                     else
                     {
                         return false;

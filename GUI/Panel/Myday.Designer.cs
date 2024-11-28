@@ -33,20 +33,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Myday));
             pnlContentMD_bottom = new System.Windows.Forms.Panel();
             tableMyday = new DataGridView();
-            clTitle_md = new DataGridViewTextBoxColumn();
-            clDuedate_md = new DataGridViewTextBoxColumn();
-            clImportance_md = new DataGridViewImageColumn();
-            clDone_md = new DataGridViewTextBoxColumn();
             pnlContentMD_center = new System.Windows.Forms.Panel();
             lblMd_importantSelected = new Label();
             btnMd_add = new Button();
             lblMd_important = new Label();
             lblMd_calendar = new Label();
             txtMydayTask = new TextBox();
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar();
             toolTip_mdCalendar = new ToolTip(components);
             toolTip_mdImportant = new ToolTip(components);
             toolTip_mdImportantSelected = new ToolTip(components);
+            clTitle_md = new DataGridViewTextBoxColumn();
+            clDuedate_md = new DataGridViewTextBoxColumn();
+            clImportance_md = new DataGridViewImageColumn();
+            clDone_md = new DataGridViewImageColumn();
             pnlContentMD_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
             pnlContentMD_center.SuspendLayout();
@@ -85,45 +85,6 @@
             tableMyday.Size = new Size(1040, 525);
             tableMyday.TabIndex = 0;
             tableMyday.CellContentClick += tableMyday_CellContentClick;
-            // 
-            // clTitle_md
-            // 
-            clTitle_md.FillWeight = 518.743652F;
-            clTitle_md.HeaderText = "Title";
-            clTitle_md.MinimumWidth = 6;
-            clTitle_md.Name = "clTitle_md";
-            clTitle_md.ReadOnly = true;
-            clTitle_md.Width = 640;
-            // 
-            // clDuedate_md
-            // 
-            clDuedate_md.FillWeight = 127.232323F;
-            clDuedate_md.HeaderText = "Due date";
-            clDuedate_md.MinimumWidth = 6;
-            clDuedate_md.Name = "clDuedate_md";
-            clDuedate_md.ReadOnly = true;
-            clDuedate_md.Width = 157;
-            // 
-            // clImportance_md
-            // 
-            clImportance_md.FillWeight = 96.04276F;
-            clImportance_md.HeaderText = "Importance";
-            clImportance_md.Image = Properties.Resources.Important_24px;
-            clImportance_md.MinimumWidth = 6;
-            clImportance_md.Name = "clImportance_md";
-            clImportance_md.ReadOnly = true;
-            clImportance_md.Resizable = DataGridViewTriState.True;
-            clImportance_md.SortMode = DataGridViewColumnSortMode.Automatic;
-            clImportance_md.Width = 118;
-            // 
-            // clDone_md
-            // 
-            clDone_md.FillWeight = 57.9811935F;
-            clDone_md.HeaderText = "Done";
-            clDone_md.MinimumWidth = 6;
-            clDone_md.Name = "clDone_md";
-            clDone_md.ReadOnly = true;
-            clDone_md.Width = 72;
             // 
             // pnlContentMD_center
             // 
@@ -206,6 +167,48 @@
             cpToolBar1.Size = new Size(1040, 108);
             cpToolBar1.TabIndex = 2;
             // 
+            // clTitle_md
+            // 
+            clTitle_md.FillWeight = 518.743652F;
+            clTitle_md.HeaderText = "Title";
+            clTitle_md.MinimumWidth = 6;
+            clTitle_md.Name = "clTitle_md";
+            clTitle_md.ReadOnly = true;
+            clTitle_md.Width = 640;
+            // 
+            // clDuedate_md
+            // 
+            clDuedate_md.FillWeight = 127.232323F;
+            clDuedate_md.HeaderText = "Due date";
+            clDuedate_md.MinimumWidth = 6;
+            clDuedate_md.Name = "clDuedate_md";
+            clDuedate_md.ReadOnly = true;
+            clDuedate_md.Width = 157;
+            // 
+            // clImportance_md
+            // 
+            clImportance_md.FillWeight = 96.04276F;
+            clImportance_md.HeaderText = "Importance";
+            clImportance_md.Image = Properties.Resources.Important_24px;
+            clImportance_md.MinimumWidth = 6;
+            clImportance_md.Name = "clImportance_md";
+            clImportance_md.ReadOnly = true;
+            clImportance_md.Resizable = DataGridViewTriState.True;
+            clImportance_md.SortMode = DataGridViewColumnSortMode.Automatic;
+            clImportance_md.Width = 118;
+            // 
+            // clDone_md
+            // 
+            clDone_md.FillWeight = 57.9811935F;
+            clDone_md.HeaderText = "Done";
+            clDone_md.Image = Properties.Resources.notDone_24;
+            clDone_md.MinimumWidth = 6;
+            clDone_md.Name = "clDone_md";
+            clDone_md.ReadOnly = true;
+            clDone_md.Resizable = DataGridViewTriState.True;
+            clDone_md.SortMode = DataGridViewColumnSortMode.Automatic;
+            clDone_md.Width = 72;
+            // 
             // Myday
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -242,6 +245,6 @@
         private DataGridViewTextBoxColumn clTitle_md;
         private DataGridViewTextBoxColumn clDuedate_md;
         private DataGridViewImageColumn clImportance_md;
-        private DataGridViewTextBoxColumn clDone_md;
+        private DataGridViewImageColumn clDone_md;
     }
 }

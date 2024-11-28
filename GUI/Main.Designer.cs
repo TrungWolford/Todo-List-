@@ -95,6 +95,7 @@
             lbl_titleInfoUser.Size = new Size(197, 46);
             lbl_titleInfoUser.TabIndex = 5;
             lbl_titleInfoUser.TextAlign = ContentAlignment.MiddleLeft;
+            lbl_titleInfoUser.Text = user.UserName;
             // 
             // Main
             // 

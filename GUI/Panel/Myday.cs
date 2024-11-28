@@ -154,6 +154,14 @@ namespace GUI.Panel
                 {
                     tableMyday.Rows[rowIndex].Cells["clImportance_md"].Value = Properties.Resources.ImportantSelected_24px;
                 }
+                if (task.CompletedDate == null)
+                {
+                    tableMyday.Rows[rowIndex].Cells["clDone_md"].Value = Properties.Resources.notDone_24;
+                }
+                else
+                {
+                    tableMyday.Rows[rowIndex].Cells["clDone_md"].Value = Properties.Resources.done_24;
+                }
             }
         }
 
@@ -189,6 +197,39 @@ namespace GUI.Panel
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else if (e.RowIndex >= 0 && e.ColumnIndex == tableMyday.Columns["clDone_md"].Index)
+            {
+                try
+                {
+                    var selectedTask = listTasks[e.RowIndex];
+                    var index = listTasks.FindIndex(t => t.TaskID == selectedTask.TaskID);
+
+                    DateTime? previousDate = selectedTask.CompletedDate;
+
+                    selectedTask.CompletedDate = previousDate == null ? DateTime.Now : (DateTime?)null;
+
+                    bool check = taskBUS.update(selectedTask);
+                    if (check)
+                    {
+                        listTasks[index].CompletedDate = selectedTask.CompletedDate;
+                        if (selectedTask.CompletedDate != null)
+                        {
+                            tableMyday.Rows.RemoveAt(e.RowIndex);
+                            listTasks.RemoveAt(index);
+                        }
+                        loadDataTable(listTasks);
+                    }
+                    else
+                    {
+                        selectedTask.CompletedDate = previousDate;
+                        MessageBox.Show("Failed to update task completion.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void Myday_Load(object sender, EventArgs e)
@@ -198,6 +239,7 @@ namespace GUI.Panel
                 tableMyday.Columns.Add("clTitle_md", "Title");
                 tableMyday.Columns.Add("clDuedate_md", "Due Date");
                 tableMyday.Columns.Add("clImportance_md", "Important");
+                tableMyday.Columns.Add("clDone_md", "Done");
             }
 
             loadDataTable(listTasks);

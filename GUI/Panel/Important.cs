@@ -116,6 +116,7 @@ namespace GUI.Panel
                 tableImportant.Columns.Add("clTitle_imp", "Title");
                 tableImportant.Columns.Add("clDuedate_imp", "Due Date");
                 tableImportant.Columns.Add("clImportance_imp", "Important");
+                tableImportant.Columns.Add("clDone_imp", "Done");
             }
 
             loadDataTable(listTasks);
@@ -144,6 +145,14 @@ namespace GUI.Panel
                 {
                     tableImportant.Rows[rowIndex].Cells["clImportance_imp"].Value = Properties.Resources.ImportantSelected_24px;
                 }
+                if (task.CompletedDate == null)
+                {
+                    tableImportant.Rows[rowIndex].Cells["clDone_imp"].Value = Properties.Resources.notDone_24;
+                }
+                else
+                {
+                    tableImportant.Rows[rowIndex].Cells["clDone_imp"].Value = Properties.Resources.done_24;
+                }
             }
         }
 
@@ -167,6 +176,11 @@ namespace GUI.Panel
                         if (!selectedTask.IsImportant)
                         {
                             tableImportant.Rows.RemoveAt(e.RowIndex);
+                            if (selectedTask.CompletedDate != null)
+                            {
+                                tableImportant.Rows.RemoveAt(e.RowIndex);
+                                listTasks.RemoveAt(index);
+                            }
                             listTasks.RemoveAt(index);
                         }
 
@@ -180,6 +194,34 @@ namespace GUI.Panel
                     }
                     tableImportant.Refresh();
                     loadDataTable(listTasks);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (e.RowIndex >= 0 && e.ColumnIndex == tableImportant.Columns["clDone_imp"].Index)
+            {
+                try
+                {
+                    var selectedTask = listTasks[e.RowIndex];
+                    var index = listTasks.FindIndex(t => t.TaskID == selectedTask.TaskID);
+
+                    DateTime? previousDate = selectedTask.CompletedDate;
+
+                    selectedTask.CompletedDate = previousDate == null ? DateTime.Now : (DateTime?)null;
+
+                    bool check = taskBUS.update(selectedTask);
+                    if (check)
+                    {
+                        listTasks[index].CompletedDate = selectedTask.CompletedDate;
+                        loadDataTable(listTasks);
+                    }
+                    else
+                    {
+                        selectedTask.CompletedDate = previousDate;
+                        MessageBox.Show("Failed to update task completion.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 catch (Exception ex)
                 {

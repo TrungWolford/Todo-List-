@@ -30,20 +30,20 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar = new Components.cpToolBar(this);
+            cpToolBar = new Components.cpToolBar();
             pnlContentImp_center = new System.Windows.Forms.Panel();
             btnImp_add = new Button();
             lblImp_calendar = new Label();
             txtImportantTask = new TextBox();
             pnlContentImp_bottom = new System.Windows.Forms.Panel();
             tableImportant = new DataGridView();
-            clTitle_imp = new DataGridViewTextBoxColumn();
-            clDuedate_imp = new DataGridViewTextBoxColumn();
-            clImportance_imp = new DataGridViewImageColumn();
-            clDone_imp = new DataGridViewTextBoxColumn();
             toolTip_impCalendar = new ToolTip(components);
             toolTip_impImportant = new ToolTip(components);
             toolTip_impImportantSelected = new ToolTip(components);
+            clTitle_imp = new DataGridViewTextBoxColumn();
+            clDuedate_imp = new DataGridViewTextBoxColumn();
+            clImportance_imp = new DataGridViewImageColumn();
+            clDone_imp = new DataGridViewImageColumn();
             pnlContentImp_center.SuspendLayout();
             pnlContentImp_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableImportant).BeginInit();
@@ -171,9 +171,12 @@
             // 
             clDone_imp.FillWeight = 57.9811935F;
             clDone_imp.HeaderText = "Done";
+            clDone_imp.Image = Properties.Resources.notDone_24;
             clDone_imp.MinimumWidth = 6;
             clDone_imp.Name = "clDone_imp";
             clDone_imp.ReadOnly = true;
+            clDone_imp.Resizable = DataGridViewTriState.True;
+            clDone_imp.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_imp.Width = 72;
             // 
             // Important
@@ -211,6 +214,6 @@
         private DataGridViewTextBoxColumn clTitle_imp;
         private DataGridViewTextBoxColumn clDuedate_imp;
         private DataGridViewImageColumn clImportance_imp;
-        private DataGridViewTextBoxColumn clDone_imp;
+        private DataGridViewImageColumn clDone_imp;
     }
 }
