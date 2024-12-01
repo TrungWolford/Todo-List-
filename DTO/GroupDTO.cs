@@ -10,12 +10,12 @@ namespace DTO
     {
         public int GroupID { get; set; }
         public string Title { get; set; }
-        public string CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
 
         public GroupDTO() { }
 
-        public GroupDTO(int groupID, string title, string createdBy, DateTime createdDate)
+        public GroupDTO(int groupID, string title, int createdBy, DateTime createdDate)
         {
             GroupID = groupID;
             Title = title;

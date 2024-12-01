@@ -24,7 +24,6 @@ namespace GUI
 
         public Main(UserDTO user)
         {
-            new TaskInfo().ShowDialog();
             this.user = user;
             InitializeComponent();
             menuTaskBar = new MenuTaskBar(this, user);

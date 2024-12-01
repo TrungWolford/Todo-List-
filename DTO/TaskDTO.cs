@@ -18,9 +18,11 @@ namespace DTO
         public DateTime? CompletedDate { get; set; }
         public int CreatedBy { get; set; }
 
+        public int? GroupID {  get; set; }
+
         public TaskDTO() { }
 
-        public TaskDTO(int taskID, string title, string description, DateTime dueDate, DateTime createdDate, bool isImportant, bool isDeleted, DateTime completedDate, int createdBy)
+        public TaskDTO(int taskID, string title, string description, DateTime dueDate, DateTime createdDate, bool isImportant, bool isDeleted, DateTime completedDate, int createdBy, int groupID)
         {
             TaskID = taskID;
             Title = title;
@@ -31,12 +33,13 @@ namespace DTO
             CompletedDate = completedDate;
             IsDeleted = isDeleted;
             CreatedBy = createdBy;
+            GroupID = groupID;
         }
 
         public override string ToString()
         {
             return $"TaskDTO [TaskID={TaskID}, Title={Title}, Description={Description}, DueDate={DueDate}, CreatedDate={CreatedDate}, " +
-                   $"IsImportant={IsImportant}, IsDeleted={IsDeleted}, CompletedDate={CompletedDate}, CreatedBy={CreatedBy}]";
+                   $"IsImportant={IsImportant}, IsDeleted={IsDeleted}, CompletedDate={CompletedDate}, CreatedBy={CreatedBy}], GroupID={GroupID}";
         }
 
         public override bool Equals(object obj)
@@ -55,7 +58,8 @@ namespace DTO
                    IsImportant == other.IsImportant &&
                    IsDeleted == other.IsDeleted &&
                    CompletedDate == other.CompletedDate &&
-                   CreatedBy == other.CreatedBy;
+                   CreatedBy == other.CreatedBy &&
+                   GroupID == other.GroupID;
         }
 
         public override int GetHashCode()
@@ -70,6 +74,7 @@ namespace DTO
             hash = hash * 31 + IsDeleted.GetHashCode();
             hash = hash * 31 + CompletedDate.GetHashCode();
             hash = hash * 31 + (CreatedBy != null ? CreatedBy.GetHashCode() : 0);
+            hash = hash * 31 + GroupID.GetHashCode();
             return hash;
         }
 

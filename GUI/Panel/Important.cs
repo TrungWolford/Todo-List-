@@ -176,24 +176,17 @@ namespace GUI.Panel
                         if (!selectedTask.IsImportant)
                         {
                             tableImportant.Rows.RemoveAt(e.RowIndex);
-                            if (selectedTask.CompletedDate != null)
-                            {
-                                tableImportant.Rows.RemoveAt(e.RowIndex);
-                                listTasks.RemoveAt(index);
-                            }
                             listTasks.RemoveAt(index);
                         }
+                        loadDataTable(listTasks);
 
-                        //tableImportant.Refresh();
-                        //loadDataTable(listTasks);
                     }
                     else
                     {
                         selectedTask.IsImportant = previousState;
                         MessageBox.Show("Failed to update task.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    tableImportant.Refresh();
-                    loadDataTable(listTasks);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -215,6 +208,11 @@ namespace GUI.Panel
                     if (check)
                     {
                         listTasks[index].CompletedDate = selectedTask.CompletedDate;
+                        if (selectedTask.CompletedDate != null)
+                        {
+                            tableImportant.Rows.RemoveAt(e.RowIndex);
+                            listTasks.RemoveAt(index);
+                        }
                         loadDataTable(listTasks);
                     }
                     else
