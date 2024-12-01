@@ -154,19 +154,27 @@
   <data name="star" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\star.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="list_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\list_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ImportantSelected_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\ImportantSelected_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="downloads" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\downloads.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="importantSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\importantSelected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\calendar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="done_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icon\done_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <data name="list_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\list_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   <data name="bin1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\bin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="notDone_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\notDone_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

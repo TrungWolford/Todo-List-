@@ -21,12 +21,12 @@ namespace DAO
         private GroupDAO() { }
         public int Insert(GroupDTO group)
         {
-            string query = "INSERT INTO Group (Title, CreatedBy, CreatedDate) VALUES (@title, @createdBy, @createdDate); SELECT SCOPE_IDENTITY();";
+            string query = "INSERT INTO [Group] (Title, CreatedBy, CreatedDate) VALUES (@title, @createdBy, @createdDate); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = group.Title },
-                new SqlParameter("@description", SqlDbType.Int) { Value = group.CreatedBy },
-                new SqlParameter("@dueDate", SqlDbType.DateTime) { Value = group.CreatedDate }
+                new SqlParameter("@createdBy", SqlDbType.Int) { Value = group.CreatedBy },
+                new SqlParameter("@createdDate", SqlDbType.DateTime) { Value = group.CreatedDate }
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
@@ -36,11 +36,11 @@ namespace DAO
                 group.GroupID = newId;
                 return newId;
             }
-            return -1;
+            return 0;
         }
         public int Update(GroupDTO group) 
         {
-            string query = "UPDATE Group SET Title = @title, CreatedBy = @createdBy, CreatedDate = @createdDate WHERE GroupID = @groupID";
+            string query = "UPDATE [Group] SET Title = @title, CreatedBy = @createdBy, CreatedDate = @createdDate WHERE GroupID = @groupID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = group.Title },
@@ -57,7 +57,7 @@ namespace DAO
         }
         public int Delete(GroupDTO group) 
         {
-            string query = "DELETE FROM Group WHERE GroupID = @groupID";
+            string query = "DELETE FROM [Group] WHERE GroupID = @groupID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@groupID", SqlDbType.Int) { Value = group.GroupID }
@@ -70,12 +70,62 @@ namespace DAO
             return -1; // Không có cập nhật được thực hiện
         }
 
+
         public List<GroupDTO> GetAll()
         {
-            throw new NotImplementedException();
+            List<GroupDTO> groups = new List<GroupDTO>();
+            string query = "SELECT * FROM [Group]";
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, null)) // 'using' với reader nhưng không đóng kết nối
+            {
+                while (reader.Read())
+                {
+                    GroupDTO group = new GroupDTO
+                    {
+                        GroupID = reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"))                     
+                    };
+                    groups.Add(group);
+                }
+            }
+
+            return groups;
         }
 
-        public GroupDTO selectedByID(int t)
+        public List<GroupDTO> selectedByID(int userID)
+        {
+            List<GroupDTO> groupsByID = new List<GroupDTO>();
+            string query = @"
+                    SELECT *
+                    FROM [Group] g
+                    LEFT JOIN GroupMembership gms ON g.GroupID = gms.GroupID
+                    WHERE g.CreatedBy = @UserID OR gms.UserID = @UserID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@UserID", userID)
+            };
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    GroupDTO group = new GroupDTO
+                    {
+                        GroupID = reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"))
+                    };
+                    groupsByID.Add(group);
+                }
+            }
+
+            return groupsByID;
+        }
+
+        GroupDTO InterfaceDAO<GroupDTO>.selectedByID(int t)
         {
             throw new NotImplementedException();
         }

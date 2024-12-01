@@ -40,13 +40,13 @@
             txtTasksTask = new TextBox();
             pnlContentTasks_bottom = new System.Windows.Forms.Panel();
             tableTasks = new DataGridView();
-            toolTip_tasksCalendar = new ToolTip(components);
-            toolTip_tasksImportant = new ToolTip(components);
-            toolTip_tasksImportantSelected = new ToolTip(components);
             clTitle_tasks = new DataGridViewTextBoxColumn();
             clDuedate_tasks = new DataGridViewTextBoxColumn();
             clImportance_tasks = new DataGridViewImageColumn();
             clDone_tasks = new DataGridViewImageColumn();
+            toolTip_tasksCalendar = new ToolTip(components);
+            toolTip_tasksImportant = new ToolTip(components);
+            toolTip_tasksImportantSelected = new ToolTip(components);
             pnlContentTasks_center.SuspendLayout();
             pnlContentTasks_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableTasks).BeginInit();
@@ -191,7 +191,7 @@
             // 
             clImportance_tasks.FillWeight = 96.04276F;
             clImportance_tasks.HeaderText = "Importance";
-            clImportance_tasks.Image = Properties.Resources.Important_24px;
+            clImportance_tasks.Image = Properties.Resources.sort2;
             clImportance_tasks.MinimumWidth = 6;
             clImportance_tasks.Name = "clImportance_tasks";
             clImportance_tasks.ReadOnly = true;
@@ -216,7 +216,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1161, 806);
+            ClientSize = new Size(1179, 853);
             Controls.Add(pnlContentTasks_bottom);
             Controls.Add(pnlContentTasks_center);
             Controls.Add(cpToolBar1);

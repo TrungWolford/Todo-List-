@@ -23,7 +23,7 @@ namespace DAO
         public int Insert(TaskDTO task)
         {
             // sua TaskID
-            string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy); SELECT SCOPE_IDENTITY();";
+            string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy, GroupID) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy, @groupID); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
 
@@ -34,7 +34,8 @@ namespace DAO
                 new SqlParameter("@isImportant", SqlDbType.Bit) { Value = task.IsImportant },
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
                 new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
-                new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy }
+                new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy },
+                new SqlParameter("@groupID", SqlDbType.DateTime) { Value = task.GroupID ?? (object)DBNull.Value}
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
@@ -135,7 +136,8 @@ namespace DAO
                         IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
-                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
                     };
                     listTask.Add(task);
                 }
@@ -167,7 +169,8 @@ namespace DAO
                         IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
-                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
                     };
                     listTaskByID.Add(task);
                 }
@@ -201,7 +204,8 @@ namespace DAO
                         IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
-                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
                     };
                     listTaskCurrentDate.Add(task);
                 }
@@ -232,7 +236,8 @@ namespace DAO
                         IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
-                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
                     };
                     listTaskImportant.Add(task);
                 }
@@ -245,6 +250,64 @@ namespace DAO
 
         {
             throw new NotImplementedException();
+        }
+
+        public List<TaskDTO> GetTitlesByTaskID(int taskID)
+        {
+            string query = "SELECT Title FROM Task WHERE TaskID=@taskID";
+
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", taskID)
+            };
+
+            List<TaskDTO> listTask = new List<TaskDTO>();
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        Title = reader.GetString(reader.GetOrdinal("Title"))
+                    };
+                    listTask.Add(task);
+                }
+            }
+
+            return listTask;
+        }
+
+        public List<TaskDTO> selecteAllTaskCompleted(int userID)
+        {
+            List<TaskDTO> listTaskImportant = new List<TaskDTO>();
+            string query = "SELECT * FROM Task WHERE CreatedBy = @UserID AND CompletedDate IS NOT NULL";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@UserID", userID)
+            };
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                    };
+                    listTaskImportant.Add(task);
+                }
+            }
+
+            return listTaskImportant;
         }
     }
 }
