@@ -64,8 +64,9 @@ namespace GUI
                         UserDTO user = UserDAO.Instance.selectedByName(userDTO.UserName);
                         
                         Main main = new Main(user);
-                        main.Show();
                         this.Hide();
+                        main.ShowDialog();
+                        this.Show();
                     } else
                     {
                         MessageBox.Show("Username or password is wrong!", "Error",
@@ -82,8 +83,8 @@ namespace GUI
         private void lbl_toRegisterFrame_Click(object sender, EventArgs e)
         {
             Register regisForm = new Register();
-            regisForm.Show();
             this.Hide();
+            regisForm.Show();
         }
 
         private void checkbox_showpwd_CheckedChanged(object sender, EventArgs e)

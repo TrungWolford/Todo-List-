@@ -145,13 +145,13 @@ namespace GUI.Panel
                 tableTasks.Columns.Add("clImportance_tasks", "Important");
                 tableTasks.Columns.Add("clDone_tasks", "Done");
             }
-
             loadDataTable(listTasks);
         }
         private void loadDataTable(List<TaskDTO> tasks)
         {
             if (tasks == null || tasks.Count == 0)
             {
+                tableTasks.Rows.Clear();
                 return;
             }
 
@@ -266,11 +266,16 @@ namespace GUI.Panel
                 var selectedTask = listTasks[e.RowIndex];
                 int taskid = selectedTask.TaskID;
 
-                TaskInfo taskInfoForm = new TaskInfo(taskid);
+                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
+                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
                 taskInfoForm.ShowDialog();
-
-               
             }
+        }
+
+        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
+        {
+            listTasks = taskBUS.getAllByUserID(user.UserID);
+            loadDataTable(listTasks);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace GUI.Panel
             InitializeComponent();
 
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.getAllTaskCompleted(user.UserID);
+            //listTasks = taskBUS.getAllTaskCompleted(user.UserID);
             isImportant = false;
         }
 
