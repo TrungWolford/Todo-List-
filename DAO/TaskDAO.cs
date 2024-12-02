@@ -35,7 +35,7 @@ namespace DAO
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
                 new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy },
-                new SqlParameter("@groupID", SqlDbType.DateTime) { Value = task.GroupID ?? (object)DBNull.Value}
+                new SqlParameter("@groupID", SqlDbType.Int) { Value = task.GroupID ?? (object)DBNull.Value}
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
