@@ -20,6 +20,7 @@ namespace GUI
         private MenuTaskBar menuTaskBar;
         private Myday myday;
         private UserDTO user;
+
         
 
         public Main(UserDTO user)
@@ -39,7 +40,10 @@ namespace GUI
             myday.Show();
 
             this.StartPosition = FormStartPosition.CenterScreen;
+            string username = user.UserName.ToString();
         }
+
+        
 
         private void pnlMainContent_Paint(object sender, PaintEventArgs e)
         {

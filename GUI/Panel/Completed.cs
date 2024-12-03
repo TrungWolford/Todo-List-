@@ -70,7 +70,7 @@ namespace GUI.Panel
                 }
                 else
                 {
-                    tableCompleted.Rows[rowIndex].Cells["clDone_cmp"].Value = Properties.Resources.done_24;
+                    //tableCompleted.Rows[rowIndex].Cells["clDone_cmp"].Value = Properties.Resources.done_24;
                 }
             }
         }

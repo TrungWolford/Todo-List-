@@ -239,5 +239,14 @@ namespace GUI.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        internal static System.Drawing.Bitmap done_24
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("done_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

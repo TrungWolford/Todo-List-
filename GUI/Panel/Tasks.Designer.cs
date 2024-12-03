@@ -55,10 +55,11 @@
             // cpToolBar1
             // 
             cpToolBar1.BackColor = Color.Transparent;
-            cpToolBar1.Location = new Point(71, 31);
+            cpToolBar1.Location = new Point(71, 27);
             cpToolBar1.Name = "cpToolBar1";
             cpToolBar1.Size = new Size(1040, 108);
             cpToolBar1.TabIndex = 0;
+            cpToolBar1.Load += cpToolBar1_Load;
             // 
             // pnlContentTasks_center
             // 

@@ -1,6 +1,7 @@
 ﻿using BUS;
 using DAO;
 using DTO;
+using GUI.Components;
 using Helper;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace GUI.Panel
         //private DateTime? completedDate;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
-
+        public sortBUS sortBUS = new sortBUS();
+        
 
         public Tasks(UserDTO user)
         {
@@ -137,7 +139,6 @@ namespace GUI.Panel
 
         private void Tasks_Load(object sender, EventArgs e)
         {
-
             if (tableTasks.Columns.Count == 0)
             {
                 tableTasks.Columns.Add("clTitle_tasks", "Title");
@@ -145,10 +146,51 @@ namespace GUI.Panel
                 tableTasks.Columns.Add("clImportance_tasks", "Important");
                 tableTasks.Columns.Add("clDone_tasks", "Done");
             }
-            loadDataTable(listTasks);
+
+            loadDataTable2("", sortBUS.getAllTask(user.UserID));
+
         }
-        private void loadDataTable(List<TaskDTO> tasks)
+
+        // Hiển thị dữ liệu theo tiêu chi sắp xếp
+        public void loadDataTable2(string selectedValue, List<TaskDTO> tasks)
         {
+            // Sắp xếp các task theo các tiêu chí khác nhau
+            var sortedTaskImportance = tasks.OrderByDescending(t => t.IsImportant).ToList();
+            var sortedTaskDueDate = tasks.OrderBy(t => t.DueDate).ToList();
+            var sortedTaskAlpha = tasks.OrderBy(t => t.Title).ToList();
+            var sortedTaskByCreateDate = tasks.OrderBy(t => t.CreatedDate).ToList();
+
+            List<TaskDTO> sortedTasks = new List<TaskDTO>();
+
+            if (selectedValue == "Importance")
+            {
+                sortedTasks = sortedTaskImportance;
+            }
+            else if (selectedValue == "Due date")
+            {
+                sortedTasks = sortedTaskDueDate;
+            }
+            else if (selectedValue == "Alphabetically")
+            {
+                sortedTasks = sortedTaskAlpha;
+            }
+            else if (selectedValue == "Creation Date")
+            {
+                sortedTasks = sortedTaskByCreateDate;
+            }
+            else
+            {
+                sortedTasks = tasks;
+            }
+
+            loadDataTable(sortedTasks);
+        }
+
+        public void loadDataTable(List<TaskDTO> tasks)
+        {
+            tableTasks.SuspendLayout(); // Tạm dừng cập nhật giao diện
+            tableTasks.Rows.Clear();   // Xóa tất cả các hàng cũ
+
             if (tasks == null || tasks.Count == 0)
             {
                 tableTasks.Rows.Clear();
@@ -184,7 +226,7 @@ namespace GUI.Panel
 
         private void tableTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
 
             if (e.RowIndex >= 0 && e.ColumnIndex == tableTasks.Columns["clImportance_tasks"].Index)
             {
@@ -234,7 +276,7 @@ namespace GUI.Panel
                     bool check = taskBUS.update(selectedTask);
                     if (check)
                     {
-                        
+
                         listTasks[index].CompletedDate = selectedTask.CompletedDate;
                         if (selectedTask.CompletedDate != null)
                         {
@@ -277,5 +319,17 @@ namespace GUI.Panel
             listTasks = taskBUS.getAllByUserID(user.UserID);
             loadDataTable(listTasks);
         }
+
+        private void CpTooBar1_OnSortByChanged(string sortBy)
+        {
+            loadDataTable2(sortBy, listTasks);
+        }
+
+        private void cpToolBar1_Load(object sender, EventArgs e)
+        {
+            // Đăng ký sự kiện OnSortByChanged
+            cpToolBar1.OnSortByChanged += CpTooBar1_OnSortByChanged;
+        }
+
     }
 }
