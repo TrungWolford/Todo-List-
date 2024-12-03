@@ -20,9 +20,16 @@ namespace BUS
             listTasks = taskDAO.GetAll();
         }
 
+        
+
         public List<TaskDTO> GetAll()
         {
             return taskDAO.GetAll();
+        }
+
+        public List<TaskDTO> getAllTaskCompleted(int id)
+        {
+            return taskDAO.selecteAllTaskCompleted(id);
         }
 
         public List<TaskDTO> getAllByUserID(int id)

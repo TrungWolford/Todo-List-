@@ -55,12 +55,8 @@
             // cpToolBar1
             // 
             cpToolBar1.BackColor = Color.Transparent;
-<<<<<<< HEAD
-            cpToolBar1.Location = new Point(71, 27);
-=======
             cpToolBar1.Location = new Point(62, 23);
             cpToolBar1.Margin = new Padding(3, 2, 3, 2);
->>>>>>> 4e68388b4360f29b170aa22c567b5dd728965b6b
             cpToolBar1.Name = "cpToolBar1";
             cpToolBar1.Size = new Size(910, 81);
             cpToolBar1.TabIndex = 0;
