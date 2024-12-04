@@ -154,11 +154,16 @@ namespace GUI.Panel
         // Hiển thị dữ liệu theo tiêu chi sắp xếp
         public void loadDataTable2(string selectedValue, List<TaskDTO> tasks)
         {
+            int currentUserID = user.UserID;
+            var userTasks = tasks.Where(t => t.CreatedBy == currentUserID).ToList();
+
+
+
             // Sắp xếp các task theo các tiêu chí khác nhau
-            var sortedTaskImportance = tasks.OrderByDescending(t => t.IsImportant).ToList();
-            var sortedTaskDueDate = tasks.OrderBy(t => t.DueDate).ToList();
-            var sortedTaskAlpha = tasks.OrderBy(t => t.Title).ToList();
-            var sortedTaskByCreateDate = tasks.OrderBy(t => t.CreatedDate).ToList();
+            var sortedTaskImportance = userTasks.OrderByDescending(t => t.IsImportant).ToList();
+            var sortedTaskDueDate = userTasks.OrderBy(t => t.DueDate).ToList();
+            var sortedTaskAlpha = userTasks.OrderBy(t => t.Title).ToList();
+            var sortedTaskByCreateDate = userTasks.OrderBy(t => t.CreatedDate).ToList();
 
             List<TaskDTO> sortedTasks = new List<TaskDTO>();
 
