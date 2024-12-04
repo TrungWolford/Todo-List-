@@ -154,6 +154,7 @@ namespace GUI.Panel
         // Hiển thị dữ liệu theo tiêu chi sắp xếp
         public void loadDataTable2(string selectedValue, List<TaskDTO> tasks)
         {
+            tasks = listTasks;
             int currentUserID = user.UserID;
             var userTasks = tasks.Where(t => t.CreatedBy == currentUserID).ToList();
 
