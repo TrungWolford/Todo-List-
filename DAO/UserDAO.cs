@@ -100,6 +100,34 @@ namespace DAO
             return result;
         }
 
+        public List<UserDTO> selectByUsername(string username)
+        {
+            List<UserDTO> listUser = new List<UserDTO>();
+            string query = "SELECT * FROM [User] WHERE Username=@username";
+
+            List<SqlParameter> parameters = new List<SqlParameter>() 
+            { 
+                new SqlParameter("@username", username)
+            };
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    UserDTO userDTO = new UserDTO
+                    {
+                        UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                        UserName = reader.GetString(reader.GetOrdinal("Username")),
+                        Password = reader.GetString(reader.GetOrdinal("Password_hash")),
+                        Email = reader.GetString(reader.GetOrdinal("Email")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"))
+                    };
+                    listUser.Add(userDTO);
+                }
+            }
+            return listUser;
+        }
+
         public List<UserDTO> GetAll()
         {
             List<UserDTO> users = new List<UserDTO>();

@@ -151,7 +151,7 @@ namespace GUI.Panel
                 }
                 else
                 {
-                    tableImportant.Rows[rowIndex].Cells["clDone_imp"].Value = Properties.Resources.done_24;
+                    //tableImportant.Rows[rowIndex].Cells["clDone_imp"].Value = Properties.Resources.done_24;
                 }
             }
         }

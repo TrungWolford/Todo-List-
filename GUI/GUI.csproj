@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="icon\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BUS\BUS.csproj" />
     <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\Helper\Helper.csproj" />

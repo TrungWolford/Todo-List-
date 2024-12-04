@@ -5,40 +5,65 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO;
 using DAO;
+using System.Drawing;
 
 namespace BUS
 {
     public class TaskInfoBUS
     {
         public List<TaskDTO> listTask;
-        private static readonly TaskDAO taskDAO = TaskDAO.Instance;
+        private TaskDAO taskDAO = TaskDAO.Instance;
+        private AttachmentDAO attachmentDAO = AttachmentDAO.Instance;
 
-        public TaskDTO getTitle(int taskID)
+        private readonly DockerVolumeDAO dockerDAO;
+
+        private string containerName = "sql_server_container";
+        private string downloadFolder = @"C:\Downloads";
+        private string dockerPath = @"/var/opt/mssql/data/TaskAttachments/";
+
+        public TaskInfoBUS()
         {
-            try
-            {
-                
-                listTask = taskDAO.GetTitlesByTaskID(taskID);
-
-                if (listTask.Count > 0)
-                {
-                    Console.WriteLine(listTask[0].ToString());  // Sửa index từ 1 thành 0 vì index bắt đầu từ 0
-                    return listTask[0];  // Trả về task đầu tiên
-                }
-                else
-                {
-                    // Nếu không có dữ liệu
-                    Console.WriteLine("No task found with the given TaskID.");
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return null;
-            }
+            dockerDAO = new DockerVolumeDAO(containerName, dockerPath, downloadFolder);
         }
 
+        // Upload file vào Docker container
+        public string UploadFile(string localFilePath, int taskID)
+        {
+            string taskIDPath = $"Task_{taskID}";
+            // Thực hiện upload file và lưu lại đường dẫn file trong docker
+            string filePath = dockerDAO.UploadFileToDocker(localFilePath, taskIDPath);
 
+            return filePath;
+        }
+
+        // Download file từ Docker container về thư mục Downloads
+        public void DownloadFile(string filePath)
+        {
+            dockerDAO.DownloadFileFromDocker(filePath);
+        }
+
+        public void DeleteFile(string filePath)
+        {
+            dockerDAO.DeleteFileFromDocker(filePath);
+        }
+        
+        public void DeleteTaskFiles(int taskID)
+        {
+            dockerDAO.DeleteTaskFolderFromDocker(taskID);
+            attachmentDAO.DeleteTaskAttachments(taskID);
+        }
+
+        public TaskDTO SelectByTaskID(int taskID)
+        {
+            return taskDAO.SelectByTaskID(taskID);
+        }
+        public void UpdateTaskInfo(TaskDTO task)
+        {
+            taskDAO.Update(task);
+        }
+        public void DeleteTask(TaskDTO task)
+        {
+            taskDAO.Delete(task);
+        }
     }
 }

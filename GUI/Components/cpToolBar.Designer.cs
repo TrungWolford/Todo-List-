@@ -59,6 +59,7 @@
             cb_Sortby.Name = "cb_Sortby";
             cb_Sortby.Size = new Size(139, 36);
             cb_Sortby.TabIndex = 7;
+            cb_Sortby.SelectedIndexChanged += cb_Sortby_SelectedIndexChanged;
             // 
             // lblTop_arrange
             // 
@@ -72,7 +73,6 @@
             lblTop_arrange.TabIndex = 3;
             lblTop_arrange.Text = "Sort by";
             lblTop_arrange.TextAlign = ContentAlignment.MiddleRight;
-            lblTop_arrange.Click += lblTop_arrange_Click;
             // 
             // lblTop_currentTime
             // 

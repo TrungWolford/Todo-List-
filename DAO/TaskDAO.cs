@@ -84,6 +84,39 @@ namespace DAO
             return -1;
         }
 
+        public TaskDTO SelectByTaskID(int taskID)
+        {
+            string query = "SELECT * FROM [Task] WHERE TaskID = @taskID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", taskID)
+            };
+
+            // Tạo một đối tượng TaskDTO để lưu thông tin
+            TaskDTO task = null;
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                if (reader.Read())
+                {
+                    // Đọc dữ liệu từ hàng kết quả và gán vào TaskDTO
+                    task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                    };
+                }
+            }
+            return task;
+        }
+
         public List<TaskDTO> GetAll()
         {
             List<TaskDTO> listTask = new List<TaskDTO>();

@@ -15,10 +15,12 @@ using DAO;
 
 namespace GUI
 {
+
     public partial class Login : Form
     {
         public UserLoginBUS userLoginBUS = new UserLoginBUS();
         public UserDTO userDTO = new UserDTO();
+
 
         public Login()
         {
@@ -55,6 +57,9 @@ namespace GUI
                     userDTO.UserName = txt_username.Text.Trim();
                     userDTO.Password = PasswordHasher.HashPassword(txt_password.Text.Trim());
 
+                    UserSession.UserName = txt_username.Text.Trim();
+                    
+
                     bool test = userLoginBUS.checklogin(userDTO.UserName, userDTO.Password);
                     if (test)
                     {
@@ -64,6 +69,7 @@ namespace GUI
                         UserDTO user = UserDAO.Instance.selectedByName(userDTO.UserName);
                         
                         Main main = new Main(user);
+                        
                         main.Show();
                         this.Hide();
                     } else
@@ -82,8 +88,8 @@ namespace GUI
         private void lbl_toRegisterFrame_Click(object sender, EventArgs e)
         {
             Register regisForm = new Register();
-            regisForm.Show();
             this.Hide();
+            regisForm.Show();
         }
 
         private void checkbox_showpwd_CheckedChanged(object sender, EventArgs e)

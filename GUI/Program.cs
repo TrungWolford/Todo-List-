@@ -1,3 +1,6 @@
+using GUI.Components;
+using GUI.Panel;
+
 namespace GUI
 {
     internal static class Program

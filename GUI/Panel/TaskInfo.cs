@@ -10,28 +10,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BUS;
 using DTO;
+using DAO;
+using System.Globalization;
 
 namespace GUI.Panel
 {
     public partial class TaskInfo : Form
     {
-
+        public event EventHandler OnTaskInfoUpdate;
         private MonthCalendar calendar;
+        private List<string> filesToUpload;
+        private List<string> taskFiles;
 
-        private List<string> filesToUpload = new List<string>();
-        
-        TaskInfoBUS TaskInfoBUS = new TaskInfoBUS();
+        TaskInfoBUS taskInfoBus;
+        AttachmentBUS attachmentBUS;
         TaskDTO taskDTO;
-
+        UserDTO sessionUser;
         int TaskID;
-        public TaskInfo(int TaskID)
+        public TaskInfo(int TaskID, UserDTO user)
         {
             InitializeComponent();
+            sessionUser = user;
             StartPosition = FormStartPosition.CenterScreen;
             this.TaskID = TaskID;
             Console.WriteLine(TaskID);
-            taskDTO = TaskInfoBUS.getTitle(TaskID);
-            txt_detailTitle.Text = taskDTO.Title;
+
+            taskInfoBus = new TaskInfoBUS();
+            attachmentBUS = new AttachmentBUS();
+
+            // File của task 
+            filesToUpload = new List<string>();
+            taskFiles = attachmentBUS.GetTaskFiles(TaskID);
+            // Nếu Task đã có file từ trước thì load
+            if (taskFiles.Count > 0)
+            {
+                LoadAttachmentFiles();
+            }
+
             calendar = new MonthCalendar
             {
                 Visible = false,
@@ -39,6 +54,36 @@ namespace GUI.Panel
             };
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
+
+            // Tải thông tin của task
+            LoadTaskInfoData();
+        }
+
+        private void LoadTaskInfoData()
+        {
+            taskDTO = taskInfoBus.SelectByTaskID(TaskID);
+            txt_detailTitle.Text = taskDTO.Title;
+            txt_detailDescription.Text = taskDTO.Description;
+            lbl_detailDueDate.Text = taskDTO.DueDate.ToString("dd/MM/yyyy");
+            lbl_createdDate.Text = taskDTO.CreatedDate.ToString();
+            if (taskDTO.CompletedDate != null)
+            {
+                lbl_doneIcon.Image = Properties.Resources.done_24;
+            }
+            if (taskDTO.IsImportant)
+            {
+                lbl_iconImportant.Image = Properties.Resources.ImportantSelected_24px;
+            }
+        }
+        private void LoadAttachmentFiles()
+        {
+            foreach (string filePath in taskFiles)
+            {
+                AttachItem item = new AttachItem(Path.GetFileName(filePath), filePath);
+                item.OnRemoveFile += Item_OnRemoveFile;
+                item.OnDownloadFile += Item_OnDownloadFile;
+                AddAttachmentItemToDisplay(item);
+            }
         }
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
         {
@@ -52,8 +97,6 @@ namespace GUI.Panel
             calendar.BringToFront();
             calendar.Visible = true;
         }
-
-
 
         private void pnl_detailAddFile_Title_Click(object sender, EventArgs e)
         {
@@ -86,14 +129,128 @@ namespace GUI.Panel
             if (sender is AttachItem item)
             {
                 pnl_FileItems.Controls.Remove(item);
-                filesToUpload.Remove(item.FileFullPath);
+                if (!filesToUpload.Remove(item.FileFullPath))
+                {
+                    taskInfoBus.DeleteFile(item.FileFullPath);
+                    attachmentBUS.DeleteFromAttachment(item.FileFullPath, TaskID, sessionUser.UserID);
+                };
+                MessageBox.Show("Xóa thành công!");
                 item.Dispose();
             }
         }
 
+        private void Item_OnDownloadFile(object sender, EventArgs e)
+        {
+            if (sender is AttachItem item)
+            {
+                if (taskFiles.Contains(item.FileFullPath))
+                {
+                    taskInfoBus.DownloadFile(item.FileFullPath);
+                    MessageBox.Show("Đã lưu file vào thư mục C:/Downloads");
+                }
+                else
+                {
+                    MessageBox.Show("Chỉ có thể tải những file đã upload");
+                }
+            }
+        }
 
+        private void btn_detailSave_Click(object sender, EventArgs e)
+        {
+            string newTitle = txt_detailTitle.Text.Trim();
+            string newDueDate = lbl_detailDueDate.Text.Trim();
+            string newDescription = txt_detailDescription.Text;
 
+            taskDTO.Title = newTitle;
+            taskDTO.DueDate = DateTime.ParseExact(newDueDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            taskDTO.Description = newDescription;
 
+            List<string> savedFileUrls = new List<string>();
+
+            foreach (string localFilePath in filesToUpload)
+            {
+                string fileUrl = taskInfoBus.UploadFile(localFilePath, TaskID); // Gọi BUS để lưu file
+                savedFileUrls.Add(fileUrl); // Lưu URL của file được lưu
+            }
+
+            // Cập nhật URL file vào cơ sở dữ liệu
+            foreach (string fileUrl in savedFileUrls)
+            {
+                attachmentBUS.AddToAttachment(fileUrl, TaskID, sessionUser.UserID); // Lưu URL vào DB
+            }
+            // Cập nhật thông tin của task vào database
+            taskInfoBus.UpdateTaskInfo(taskDTO);
+
+            // Gửi sự kiện đến form main để load lại dataTable
+            OnTaskInfoUpdate?.Invoke(this, EventArgs.Empty);
+
+            MessageBox.Show("Lưu thành công");
+            this.Close();
+        }
+
+        private void btn_detailDelete_Click(object sender, EventArgs e)
+        {
+            // Xoa cac tep attachment
+            taskInfoBus.DeleteTaskFiles(taskDTO.TaskID);
+
+            // xoa task
+            taskInfoBus.DeleteTask(taskDTO);
+
+            // Gửi sự kiện đến form main để load lại dataTable
+            OnTaskInfoUpdate?.Invoke(this, EventArgs.Empty);
+
+            MessageBox.Show("Xóa thành công");
+            this.Close();
+        }
+        private void pnl_detailAddFile_MouseEnter(object sender, EventArgs e)
+        {
+            pnl_detailAddFile_Title.BackColor = Color.FromArgb(246, 246, 246);
+        }
+
+        private void pnl_detailAddFile_MouseLeave(object sender, EventArgs e)
+        {
+            pnl_detailAddFile_Title.BackColor = Color.White;
+        }
+        private void pnl_detailDuedate_MouseEnter(object sender, EventArgs e)
+        {
+            pnl_detailDuedate.BackColor = Color.FromArgb(246, 246, 246);
+        }
+
+        private void pnl_detailDuedate_MouseLeave(object sender, EventArgs e)
+        {
+            pnl_detailDuedate.BackColor = Color.White;
+        }
+        private void lbl_doneIcon_Click(object sender, EventArgs e)
+        {
+            if (taskDTO.CompletedDate == null)
+            {
+                taskDTO.CompletedDate = DateTime.Now;
+                lbl_doneIcon.Image = Properties.Resources.done_24;
+                MessageBox.Show("Đã đánh dấu hoàn thành!");
+            }
+            else
+            {
+                taskDTO.CompletedDate = null;
+                lbl_doneIcon.Image = Properties.Resources.notDone_24;
+                MessageBox.Show("Đã đánh chưa hoàn thành!");
+            }
+        }
+
+        private void lbl_iconImportant_Click(object sender, EventArgs e)
+        {
+            if (taskDTO.IsImportant)
+            {
+                taskDTO.IsImportant = false;
+                lbl_iconImportant.Image = Properties.Resources.Important_24px;
+                MessageBox.Show("Đã đánh dấu quan trọng!");
+            }
+            else
+            {
+                taskDTO.IsImportant = true;
+                lbl_iconImportant.Image = Properties.Resources.ImportantSelected_24px;
+                MessageBox.Show("Đã đánh dấu quan trọng!");
+            }
+        }
 
     }
 }

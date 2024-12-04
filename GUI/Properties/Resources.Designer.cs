@@ -63,6 +63,26 @@ namespace GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bin {
+            get {
+                object obj = ResourceManager.GetObject("bin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bin1 {
+            get {
+                object obj = ResourceManager.GetObject("bin1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap calendar {
             get {
                 object obj = ResourceManager.GetObject("calendar", resourceCulture);
@@ -116,6 +136,16 @@ namespace GUI.Properties {
         internal static System.Drawing.Bitmap groupMember_32px {
             get {
                 object obj = ResourceManager.GetObject("groupMember_32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap downloads {
+            get {
+                object obj = ResourceManager.GetObject("downloads", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -259,5 +289,14 @@ namespace GUI.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        //internal static System.Drawing.Bitmap done_24
+        //{
+        //    get
+        //    {
+        //        object obj = ResourceManager.GetObject("done_24", resourceCulture);
+        //        return ((System.Drawing.Bitmap)(obj));
+        //    }
+        //}
     }
 }

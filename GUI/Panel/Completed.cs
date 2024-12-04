@@ -45,6 +45,7 @@ namespace GUI.Panel
         {
             if (tasks == null || tasks.Count == 0)
             {
+                tableCompleted.Rows.Clear();
                 return;
             }
 
@@ -70,7 +71,7 @@ namespace GUI.Panel
                 }
                 else
                 {
-                    tableCompleted.Rows[rowIndex].Cells["clDone_cmp"].Value = Properties.Resources.done_24;
+                    //tableCompleted.Rows[rowIndex].Cells["clDone_cmp"].Value = Properties.Resources.done_24;
                 }
             }
         }

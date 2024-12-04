@@ -1,6 +1,7 @@
 ﻿using BUS;
 using DAO;
 using DTO;
+using GUI.Components;
 using Helper;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace GUI.Panel
         //private DateTime? completedDate;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
-
+        public sortBUS sortBUS = new sortBUS();
+        
 
         public Tasks(UserDTO user)
         {
@@ -137,7 +139,6 @@ namespace GUI.Panel
 
         private void Tasks_Load(object sender, EventArgs e)
         {
-
             if (tableTasks.Columns.Count == 0)
             {
                 tableTasks.Columns.Add("clTitle_tasks", "Title");
@@ -146,12 +147,58 @@ namespace GUI.Panel
                 tableTasks.Columns.Add("clDone_tasks", "Done");
             }
 
-            loadDataTable(listTasks);
+            loadDataTable2("", sortBUS.getAllTask(user.UserID));
+
         }
-        private void loadDataTable(List<TaskDTO> tasks)
+
+        // Hiển thị dữ liệu theo tiêu chi sắp xếp
+        public void loadDataTable2(string selectedValue, List<TaskDTO> tasks)
         {
+            int currentUserID = user.UserID;
+            var userTasks = tasks.Where(t => t.CreatedBy == currentUserID).ToList();
+
+
+
+            // Sắp xếp các task theo các tiêu chí khác nhau
+            var sortedTaskImportance = userTasks.OrderByDescending(t => t.IsImportant).ToList();
+            var sortedTaskDueDate = userTasks.OrderBy(t => t.DueDate).ToList();
+            var sortedTaskAlpha = userTasks.OrderBy(t => t.Title).ToList();
+            var sortedTaskByCreateDate = userTasks.OrderBy(t => t.CreatedDate).ToList();
+
+            List<TaskDTO> sortedTasks = new List<TaskDTO>();
+
+            if (selectedValue == "Importance")
+            {
+                sortedTasks = sortedTaskImportance;
+            }
+            else if (selectedValue == "Due date")
+            {
+                sortedTasks = sortedTaskDueDate;
+            }
+            else if (selectedValue == "Alphabetically")
+            {
+                sortedTasks = sortedTaskAlpha;
+            }
+            else if (selectedValue == "Creation Date")
+            {
+                sortedTasks = sortedTaskByCreateDate;
+            }
+            else
+            {
+                sortedTasks = tasks;
+            }
+
+            loadDataTable(sortedTasks);
+        }
+
+        public void loadDataTable(List<TaskDTO> tasks)
+        {
+            tableTasks.SuspendLayout(); // Tạm dừng cập nhật giao diện
+            tableTasks.Rows.Clear();   // Xóa tất cả các hàng cũ
+
             if (tasks == null || tasks.Count == 0)
             {
+                tableTasks.Rows.Clear();
                 return;
             }
 
@@ -233,7 +280,7 @@ namespace GUI.Panel
                     bool check = taskBUS.update(selectedTask);
                     if (check)
                     {
-                        
+
                         listTasks[index].CompletedDate = selectedTask.CompletedDate;
                         if (selectedTask.CompletedDate != null)
                         {
@@ -265,11 +312,28 @@ namespace GUI.Panel
                 var selectedTask = listTasks[e.RowIndex];
                 int taskid = selectedTask.TaskID;
 
-                TaskInfo taskInfoForm = new TaskInfo(taskid);
+                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
+                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
                 taskInfoForm.ShowDialog();
-
-               
             }
         }
+
+        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
+        {
+            listTasks = taskBUS.getAllByUserID(user.UserID);
+            loadDataTable(listTasks);
+        }
+
+        private void CpTooBar1_OnSortByChanged(string sortBy)
+        {
+            loadDataTable2(sortBy, listTasks);
+        }
+
+        private void cpToolBar1_Load(object sender, EventArgs e)
+        {
+            // Đăng ký sự kiện OnSortByChanged
+            cpToolBar1.OnSortByChanged += CpTooBar1_OnSortByChanged;
+        }
+
     }
 }

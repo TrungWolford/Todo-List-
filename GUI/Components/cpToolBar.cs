@@ -8,11 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DTO;
+using BUS;
 
 namespace GUI.Components
 {
+
     public partial class cpToolBar : UserControl
     {
+
+        public delegate void SortByChangedHandler(string sortBy);
+        public event SortByChangedHandler OnSortByChanged;
+
+        public List<TaskDTO> listTasks;
+        public List<UserDTO> listUser;
+        private UserDTO userDTO;
+        private TaskDTO taskDTO;
+        public Tasks taskForm;
+        private sortBUS sortBUS = new sortBUS();
+        
+
         public cpToolBar()
         {
             InitializeComponent();
@@ -56,7 +71,8 @@ namespace GUI.Components
             if (pnlArrangeBar.Visible == false)
             {
                 pnlArrangeBar.Visible = true;
-            } else
+            }
+            else
             {
                 pnlArrangeBar.Visible = false;
             }
@@ -98,5 +114,12 @@ namespace GUI.Components
             lbl_itemSortby_Creationdate.BackColor = Color.White;
         }
 
+        private void cb_Sortby_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = cb_Sortby.Text.Trim();
+            OnSortByChanged?.Invoke(selectedValue);
+        }
+
+        
     }
 }

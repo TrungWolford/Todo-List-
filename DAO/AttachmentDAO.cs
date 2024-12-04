@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using System.Net.Mail;
 
 namespace DAO
 {
@@ -24,7 +25,7 @@ namespace DAO
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@taskID", SqlDbType.Int) { Value = attachment.TaskID },
-                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FilePath},
+                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FilePath },
                 new SqlParameter("@uploadedBy", SqlDbType.Int) { Value = attachment.UploadedBy }
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
@@ -69,6 +70,19 @@ namespace DAO
             return -1; // Không có cập nhật được thực hiện
         }
 
+        public int GetAttachmentID(AttachmentDTO attachment)
+        {
+            string query = "SELECT AttachmentID FROM Attachment WHERE TaskID = @taskID AND FilePath = @filePath AND UploadedBy = @uploadedBy";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", SqlDbType.Int) { Value = attachment.TaskID },
+                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FilePath },
+                new SqlParameter("@uploadedBy", SqlDbType.Int) { Value = attachment.UploadedBy }
+            };
+            object result = DatabaseAccess.ExecuteScalar(query, parameters);
+            return result != null ? Convert.ToInt32(result) : -1;
+        }
+
         public List<AttachmentDTO> GetAll()
         {
             throw new NotImplementedException();
@@ -77,6 +91,33 @@ namespace DAO
         public AttachmentDTO selectedByID(int t)
         {
             throw new NotImplementedException();
+        }
+
+        public List<string> GetTaskFiles(int taskID)
+        {
+            List<string> fileUrls = new List<string>();
+
+            // Truy vấn cơ sở dữ liệu để lấy danh sách URL file
+            string query = "SELECT FilePath FROM Attachment WHERE TaskID = @taskID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", SqlDbType.Int) { Value = taskID }
+            };
+            SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters);
+            while (reader.Read())
+            {
+                fileUrls.Add(reader["FilePath"].ToString());
+            }
+            return fileUrls;
+        }
+        public int DeleteTaskAttachments(int taskID)
+        {
+            string query = "DELETE FROM [Attachment] WHERE TaskID = @taskID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", SqlDbType.Int) { Value = taskID }
+            };
+            return DatabaseAccess.ExecuteNonQuery(query, parameters) > 0 ? 1 : -1;
         }
     }
 }
