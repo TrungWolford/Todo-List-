@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace DAO
 {
@@ -18,7 +20,7 @@ namespace DAO
             get { if (instance == null) instance = new UserDAO(); return instance; }
             private set { instance = value; }
         }
-        private UserDAO() { }
+        public UserDAO() { }
         public int Insert(UserDTO user)
         {
 
@@ -100,12 +102,61 @@ namespace DAO
 
         public List<UserDTO> GetAll()
         {
-            throw new NotImplementedException();
+            List<UserDTO> users = new List<UserDTO>();
+            string query = "SELECT * FROM [User]";
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, null)) // 'using' với reader nhưng không đóng kết nối
+            {
+                while (reader.Read())
+                {
+                    UserDTO user = new UserDTO
+                    {
+                        UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                        UserName = reader.GetString(reader.GetOrdinal("Username")),
+                        Password = reader.GetString(reader.GetOrdinal("Password_hash")),
+                        Email = reader.GetString(reader.GetOrdinal("Email")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"))
+                    };
+                    users.Add(user);
+                }
+            }
+
+            return users;
         }
 
-        public UserDTO selectedByID(int t)
+        public UserDTO selectedByID(int userID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                UserDTO user = null;
+                string query = "SELECT * FROM [User] WHERE UserID = @userID";
+
+                List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@userID", SqlDbType.Int) { Value = userID }
+                };
+
+                using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserDTO
+                        {
+                            UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                            UserName = reader.GetString(reader.GetOrdinal("Username")),
+                            Password = reader.GetString(reader.GetOrdinal("Password_hash")),
+                            Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
+                            CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"))
+                        };
+                    }
+                }
+
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return null;
+            }
         }
 
         public UserDTO selectedByName(string name)

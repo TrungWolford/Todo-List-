@@ -45,6 +45,11 @@ namespace BUS
             return taskDAO.selecteAllTaskCompleted(id);
         }
 
+        public List<TaskDTO> getAllTaskByGroupID(int userID, int groupID)
+        {
+            return taskDAO.selectedAllTaskByGroupID(userID, groupID);
+        }
+
         public bool insert(TaskDTO taskDTO)
         {
             

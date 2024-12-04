@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using BUS;
+using DTO;
 using GUI.Panel;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
@@ -19,6 +20,11 @@ namespace GUI.Components
         private Main main;
         private Label selectedLabel;
         private UserDTO user;
+        private GroupBUS groupBUS;
+        private GroupMemberShipBUS membershipBUS;
+        private List<GroupDTO> groups;
+        private List<NewGroup> groupControls; 
+        private List<Label> mainLabels;
 
         public MenuTaskBar(Main main)
         {
@@ -31,11 +37,24 @@ namespace GUI.Components
             this.main = main;
             this.user = user;
             InitializeComponent();
+
+            groupBUS = new GroupBUS();
+            membershipBUS = new GroupMemberShipBUS();
+            groups = groupBUS.getAllByUserID(user.UserID);
+            pnlitem_GroupName.Visible = false;  
+            groupControls = new List<NewGroup>();
+            mainLabels = new List<Label> { lbl_itemMyday, lbl_itemImportant, lbl_itemTasks, lbl_itemCompleted };
             SelectLabel(lbl_itemMyday);
+            showAllGroup();
         }
 
         private void SelectLabel(Label label)
         {
+            foreach (NewGroup group in groupControls)
+            {
+                group.Deselect();
+            }
+
             if (selectedLabel != null)
             {
                 selectedLabel.BackColor = Color.White;
@@ -170,6 +189,116 @@ namespace GUI.Components
             main.setForm(completed);
         }
 
-        
+        private void lbl_itemNewGroup_Click(object sender, EventArgs e)
+        {
+            pnlitem_GroupName.Visible = true;
+            txtItem_GroupName.Focus();
+            txtItem_GroupName.PlaceholderText = "Name of group";
+        }
+
+        private void txtItem_GroupName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string groupName = txtItem_GroupName.Text.Trim();
+                if (!string.IsNullOrEmpty(groupName))
+                {
+                    AddGroup(groupName);
+                    txtItem_GroupName.Clear();
+                    pnlitem_GroupName.Visible = false;
+                }
+                
+                e.Handled = true;
+                e.SuppressKeyPress = true; // Ngăn chặn tiếng beep khi nhấn Enter
+            }
+        }
+
+        private void AddGroup(string groupName)
+        {
+            try
+            {
+                GroupDTO groupDTO = new GroupDTO
+                {
+                    Title = txtItem_GroupName.Text,
+                    CreatedBy = user.UserID,
+                    CreatedDate = DateTime.Now
+                };
+                NewGroup newGroup = new NewGroup(groupName, user, main, groupControls, mainLabels, groupDTO);
+                bool test = groupBUS.insert(groupDTO);
+                GroupMemberShipDTO groupMemberShipDTO = new GroupMemberShipDTO
+                {
+                    GroupID = groupDTO.GroupID,
+                    UserID = user.UserID,
+                    JoinedDate = DateTime.Now
+                };
+                bool testMemberShip = membershipBUS.insert(groupMemberShipDTO);
+                
+                if (test && testMemberShip)
+                {
+                    //groups = groupBUS.getAllByUserID(user.UserID); 
+                    pnlMenu_bottom.Controls.Add(newGroup); // Them vao panel
+                    groupControls.Add(newGroup); // Thêm vào danh sách quản lý
+                    newGroup.Click += Group_Click; // Gắn sự kiện click
+                }
+                else
+                {
+                    MessageBox.Show("Task added fail!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while inserting task: " + ex.Message);
+            }
+        }
+
+        private void Group_Click(object? sender, EventArgs e)
+        {
+            if (sender is NewGroup selectedGroup)
+            {
+                foreach (Label label in mainLabels)
+                {
+                    label.BackColor = Color.White;
+                    label.Font = new Font(label.Font, FontStyle.Regular);
+                }
+
+                foreach (NewGroup group in groupControls)
+                {
+                    group.Deselect();
+                }
+
+                selectedGroup.SelectGroup();
+
+            }
+        }
+
+        private void showAllGroup()
+        {
+            if (groups != null)
+            {
+                foreach (GroupDTO groupDTO in groups)
+                {
+                    NewGroup newGroup = new NewGroup(groupDTO.Title, user, main, groupControls, mainLabels, groupDTO);
+                    pnlMenu_bottom.Controls.Add(newGroup);
+                    groupControls.Add(newGroup); // Thêm vào danh sách quản lý
+                    newGroup.Click += Group_Click; // Gắn sự kiện click
+                }
+            }
+        }
+
+        //private void OpenMember(GroupDTO groupDTO, UserDTO userDTO)
+        //{
+        //    Member memberForm = new Member(groupDTO, userDTO);
+        //    memberForm.OnMemberExit += RefreshGroupList; // Đăng ký sự kiện
+        //    memberForm.ShowDialog();
+        //}
+
+        //public  void RefreshGroupList()
+        //{
+        //    pnlMenu_bottom.Controls.Clear(); // Xóa toàn bộ các control hiện tại
+        //    groupControls.Clear();           // Xóa danh sách nhóm trong bộ nhớ
+        //    groups = groupBUS.getAllByUserID(user.UserID); // Tải lại danh sách nhóm từ database
+        //    showAllGroup();                  // Hiển thị lại toàn bộ nhóm
+        //}
     }
 }

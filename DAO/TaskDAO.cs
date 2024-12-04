@@ -35,7 +35,7 @@ namespace DAO
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
                 new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy },
-                new SqlParameter("@groupID", SqlDbType.DateTime) { Value = task.GroupID ?? (object)DBNull.Value}
+                new SqlParameter("@groupID", SqlDbType.Int) { Value = task.GroupID ?? (object)DBNull.Value}
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
@@ -275,6 +275,45 @@ namespace DAO
             }
 
             return listTaskImportant;
+        }
+
+        public List<TaskDTO> selectedAllTaskByGroupID(int userID, int groupID)
+        {
+            List<TaskDTO> listTasks = new List<TaskDTO>();
+            string query = @"
+                            SELECT * FROM Task t
+                            LEFT JOIN [Group] g ON g.GroupID = t.GroupID
+                            LEFT JOIN [GroupMembership] gms ON gms.GroupID = g.GroupID
+                            WHERE (g.CreatedBy = @UserID OR gms.UserID = @UserID) 
+                                AND g.GroupID = @groupID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@UserID", userID),
+                new SqlParameter("@groupID", groupID)
+            };
+
+            using (SqlDataReader reader = DatabaseAccess.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    TaskDTO task = new TaskDTO
+                    {
+                        TaskID = reader.GetInt32(reader.GetOrdinal("TaskID")),
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                        DueDate = reader.GetDateTime(reader.GetOrdinal("DueDate")),
+                        CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                        IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
+                        IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
+                        CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                    };
+                    listTasks.Add(task);
+                }
+            }
+
+            return listTasks;
         }
     }
 }

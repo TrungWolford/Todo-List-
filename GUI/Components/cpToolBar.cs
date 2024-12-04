@@ -17,7 +17,6 @@ namespace GUI.Components
         {
             InitializeComponent();
             UpdateCurrentTime();
-            //UpdateTitle();
         }
 
         public cpToolBar(Form form)
@@ -98,5 +97,6 @@ namespace GUI.Components
         {
             lbl_itemSortby_Creationdate.BackColor = Color.White;
         }
+
     }
 }

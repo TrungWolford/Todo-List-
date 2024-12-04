@@ -100,8 +100,8 @@ namespace DAO
             string query = @"
                     SELECT *
                     FROM [Group] g
-                    LEFT JOIN GroupMembership gms ON g.GroupID = gms.GroupID
-                    WHERE g.CreatedBy = @UserID OR gms.UserID = @UserID";
+                    INNER JOIN GroupMembership gms ON g.GroupID = gms.GroupID
+                    WHERE gms.UserID = @UserID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@UserID", userID)
@@ -125,9 +125,30 @@ namespace DAO
             return groupsByID;
         }
 
+        
+
+        public bool FindGroupTitleExistence(string nameGroup)
+        {
+            string query = "SELECT COUNT(*) FROM [Group] WHERE Title = @title";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@title", nameGroup)
+            };
+            try
+            {
+                int count = (int)DatabaseAccess.ExecuteScalar(query, parameters);
+                return count > 0;
+            }
+            catch(Exception ex) {
+                Console.WriteLine("Error while checking duplicate title: " + ex.Message);
+                return false;
+            }
+        }
+
         GroupDTO InterfaceDAO<GroupDTO>.selectedByID(int t)
         {
             throw new NotImplementedException();
         }
+
     }
 }

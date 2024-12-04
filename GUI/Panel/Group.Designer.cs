@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Group));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar(this);
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlContentGroup_center = new System.Windows.Forms.Panel();
             lblGroup_importantSelected = new Label();
             btnGroup_add = new Button();
@@ -43,18 +42,11 @@
             clDuedate_group = new DataGridViewTextBoxColumn();
             clImportance_group = new DataGridViewImageColumn();
             clDone_group = new DataGridViewImageColumn();
+            cpToolBarGroup3 = new Components.cpToolBarGroup(groupDTO, user, this);
             pnlContentGroup_center.SuspendLayout();
             pnlContentGroup_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableGroup).BeginInit();
             SuspendLayout();
-            // 
-            // cpToolBar1
-            // 
-            cpToolBar1.BackColor = Color.Transparent;
-            cpToolBar1.Location = new Point(71, 31);
-            cpToolBar1.Name = "cpToolBar1";
-            cpToolBar1.Size = new Size(1040, 108);
-            cpToolBar1.TabIndex = 0;
             // 
             // pnlContentGroup_center
             // 
@@ -80,6 +72,7 @@
             lblGroup_importantSelected.Size = new Size(57, 44);
             lblGroup_importantSelected.TabIndex = 6;
             lblGroup_importantSelected.Visible = false;
+            lblGroup_importantSelected.Click += lblGroup_importantSelected_Click;
             // 
             // btnGroup_add
             // 
@@ -89,6 +82,7 @@
             btnGroup_add.TabIndex = 3;
             btnGroup_add.Text = "Add";
             btnGroup_add.UseVisualStyleBackColor = true;
+            btnGroup_add.Click += btnGroup_add_Click;
             // 
             // lblGroup_important
             // 
@@ -99,6 +93,7 @@
             lblGroup_important.Name = "lblGroup_important";
             lblGroup_important.Size = new Size(57, 44);
             lblGroup_important.TabIndex = 2;
+            lblGroup_important.Click += lblGroup_important_Click;
             // 
             // lblGroup_calendar
             // 
@@ -112,6 +107,7 @@
             lblGroup_calendar.Size = new Size(170, 44);
             lblGroup_calendar.TabIndex = 1;
             lblGroup_calendar.TextAlign = ContentAlignment.MiddleRight;
+            lblGroup_calendar.Click += lblGroup_calendar_Click;
             // 
             // txtGroupTask
             // 
@@ -140,20 +136,21 @@
             tableGroup.BackgroundColor = Color.White;
             tableGroup.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableGroup.Columns.AddRange(new DataGridViewColumn[] { clTitle_group, clDuedate_group, clImportance_group, clDone_group });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(246, 246, 246);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            tableGroup.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            tableGroup.DefaultCellStyle = dataGridViewCellStyle1;
             tableGroup.Dock = DockStyle.Fill;
             tableGroup.Location = new Point(0, 0);
             tableGroup.Name = "tableGroup";
             tableGroup.RowHeadersWidth = 51;
             tableGroup.Size = new Size(1040, 525);
             tableGroup.TabIndex = 1;
+            tableGroup.CellContentClick += tableGroup_CellContentClick;
             // 
             // clTitle_group
             // 
@@ -197,18 +194,26 @@
             clDone_group.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_group.Width = 72;
             // 
+            // cpToolBarGroup3
+            // 
+            cpToolBarGroup3.Location = new Point(71, 31);
+            cpToolBarGroup3.Name = "cpToolBarGroup3";
+            cpToolBarGroup3.Size = new Size(1040, 108);
+            cpToolBarGroup3.TabIndex = 5;
+            // 
             // Group
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1179, 853);
+            Controls.Add(cpToolBarGroup3);
             Controls.Add(pnlContentGroup_bottom);
             Controls.Add(pnlContentGroup_center);
-            Controls.Add(cpToolBar1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Group";
             Text = "Group";
+            Load += Group_Load;
             pnlContentGroup_center.ResumeLayout(false);
             pnlContentGroup_center.PerformLayout();
             pnlContentGroup_bottom.ResumeLayout(false);
@@ -217,8 +222,6 @@
         }
 
         #endregion
-
-        private Components.cpToolBar cpToolBar1;
         private System.Windows.Forms.Panel pnlContentGroup_center;
         private Label lblGroup_importantSelected;
         private Button btnGroup_add;
@@ -231,5 +234,8 @@
         private DataGridViewTextBoxColumn clDuedate_group;
         private DataGridViewImageColumn clImportance_group;
         private DataGridViewImageColumn clDone_group;
+        private Components.cpToolBarGroup cpToolBarGroup1;
+        private Components.cpToolBarGroup cpToolBarGroup2;
+        private Components.cpToolBarGroup cpToolBarGroup3;
     }
 }

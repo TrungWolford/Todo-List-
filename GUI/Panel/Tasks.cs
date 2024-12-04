@@ -185,7 +185,6 @@ namespace GUI.Panel
         private void tableTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
-
             if (e.RowIndex >= 0 && e.ColumnIndex == tableTasks.Columns["clImportance_tasks"].Index)
             {
                 try

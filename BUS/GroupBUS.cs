@@ -23,6 +23,27 @@ namespace BUS
             return groupDAO.selectedByID(id);
         }
 
+        public bool checkGroupTitleExistence(string groupName)
+        {
+            try
+            {
+                bool check = groupDAO.FindGroupTitleExistence(groupName);
+                if (check)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while checking duplicate title: " + ex.Message);
+                return false;
+            }
+        }
+
         public bool insert(GroupDTO groupDTO)
         {
 
@@ -45,6 +66,11 @@ namespace BUS
             }
         }
 
+        public bool removeUserGroupByID(GroupDTO groupDTO)
+        {
+            bool check = groupDAO.Delete(groupDTO) != -1;
 
+            return false;
+        }
     }
 }

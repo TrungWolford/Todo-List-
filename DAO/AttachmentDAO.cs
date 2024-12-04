@@ -24,7 +24,7 @@ namespace DAO
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@taskID", SqlDbType.Int) { Value = attachment.TaskID },
-                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FileName },
+                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FilePath},
                 new SqlParameter("@uploadedBy", SqlDbType.Int) { Value = attachment.UploadedBy }
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
@@ -43,7 +43,7 @@ namespace DAO
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@taskID", SqlDbType.Int) { Value = attachment.TaskID },
-                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FileName },
+                new SqlParameter("@filePath", SqlDbType.NVarChar) { Value = attachment.FilePath },
                 new SqlParameter("@uploadedBy", SqlDbType.Int) { Value = attachment.UploadedBy },
                 new SqlParameter("@attachmentID", SqlDbType.Int) { Value = attachment.AttachmentID }
             };

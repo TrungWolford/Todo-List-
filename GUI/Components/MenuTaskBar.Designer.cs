@@ -35,9 +35,14 @@
             lbl_itemTasks = new Label();
             lbl_itemImportant = new Label();
             pnlMenu_center = new System.Windows.Forms.Panel();
+            pnlitem_GroupName = new System.Windows.Forms.Panel();
+            txtItem_GroupName = new TextBox();
+            lblitem_iconGroupName = new Label();
             lbl_itemNewGroup = new Label();
+            pnlMenu_bottom = new FlowLayoutPanel();
             pnlMenu_top.SuspendLayout();
             pnlMenu_center.SuspendLayout();
+            pnlitem_GroupName.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMenu_top
@@ -121,11 +126,41 @@
             // 
             // pnlMenu_center
             // 
+            pnlMenu_center.Controls.Add(pnlitem_GroupName);
             pnlMenu_center.Controls.Add(lbl_itemNewGroup);
             pnlMenu_center.Location = new Point(-1, 341);
             pnlMenu_center.Name = "pnlMenu_center";
-            pnlMenu_center.Size = new Size(208, 512);
+            pnlMenu_center.Size = new Size(208, 126);
             pnlMenu_center.TabIndex = 1;
+            // 
+            // pnlitem_GroupName
+            // 
+            pnlitem_GroupName.Controls.Add(txtItem_GroupName);
+            pnlitem_GroupName.Controls.Add(lblitem_iconGroupName);
+            pnlitem_GroupName.Location = new Point(0, 73);
+            pnlitem_GroupName.Name = "pnlitem_GroupName";
+            pnlitem_GroupName.Size = new Size(213, 50);
+            pnlitem_GroupName.TabIndex = 4;
+            // 
+            // txtItem_GroupName
+            // 
+            txtItem_GroupName.Dock = DockStyle.Right;
+            txtItem_GroupName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtItem_GroupName.Location = new Point(61, 0);
+            txtItem_GroupName.Multiline = true;
+            txtItem_GroupName.Name = "txtItem_GroupName";
+            txtItem_GroupName.PlaceholderText = "Name of Group";
+            txtItem_GroupName.Size = new Size(152, 50);
+            txtItem_GroupName.TabIndex = 1;
+            txtItem_GroupName.KeyDown += txtItem_GroupName_KeyDown;
+            // 
+            // lblitem_iconGroupName
+            // 
+            lblitem_iconGroupName.Image = Properties.Resources.list_24px;
+            lblitem_iconGroupName.Location = new Point(0, 0);
+            lblitem_iconGroupName.Name = "lblitem_iconGroupName";
+            lblitem_iconGroupName.Size = new Size(62, 50);
+            lblitem_iconGroupName.TabIndex = 0;
             // 
             // lbl_itemNewGroup
             // 
@@ -133,15 +168,24 @@
             lbl_itemNewGroup.ForeColor = Color.FromArgb(37, 100, 207);
             lbl_itemNewGroup.Image = (Image)resources.GetObject("lbl_itemNewGroup.Image");
             lbl_itemNewGroup.ImageAlign = ContentAlignment.MiddleLeft;
-            lbl_itemNewGroup.Location = new Point(-1, 35);
+            lbl_itemNewGroup.Location = new Point(-1, 0);
             lbl_itemNewGroup.Name = "lbl_itemNewGroup";
             lbl_itemNewGroup.Padding = new Padding(10, 0, 10, 2);
-            lbl_itemNewGroup.Size = new Size(209, 42);
+            lbl_itemNewGroup.Size = new Size(213, 50);
             lbl_itemNewGroup.TabIndex = 3;
             lbl_itemNewGroup.Text = "New Group";
             lbl_itemNewGroup.TextAlign = ContentAlignment.MiddleRight;
+            lbl_itemNewGroup.Click += lbl_itemNewGroup_Click;
             lbl_itemNewGroup.MouseEnter += lbl_itemNewGroup_MouseEnter;
             lbl_itemNewGroup.MouseLeave += lbl_itemNewGroup_MouseLeave;
+            // 
+            // pnlMenu_bottom
+            // 
+            pnlMenu_bottom.AutoScroll = true;
+            pnlMenu_bottom.Location = new Point(-1, 473);
+            pnlMenu_bottom.Name = "pnlMenu_bottom";
+            pnlMenu_bottom.Size = new Size(208, 349);
+            pnlMenu_bottom.TabIndex = 2;
             // 
             // MenuTaskBar
             // 
@@ -149,6 +193,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(208, 853);
+            Controls.Add(pnlMenu_bottom);
             Controls.Add(pnlMenu_center);
             Controls.Add(pnlMenu_top);
             FormBorderStyle = FormBorderStyle.None;
@@ -156,6 +201,8 @@
             Text = "MenuTaskBar";
             pnlMenu_top.ResumeLayout(false);
             pnlMenu_center.ResumeLayout(false);
+            pnlitem_GroupName.ResumeLayout(false);
+            pnlitem_GroupName.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -169,5 +216,9 @@
         private Label lbl_itemNewGroup;
         private Label label2;
         private Label lbl_itemCompleted;
+        private FlowLayoutPanel pnlMenu_bottom;
+        private System.Windows.Forms.Panel pnlitem_GroupName;
+        private TextBox txtItem_GroupName;
+        private Label lblitem_iconGroupName;
     }
 }
