@@ -71,7 +71,7 @@ namespace GUI.Panel
                 }
                 else
                 {
-                    //tableCompleted.Rows[rowIndex].Cells["clDone_cmp"].Value = Properties.Resources.done_24;
+                    tableCompleted.Rows[rowIndex].Cells["clDone_cmp"].Value = Properties.Resources.done_24;
                 }
             }
         }
@@ -84,6 +84,7 @@ namespace GUI.Panel
                 {
                     var selectedTask = listTasks[e.RowIndex];
                     var index = listTasks.FindIndex(t => t.TaskID == selectedTask.TaskID);
+                    Console.WriteLine(e.RowIndex);
 
                     DateTime? previousDate = selectedTask.CompletedDate;
 
@@ -97,8 +98,9 @@ namespace GUI.Panel
                             tableCompleted.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
-                        //listTasks[index].CompletedDate = selectedTask.CompletedDate;
-                        //loadDataTable(listTasks);
+                        listTasks[index].CompletedDate = selectedTask.CompletedDate;
+                        listTasks = taskBUS.getAllTaskCompleted(user.UserID);
+                        loadDataTable(listTasks);
                     }
                     else
                     {

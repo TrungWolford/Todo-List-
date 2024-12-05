@@ -317,7 +317,7 @@ namespace DAO
                             SELECT * FROM Task t
                             LEFT JOIN [Group] g ON g.GroupID = t.GroupID
                        
-                            WHERE g.GroupID = @groupID";
+                            WHERE g.GroupID = @groupID AND CompletedDate IS NULL";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 //new SqlParameter("@UserID", userID),

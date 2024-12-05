@@ -101,7 +101,7 @@ namespace BUS
                         taskDTO.IsImportant = existingTask.IsImportant;
                         taskDTO.IsDeleted = existingTask.IsDeleted;
                         taskDTO.CompletedDate = existingTask.CompletedDate;
-                                            }
+                    }
                     else
                     {
                         return false;

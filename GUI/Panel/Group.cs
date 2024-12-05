@@ -195,12 +195,14 @@ namespace GUI.Panel
                     bool previousState = selectedTask.IsImportant;
                     selectedTask.IsImportant = !selectedTask.IsImportant;
 
+
                     bool check = taskBUS.update(selectedTask);
 
                     if (check)
                     {
                         listTasks[index].IsImportant = !previousState;
 
+                        //tableTasks.Refresh();
                         loadDataTable(listTasks);
                     }
                     else
@@ -235,6 +237,7 @@ namespace GUI.Panel
                             tableGroup.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
+                        listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
                         loadDataTable(listTasks);
                     }
                     else
