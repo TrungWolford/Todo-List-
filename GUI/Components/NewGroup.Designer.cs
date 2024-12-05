@@ -43,8 +43,9 @@
             // 
             // lblItemGroup
             // 
+            lblItemGroup.AutoEllipsis = true;
             lblItemGroup.Dock = DockStyle.Fill;
-            lblItemGroup.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblItemGroup.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblItemGroup.Image = Properties.Resources.list_32px;
             lblItemGroup.ImageAlign = ContentAlignment.MiddleLeft;
             lblItemGroup.Location = new Point(0, 0);

@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar = new Components.cpToolBar();
+            cpToolBar = new Components.cpToolBar(this);
             pnlContentImp_center = new System.Windows.Forms.Panel();
             btnImp_add = new Button();
             lblImp_calendar = new Label();

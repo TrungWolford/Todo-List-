@@ -18,6 +18,8 @@ namespace GUI.Components
         private GroupDTO groupDTO;
         private UserDTO userDTO;
         private GroupMemberShipBUS groupMemberShipBUS;
+        public event EventHandler OnExitChangeMember;
+        //public event EventHandler OnInviteChangeMember;
 
         public cpToolBarGroup()
         {
@@ -55,8 +57,16 @@ namespace GUI.Components
         private void lblTop_memberGroup_Click(object sender, EventArgs e)
         {
             Member member = new Member(groupDTO, userDTO);
+            member.OnExitChange += OnExitChangeMember;
+            member.OnInviteChange += RefestCountMember;
             member.ShowDialog();
 
+        }
+
+        private void RefestCountMember(object? sender, EventArgs e)
+        {
+            
+            CountNumber();
         }
 
         public void CountNumber()
@@ -81,5 +91,6 @@ namespace GUI.Components
         {
             lblTop_memberGroup.BackColor = Color.FromArgb(246, 246, 246);
         }
+
     }
 }

@@ -37,7 +37,6 @@
             lblUsername_invite = new Label();
             lblinvite_member = new Label();
             lblExit_member = new Label();
-            pnlCenter_member.SuspendLayout();
             pnlBottom_member.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,17 +44,16 @@
             // 
             pnlCenter_member.AutoScroll = true;
             pnlCenter_member.BackColor = Color.White;
-            pnlCenter_member.Controls.Add(pnlMember_owner);
-            pnlCenter_member.Location = new Point(0, 51);
+            pnlCenter_member.Location = new Point(0, 99);
             pnlCenter_member.Name = "pnlCenter_member";
-            pnlCenter_member.Size = new Size(401, 252);
+            pnlCenter_member.Size = new Size(401, 204);
             pnlCenter_member.TabIndex = 0;
             // 
             // pnlMember_owner
             // 
-            pnlMember_owner.Location = new Point(3, 3);
+            pnlMember_owner.Location = new Point(0, 51);
             pnlMember_owner.Name = "pnlMember_owner";
-            pnlMember_owner.Size = new Size(398, 50);
+            pnlMember_owner.Size = new Size(401, 50);
             pnlMember_owner.TabIndex = 0;
             // 
             // lblTop_memberTitle
@@ -140,6 +138,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(400, 600);
+            Controls.Add(pnlMember_owner);
             Controls.Add(lblExit_member);
             Controls.Add(pnlBottom_member);
             Controls.Add(lblTop_memberTitle);
@@ -147,7 +146,6 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "Member";
             Text = "Member";
-            pnlCenter_member.ResumeLayout(false);
             pnlBottom_member.ResumeLayout(false);
             pnlBottom_member.PerformLayout();
             ResumeLayout(false);

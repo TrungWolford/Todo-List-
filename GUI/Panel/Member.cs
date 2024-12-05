@@ -3,6 +3,7 @@ using DAO;
 using DTO;
 using GUI.Components;
 using Helper;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,9 @@ namespace GUI.Panel
 {
     public partial class Member : Form
     {
-        //public event Action OnMemberExit;
+        public event EventHandler OnExitChange;
+        public event EventHandler OnInviteChange;
+
         private GroupDTO groupDTO;
         private UserDTO userDTO;
         private List<GroupMemberShipDTO> members;
@@ -81,6 +84,8 @@ namespace GUI.Panel
                                     members.Add(groupMemberShipDTO);
                                     ResetForm();
                                     MessageBox.Show("User added successfully", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    OnInviteChange.Invoke(this, new EventArgs());
+                                    RefreshMemberGroupList();
                                 }
                                 else
                                 {
@@ -111,6 +116,7 @@ namespace GUI.Panel
 
         private void showAllMember()
         {
+            members = groupMemberShipBUS.getAllMemberByGroupID(groupDTO.GroupID);
             if (members.Count > 0)
             {
                 foreach (GroupMemberShipDTO member in members)
@@ -150,17 +156,55 @@ namespace GUI.Panel
 
         private void lblExit_member_Click(object sender, EventArgs e)
         {
-            bool check = groupMemberShipBUS.removeUserByID(userDTO.UserID, groupDTO.GroupID);
-            //bool checkGroup = groupBUS.removeUserGroupByID(groupDTO);
-            if (check)
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to leave the group?",
+                "Confirmation",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Cancel)
             {
-                MessageBox.Show("Succeed!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //OnMemberExit?.Invoke(); // Gọi sự kiện sau khi thành công
-                this.Close();
-            } else
-            {
-                MessageBox.Show("Failed!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
+
+            if (userDTO.UserID == groupDTO.CreatedBy)
+            {
+                bool checkCreatedGroup = groupBUS.delete(groupDTO);
+                if (checkCreatedGroup)
+                {
+                    MessageBox.Show("Group deleted successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnExitChange?.Invoke(this, EventArgs.Empty);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete group!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                bool check = groupMemberShipBUS.removeUserByID(userDTO.UserID, groupDTO.GroupID);
+                if (check)
+                {
+                    MessageBox.Show("You have left the group successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnExitChange?.Invoke(this, EventArgs.Empty);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to leave the group!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        public void RefreshMemberGroupList()
+        {
+            pnlMember_owner.Controls.Clear();
+            pnlCenter_member.Controls.Clear(); 
+            members = groupMemberShipBUS.getAllMemberByGroupID(groupDTO.GroupID);
+            showAllMember();                  
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO;
 using System.Net.Mail;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DAO
 {
@@ -57,7 +58,15 @@ namespace DAO
         }
         public int Delete(GroupDTO group) 
         {
-            string query = "DELETE FROM [Group] WHERE GroupID = @groupID";
+            //Sử dụng BEGIN TRANSACTION để đảm bảo tính toàn vẹn dữ liệu.
+            //Nếu có lỗi trong một trong các lệnh xóa, giao dịch có thể ROLLBACK để tránh xóa dữ liệu không đầy đủ.
+            string query = @"
+                    BEGIN TRANSACTION;
+                    DELETE FROM Task WHERE GroupID = @groupID;
+                    DELETE FROM GroupMembership WHERE GroupID = @groupID;
+                    DELETE FROM [Group] WHERE GroupID = @groupID;
+                    COMMIT TRANSACTION;";
+
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@groupID", SqlDbType.Int) { Value = group.GroupID }
@@ -67,7 +76,7 @@ namespace DAO
             {
                 return rowsAffected;
             }
-            return -1; // Không có cập nhật được thực hiện
+            return -1;
         }
 
 
@@ -127,12 +136,13 @@ namespace DAO
 
         
 
-        public bool FindGroupTitleExistence(string nameGroup)
+        public bool FindGroupTitleExistence(string nameGroup, int userID)
         {
-            string query = "SELECT COUNT(*) FROM [Group] WHERE Title = @title";
+            string query = "SELECT COUNT(*) FROM [Group] WHERE Title = @title AND CreatedBy = @userID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@title", nameGroup)
+                new SqlParameter("@title", nameGroup),
+                new SqlParameter("@userID", userID)
             };
             try
             {

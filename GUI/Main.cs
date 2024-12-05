@@ -28,6 +28,7 @@ namespace GUI
             this.user = user;
             InitializeComponent();
             menuTaskBar = new MenuTaskBar(this, user);
+            //menuTaskBar.showAllGroup();
             menuTaskBar.TopLevel = false;
             pnlMenutaskbar.Controls.Add(menuTaskBar);
             menuTaskBar.Dock = DockStyle.Fill;
