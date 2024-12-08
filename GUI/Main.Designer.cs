@@ -84,6 +84,7 @@
             cpSearching1.Name = "cpSearching1";
             cpSearching1.Size = new Size(569, 72);
             cpSearching1.TabIndex = 4;
+            //cpSearching1.OnSearchTextChanged += cpSearching1_OnSearchTextChanged;
             // 
             // lbl_titleInfoUser
             // 
@@ -95,7 +96,6 @@
             lbl_titleInfoUser.Size = new Size(197, 46);
             lbl_titleInfoUser.TabIndex = 5;
             lbl_titleInfoUser.TextAlign = ContentAlignment.MiddleLeft;
-            lbl_titleInfoUser.Text = user.UserName;
             // 
             // Main
             // 

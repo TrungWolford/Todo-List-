@@ -14,11 +14,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace GUI.Panel
 {
     public partial class Tasks : Form
     {
+        private GUI.Components.cpSearching cpSearchingControl;
         private MonthCalendar calendar;
         private UserDTO user;
         private bool isImportant;
@@ -139,6 +141,7 @@ namespace GUI.Panel
 
         private void Tasks_Load(object sender, EventArgs e)
         {
+
             if (tableTasks.Columns.Count == 0)
             {
                 tableTasks.Columns.Add("clTitle_tasks", "Title");
@@ -147,18 +150,18 @@ namespace GUI.Panel
                 tableTasks.Columns.Add("clDone_tasks", "Done");
             }
 
-            loadDataTable2("", sortBUS.getAllTask(user.UserID));
+            loadDataTable(listTasks);
+            //loadDataTable2("", sortBUS.getAllTask(user.UserID));
 
         }
 
         // Hiển thị dữ liệu theo tiêu chi sắp xếp
         public void loadDataTable2(string selectedValue, List<TaskDTO> tasks)
         {
+
             tasks = listTasks;
             int currentUserID = user.UserID;
             var userTasks = tasks.Where(t => t.CreatedBy == currentUserID).ToList();
-
-
 
             // Sắp xếp các task theo các tiêu chí khác nhau
             var sortedTaskImportance = userTasks.OrderByDescending(t => t.IsImportant).ToList();
@@ -228,6 +231,8 @@ namespace GUI.Panel
                     tableTasks.Rows[rowIndex].Cells["clDone_tasks"].Value = Properties.Resources.done_24;
                 }
             }
+            tableTasks.ResumeLayout();
+            tableTasks.Refresh();
         }
 
         private void tableTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -325,6 +330,8 @@ namespace GUI.Panel
             loadDataTable(listTasks);
         }
 
+
+        // UserControl sort
         private void CpTooBar1_OnSortByChanged(string sortBy)
         {
             loadDataTable2(sortBy, listTasks);
@@ -334,6 +341,47 @@ namespace GUI.Panel
         {
             // Đăng ký sự kiện OnSortByChanged
             cpToolBar1.OnSortByChanged += CpTooBar1_OnSortByChanged;
+        }
+
+
+
+        public void PerformSearch(string searchText)
+        {
+            //listTasks = sortBUS.getAllTask(user.UserID);
+            // Lọc danh sách task dựa trên text tìm kiếm
+
+            List<TaskDTO> filteredTasks = listTasks
+                                .Where(task =>
+                                    task.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                                    (task.Description != null && task.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)))
+                                .ToList();
+
+            // Hiển thị danh sách task đã lọc
+
+            List<TaskDTO> newList = new List<TaskDTO>();
+            foreach (var task in filteredTasks)
+            {
+                newList.Add(task);
+                Console.WriteLine(task);
+            }
+
+            Console.WriteLine(newList.Count);
+
+            //loadDataTable2("", filteredTasks);
+            //loadDataTable(newList);
+            loadDataTable(filteredTasks);
+
+            //if (tableTasks.InvokeRequired)
+            //{
+            //    tableTasks.Invoke((System.Windows.Forms.MethodInvoker)(() => loadDataTable2("", newList)));
+
+            //}
+            //else
+            //{
+            ////loadDataTable2("", newList);
+            //    loadDataTable(newList);
+            //}
+
         }
 
     }

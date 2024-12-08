@@ -38,6 +38,7 @@ namespace GUI.Panel
             };
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
+
         }
 
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
@@ -241,8 +242,30 @@ namespace GUI.Panel
                 tableMyday.Columns.Add("clImportance_md", "Important");
                 tableMyday.Columns.Add("clDone_md", "Done");
             }
-
+            Console.WriteLine(listTasks.Count);
             loadDataTable(listTasks);
         }
+
+        public void PerformSearch(string searchText)
+        {
+
+            listTasks = taskBUS.getAllTaskCurrentDate(user.UserID);
+            // Lọc danh sách task dựa trên text tìm kiếm
+            var filteredTasks = listTasks
+                             .Where(task =>
+                                 !string.IsNullOrEmpty(task.Title) && task.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                                 !string.IsNullOrEmpty(task.Description) && task.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                             .ToList();
+
+            // Hiển thị danh sách task đã lọc
+
+            foreach (var task in filteredTasks)
+            {
+                Console.WriteLine(task.Title);
+            }
+
+            loadDataTable(filteredTasks);
+        }
     }
+
 }

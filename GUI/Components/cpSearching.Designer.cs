@@ -29,24 +29,27 @@
         private void InitializeComponent()
         {
             pnlSearching = new Label();
-            textBox1 = new TextBox();
+            txt_search = new TextBox();
             pnlSearching.SuspendLayout();
             SuspendLayout();
             // 
             // pnlSearching
             // 
-            pnlSearching.Controls.Add(textBox1);
+            pnlSearching.Controls.Add(txt_search);
             pnlSearching.Location = new Point(16, 16);
             pnlSearching.Name = "pnlSearching";
             pnlSearching.Size = new Size(550, 50);
             pnlSearching.TabIndex = 0;
             // 
-            // textBox1
+            // txt_search
             // 
-            textBox1.Location = new Point(0, 13);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(550, 27);
-            textBox1.TabIndex = 0;
+            txt_search.Location = new Point(0, 13);
+            txt_search.Name = "txt_search";
+            txt_search.Size = new Size(550, 27);
+            txt_search.TabIndex = 0;
+            txt_search.TextChanged += txt_search_TextChanged;
+            txt_search.Enter += txt_search_Enter;
+            txt_search.Leave += txt_search_Leave;
             // 
             // cpSearching
             // 
@@ -63,6 +66,6 @@
         #endregion
 
         private Label pnlSearching;
-        private TextBox textBox1;
+        private TextBox txt_search;
     }
 }

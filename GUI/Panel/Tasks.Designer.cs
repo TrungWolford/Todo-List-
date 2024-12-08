@@ -237,6 +237,7 @@
             pnlContentTasks_bottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tableTasks).EndInit();
             ResumeLayout(false);
+            
         }
 
         #endregion
