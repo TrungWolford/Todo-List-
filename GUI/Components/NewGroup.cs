@@ -21,11 +21,13 @@ namespace GUI.Components
         private List<NewGroup> allGroups;
         private List<Label> mainLabels;
         private GroupDTO group;
+        private MenuTaskBar menuTaskBar;
         
-        public NewGroup(string nameGroup, UserDTO user, Main main, List<NewGroup> allGroups, List<Label> mainLabels, GroupDTO group)
+        public NewGroup(string nameGroup, UserDTO user, Main main, List<NewGroup> allGroups, List<Label> mainLabels, GroupDTO group, MenuTaskBar menuTaskBar)
         {
             this.user = user;
             this.main = main;
+            this.menuTaskBar = menuTaskBar;
             this.allGroups = allGroups;
             InitializeComponent();
             lblItemGroup.Text = nameGroup;
@@ -90,8 +92,7 @@ namespace GUI.Components
 
             SelectGroup();
 
-            Group newGroup = new Group(user, group);
-            //Console.WriteLine(group.ToString());
+            Group newGroup = new Group(user, group, menuTaskBar);
             main.setForm(newGroup);
         }
 

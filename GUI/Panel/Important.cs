@@ -178,6 +178,7 @@ namespace GUI.Panel
                             tableImportant.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
+                        listTasks = taskBUS.getAllTaskImportant(user.UserID);
                         loadDataTable(listTasks);
 
                     }

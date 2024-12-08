@@ -23,19 +23,16 @@ namespace BUS
             return groupDAO.selectedByID(id);
         }
 
-        public bool checkGroupTitleExistence(string groupName)
+        public bool checkGroupTitleExistence(string groupName, int userID)
         {
             try
             {
-                bool check = groupDAO.FindGroupTitleExistence(groupName);
+                bool check = groupDAO.FindGroupTitleExistence(groupName, userID);
                 if (check)
                 {
-                    return true;
+                    return check;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -61,16 +58,29 @@ namespace BUS
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while inserting task: " + ex.Message);
+                Console.WriteLine("Error while inserting group: " + ex.Message);
                 return false;
             }
         }
 
-        public bool removeUserGroupByID(GroupDTO groupDTO)
+        public bool delete(GroupDTO groupDTO)
         {
-            bool check = groupDAO.Delete(groupDTO) != -1;
+            try
+            {
+                bool check = groupDAO.Delete(groupDTO) != -1;
+                if (check)
+                {
+                    groups.Remove(groupDTO);
+                    return check;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while deleting group: " + ex.Message);
+                return false;
+            }
         }
     }
 }

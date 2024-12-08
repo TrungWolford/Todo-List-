@@ -103,11 +103,12 @@
             // 
             // lblTop_titleGroup
             // 
+            lblTop_titleGroup.AutoEllipsis = true;
             lblTop_titleGroup.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTop_titleGroup.ImageAlign = ContentAlignment.MiddleLeft;
             lblTop_titleGroup.Location = new Point(0, 0);
             lblTop_titleGroup.Name = "lblTop_titleGroup";
-            lblTop_titleGroup.Size = new Size(209, 72);
+            lblTop_titleGroup.Size = new Size(397, 72);
             lblTop_titleGroup.TabIndex = 2;
             lblTop_titleGroup.TextAlign = ContentAlignment.MiddleLeft;
             // 

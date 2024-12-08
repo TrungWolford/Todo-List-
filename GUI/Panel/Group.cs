@@ -12,6 +12,7 @@ using BUS;
 using Helper;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Globalization;
+using GUI.Components;
 
 namespace GUI.Panel
 {
@@ -23,13 +24,15 @@ namespace GUI.Panel
         private List<TaskDTO> listTasks;
         public TaskBUS taskBUS;
         private GroupDTO groupDTO;
-        public Group(UserDTO user, GroupDTO groupDTO)
+        private MenuTaskBar menuTaskBar;
+        public Group(UserDTO user, GroupDTO groupDTO, MenuTaskBar menuTaskBar)
         {
             this.user = user;
             this.groupDTO = groupDTO;
+            this.menuTaskBar = menuTaskBar;
             InitializeComponent();
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
+            listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
             isImportant = false;
             calendar = new MonthCalendar
             {
@@ -38,6 +41,8 @@ namespace GUI.Panel
             };
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
+            cpToolBarGroup3.OnExitChangeMember += menuTaskBar.RefreshGroupList;
+            
         }
 
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
@@ -104,7 +109,7 @@ namespace GUI.Panel
                     if (test)
                     {
                         MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
+                        listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
                         loadDataTable(listTasks);
                     }
                     else
@@ -190,12 +195,14 @@ namespace GUI.Panel
                     bool previousState = selectedTask.IsImportant;
                     selectedTask.IsImportant = !selectedTask.IsImportant;
 
+
                     bool check = taskBUS.update(selectedTask);
 
                     if (check)
                     {
                         listTasks[index].IsImportant = !previousState;
 
+                        //tableTasks.Refresh();
                         loadDataTable(listTasks);
                     }
                     else
@@ -230,6 +237,7 @@ namespace GUI.Panel
                             tableGroup.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
+                        listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
                         loadDataTable(listTasks);
                     }
                     else

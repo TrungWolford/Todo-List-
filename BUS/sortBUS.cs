@@ -22,7 +22,7 @@ namespace BUS
 
         public List<TaskDTO> getAllTask(int id)
         {
-            return taskDAO.GetAll();
+            return taskDAO.selectedByID(id);
         }
 
     }

@@ -136,6 +136,7 @@ namespace GUI.Panel
         {
             if (tasks == null || tasks.Count == 0)
             {
+                tableMyday.Rows.Clear();
                 return;
             }
 
@@ -218,6 +219,7 @@ namespace GUI.Panel
                             tableMyday.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
+                        listTasks = taskBUS.getAllTaskCurrentDate(user.UserID);
                         loadDataTable(listTasks);
                     }
                     else

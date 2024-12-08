@@ -310,18 +310,17 @@ namespace DAO
             return listTaskImportant;
         }
 
-        public List<TaskDTO> selectedAllTaskByGroupID(int userID, int groupID)
+        public List<TaskDTO> selectedAllTaskByGroupID( int groupID)
         {
             List<TaskDTO> listTasks = new List<TaskDTO>();
             string query = @"
                             SELECT * FROM Task t
                             LEFT JOIN [Group] g ON g.GroupID = t.GroupID
-                            LEFT JOIN [GroupMembership] gms ON gms.GroupID = g.GroupID
-                            WHERE (g.CreatedBy = @UserID OR gms.UserID = @UserID) 
-                                AND g.GroupID = @groupID";
+                       
+                            WHERE g.GroupID = @groupID AND CompletedDate IS NULL";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@UserID", userID),
+                //new SqlParameter("@UserID", userID),
                 new SqlParameter("@groupID", groupID)
             };
 

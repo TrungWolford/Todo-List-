@@ -197,8 +197,8 @@ namespace GUI.Panel
 
         public void loadDataTable(List<TaskDTO> tasks)
         {
-            tableTasks.SuspendLayout(); // Tạm dừng cập nhật giao diện
-            tableTasks.Rows.Clear();   // Xóa tất cả các hàng cũ
+           /* tableTasks.SuspendLayout(); // Tạm dừng cập nhật giao diện
+            tableTasks.Rows.Clear();   // Xóa tất cả các hàng cũ*/
 
             if (tasks == null || tasks.Count == 0)
             {
@@ -293,6 +293,7 @@ namespace GUI.Panel
                             tableTasks.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
+                        listTasks = taskBUS.getAllByUserID(user.UserID);
                         loadDataTable(listTasks);
                     }
                     else

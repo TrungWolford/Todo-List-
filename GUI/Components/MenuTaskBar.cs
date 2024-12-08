@@ -201,11 +201,15 @@ namespace GUI.Components
             if (e.KeyCode == Keys.Enter)
             {
                 string groupName = txtItem_GroupName.Text.Trim();
-                if (!string.IsNullOrEmpty(groupName))
+                bool check = groupBUS.checkGroupTitleExistence(groupName, user.UserID);
+                if (!string.IsNullOrEmpty(groupName) && !check)
                 {
                     AddGroup(groupName);
                     txtItem_GroupName.Clear();
                     pnlitem_GroupName.Visible = false;
+                } else
+                {
+                    MessageBox.Show("Group's name has existed", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
                 e.Handled = true;
@@ -223,7 +227,7 @@ namespace GUI.Components
                     CreatedBy = user.UserID,
                     CreatedDate = DateTime.Now
                 };
-                NewGroup newGroup = new NewGroup(groupName, user, main, groupControls, mainLabels, groupDTO);
+                NewGroup newGroup = new NewGroup(groupName, user, main, groupControls, mainLabels, groupDTO, this);
                 bool test = groupBUS.insert(groupDTO);
                 GroupMemberShipDTO groupMemberShipDTO = new GroupMemberShipDTO
                 {
@@ -272,13 +276,14 @@ namespace GUI.Components
             }
         }
 
-        private void showAllGroup()
+        public void showAllGroup() 
         {
+            groups = groupBUS.getAllByUserID(user.UserID);
             if (groups != null)
             {
                 foreach (GroupDTO groupDTO in groups)
                 {
-                    NewGroup newGroup = new NewGroup(groupDTO.Title, user, main, groupControls, mainLabels, groupDTO);
+                    NewGroup newGroup = new NewGroup(groupDTO.Title, user, main, groupControls, mainLabels, groupDTO, this);
                     pnlMenu_bottom.Controls.Add(newGroup);
                     groupControls.Add(newGroup); // Thêm vào danh sách quản lý
                     newGroup.Click += Group_Click; // Gắn sự kiện click
@@ -286,19 +291,16 @@ namespace GUI.Components
             }
         }
 
-        //private void OpenMember(GroupDTO groupDTO, UserDTO userDTO)
-        //{
-        //    Member memberForm = new Member(groupDTO, userDTO);
-        //    memberForm.OnMemberExit += RefreshGroupList; // Đăng ký sự kiện
-        //    memberForm.ShowDialog();
-        //}
+        public void RefreshGroupList(object? sender, EventArgs e)
+        {
+            pnlMenu_bottom.Controls.Clear(); 
+            groupControls.Clear();           
+            groups = groupBUS.getAllByUserID(user.UserID);
+            showAllGroup();
 
-        //public  void RefreshGroupList()
-        //{
-        //    pnlMenu_bottom.Controls.Clear(); // Xóa toàn bộ các control hiện tại
-        //    groupControls.Clear();           // Xóa danh sách nhóm trong bộ nhớ
-        //    groups = groupBUS.getAllByUserID(user.UserID); // Tải lại danh sách nhóm từ database
-        //    showAllGroup();                  // Hiển thị lại toàn bộ nhóm
-        //}
+            SelectLabel(lbl_itemMyday);
+            Myday md = new Myday(user);
+            main.setForm(md);
+        }
     }
 }
