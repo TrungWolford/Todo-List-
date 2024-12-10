@@ -114,5 +114,26 @@ namespace GUI.Panel
                 }
             }
         }
+        public void PerformSearch(string searchText)
+        {
+
+            List<TaskDTO> filteredTasks = listTasks
+                                .Where(task =>
+                                    task.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                                    (task.Description != null && task.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)))
+                                .ToList();
+
+            // Hiển thị danh sách task đã lọc
+
+            List<TaskDTO> newList = new List<TaskDTO>();
+            foreach (var task in filteredTasks)
+            {
+                newList.Add(task);
+                Console.WriteLine(task);
+            }
+
+            Console.WriteLine(newList.Count);
+            loadDataTable(newList);
+        }
     }
 }

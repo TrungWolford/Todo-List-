@@ -21,6 +21,7 @@ namespace GUI
         private Myday myday;
         private Tasks tasks;
         private Important important;
+        private Completed completed;
         private UserDTO user;
 
 
@@ -33,17 +34,19 @@ namespace GUI
             menuTaskBar.TopLevel = false;
             pnlMenutaskbar.Controls.Add(menuTaskBar);
             menuTaskBar.Dock = DockStyle.Fill;
-            menuTaskBar.Show();
-
-            tasks = new Tasks(user);
-           
+            menuTaskBar.Show();           
 
             myday = new Myday(user);
+            important = new Important(user);
+            tasks = new Tasks(user);
+            completed = new Completed(user);
+
             myday.TopLevel = false;
             pnlMainContent.Controls.Add(myday);
             myday.Dock = DockStyle.Fill;
             myday.Show();
 
+            cpSearching1.OnSearchTextChanged -= CpSearching1_OnSearchTextChanged;
             cpSearching1.OnSearchTextChanged += CpSearching1_OnSearchTextChanged;
 
 
@@ -51,6 +54,19 @@ namespace GUI
             string username = user.UserName.ToString();
         }
 
+        // test <<<
+        private void ShowForm(Form formToShow)
+        {
+            if (pnlMainContent.Controls.Count > 0)
+            {
+                pnlMainContent.Controls.Clear();
+                formToShow.TopLevel = false;
+                formToShow.Dock = DockStyle.Fill;
+                pnlMainContent.Controls.Add(formToShow);
+                formToShow.Show();
+            }
+        }
+        // >>>
 
 
         private void pnlMainContent_Paint(object sender, PaintEventArgs e)
@@ -76,21 +92,26 @@ namespace GUI
         }
 
         private void CpSearching1_OnSearchTextChanged(object sender, string searchText)
-        {
-            //if (myday != null && !myday.IsDisposed)
-            //{
-            //    Console.WriteLine(searchText);
-            //    myday.PerformSearch(searchText);
-
-            //}
-            //else
+        {   
+            if (pnlMainContent.Controls.Count > 0)
+            {
+                Form activeForm = pnlMainContent.Controls[0] as Form;
+                if (activeForm is Myday mydayForm)
+                {
+                    mydayForm.PerformSearch(searchText);
+                } else if (activeForm is Tasks tasksForm)
+                {
+                    tasksForm.PerformSearch(searchText);
+                } else if (activeForm is Important importantForm)
+                {
+                    importantForm.PerformSearch(searchText);
+                } else if (activeForm is Completed completedForm)
+                {
+                    completedForm.PerformSearch(searchText);
+                }
+            }
 
             
-            if (tasks != null && !tasks.IsDisposed)
-            {
-                Console.WriteLine(searchText);
-                tasks.PerformSearch(searchText);
-            }
         }
     }
 }

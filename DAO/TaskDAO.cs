@@ -310,7 +310,7 @@ namespace DAO
             return listTaskImportant;
         }
 
-        public List<TaskDTO> selectedAllTaskByGroupID( int groupID)
+        public List<TaskDTO> selectedAllTaskByGroupID(int userID, int groupID)
         {
             List<TaskDTO> listTasks = new List<TaskDTO>();
             string query = @"

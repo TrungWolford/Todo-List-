@@ -32,7 +32,7 @@ namespace GUI.Panel
             this.menuTaskBar = menuTaskBar;
             InitializeComponent();
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
+            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
             isImportant = false;
             calendar = new MonthCalendar
             {
@@ -109,7 +109,7 @@ namespace GUI.Panel
                     if (test)
                     {
                         MessageBox.Show("Task added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
+                        listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
                         loadDataTable(listTasks);
                     }
                     else
@@ -237,7 +237,7 @@ namespace GUI.Panel
                             tableGroup.Rows.RemoveAt(e.RowIndex);
                             listTasks.RemoveAt(index);
                         }
-                        listTasks = taskBUS.getAllTaskByGroupID(groupDTO.GroupID);
+                        listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
                         loadDataTable(listTasks);
                     }
                     else

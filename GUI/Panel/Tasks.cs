@@ -28,7 +28,6 @@ namespace GUI.Panel
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
         public sortBUS sortBUS = new sortBUS();
-        
 
         public Tasks(UserDTO user)
         {
@@ -341,6 +340,7 @@ namespace GUI.Panel
         private void cpToolBar1_Load(object sender, EventArgs e)
         {
             // Đăng ký sự kiện OnSortByChanged
+            cpToolBar1.OnSortByChanged -= CpTooBar1_OnSortByChanged;
             cpToolBar1.OnSortByChanged += CpTooBar1_OnSortByChanged;
         }
 
@@ -348,8 +348,6 @@ namespace GUI.Panel
 
         public void PerformSearch(string searchText)
         {
-            //listTasks = sortBUS.getAllTask(user.UserID);
-            // Lọc danh sách task dựa trên text tìm kiếm
 
             List<TaskDTO> filteredTasks = listTasks
                                 .Where(task =>
@@ -367,23 +365,7 @@ namespace GUI.Panel
             }
 
             Console.WriteLine(newList.Count);
-
-            //loadDataTable2("", filteredTasks);
-            //loadDataTable(newList);
-            loadDataTable(filteredTasks);
-
-            //if (tableTasks.InvokeRequired)
-            //{
-            //    tableTasks.Invoke((System.Windows.Forms.MethodInvoker)(() => loadDataTable2("", newList)));
-
-            //}
-            //else
-            //{
-            ////loadDataTable2("", newList);
-            //    loadDataTable(newList);
-            //}
-
+            loadDataTable(newList);
         }
-
     }
 }
