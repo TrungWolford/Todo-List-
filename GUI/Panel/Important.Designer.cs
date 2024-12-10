@@ -30,20 +30,20 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar = new Components.cpToolBar(this);
+            cpToolBar = new Components.cpToolBar();
             pnlContentImp_center = new System.Windows.Forms.Panel();
             btnImp_add = new Button();
             lblImp_calendar = new Label();
             txtImportantTask = new TextBox();
             pnlContentImp_bottom = new System.Windows.Forms.Panel();
             tableImportant = new DataGridView();
-            toolTip_impCalendar = new ToolTip(components);
-            toolTip_impImportant = new ToolTip(components);
-            toolTip_impImportantSelected = new ToolTip(components);
             clTitle_imp = new DataGridViewTextBoxColumn();
             clDuedate_imp = new DataGridViewTextBoxColumn();
             clImportance_imp = new DataGridViewImageColumn();
             clDone_imp = new DataGridViewImageColumn();
+            toolTip_impCalendar = new ToolTip(components);
+            toolTip_impImportant = new ToolTip(components);
+            toolTip_impImportantSelected = new ToolTip(components);
             pnlContentImp_center.SuspendLayout();
             pnlContentImp_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableImportant).BeginInit();
@@ -56,6 +56,8 @@
             cpToolBar.Name = "cpToolBar";
             cpToolBar.Size = new Size(1040, 108);
             cpToolBar.TabIndex = 0;
+            cpToolBar.OnSortByChanged += CpToolBar_OnSortByChanged;
+            cpToolBar.Load += cpToolBar_Load;
             // 
             // pnlContentImp_center
             // 

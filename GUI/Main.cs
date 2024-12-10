@@ -108,6 +108,9 @@ namespace GUI
                 } else if (activeForm is Completed completedForm)
                 {
                     completedForm.PerformSearch(searchText);
+                } else if (activeForm is Group groupForm)
+                {
+                    groupForm.PerformSearch(searchText);
                 }
             }
 

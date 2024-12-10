@@ -1,5 +1,6 @@
 ﻿using BUS;
 using DTO;
+using GUI.Components;
 using Helper;
 using System;
 using System.Collections.Generic;
@@ -122,6 +123,45 @@ namespace GUI.Panel
             loadDataTable(listTasks);
         }
 
+        public void loadDataTable2(string selectedValue, List<TaskDTO> tasks)
+        {
+
+            tasks = listTasks;
+            int currentUserID = user.UserID;
+            var userTasks = tasks.Where(t => t.CreatedBy == currentUserID).ToList();
+
+            // Sắp xếp các task theo các tiêu chí khác nhau
+            var sortedTaskImportance = userTasks.OrderByDescending(t => t.IsImportant).ToList();
+            var sortedTaskDueDate = userTasks.OrderBy(t => t.DueDate).ToList();
+            var sortedTaskAlpha = userTasks.OrderBy(t => t.Title).ToList();
+            var sortedTaskByCreateDate = userTasks.OrderBy(t => t.CreatedDate).ToList();
+
+            List<TaskDTO> sortedTasks = new List<TaskDTO>();
+
+            if (selectedValue == "Importance")
+            {
+                sortedTasks = sortedTaskImportance;
+            }
+            else if (selectedValue == "Due date")
+            {
+                sortedTasks = sortedTaskDueDate;
+            }
+            else if (selectedValue == "Alphabetically")
+            {
+                sortedTasks = sortedTaskAlpha;
+            }
+            else if (selectedValue == "Creation Date")
+            {
+                sortedTasks = sortedTaskByCreateDate;
+            }
+            else
+            {
+                sortedTasks = tasks;
+            }
+
+            loadDataTable(sortedTasks);
+        }
+
         private void loadDataTable(List<TaskDTO> tasks)
         {
             if (tasks == null || tasks.Count == 0)
@@ -187,7 +227,7 @@ namespace GUI.Panel
                         selectedTask.IsImportant = previousState;
                         MessageBox.Show("Failed to update task.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -249,6 +289,18 @@ namespace GUI.Panel
 
             Console.WriteLine(newList.Count);
             loadDataTable(newList);
+        }
+
+        private void CpToolBar_OnSortByChanged(string sortBy)
+        {
+            loadDataTable2(sortBy, listTasks);
+        }
+
+        private void cpToolBar_Load(object sender, EventArgs e)
+        {
+            // Đăng ký sự kiện OnSortByChanged
+            cpToolBar.OnSortByChanged -= CpToolBar_OnSortByChanged;
+            cpToolBar.OnSortByChanged += CpToolBar_OnSortByChanged;
         }
     }
 }
