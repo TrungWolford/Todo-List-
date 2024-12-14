@@ -38,6 +38,7 @@
             clImportance_md = new DataGridViewImageColumn();
             clDone_md = new DataGridViewImageColumn();
             pnlContentMD_center = new System.Windows.Forms.Panel();
+            lblMd_timePicker = new Label();
             lblMd_importantSelected = new Label();
             btnMd_add = new Button();
             lblMd_important = new Label();
@@ -47,6 +48,7 @@
             toolTip_mdCalendar = new ToolTip(components);
             toolTip_mdImportant = new ToolTip(components);
             toolTip_mdImportantSelected = new ToolTip(components);
+            customeDateTime1 = new Components.CustomeDateTime(this);
             pnlContentMD_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
             pnlContentMD_center.SuspendLayout();
@@ -132,6 +134,7 @@
             // 
             pnlContentMD_center.BackColor = Color.White;
             pnlContentMD_center.BorderStyle = BorderStyle.Fixed3D;
+            pnlContentMD_center.Controls.Add(lblMd_timePicker);
             pnlContentMD_center.Controls.Add(lblMd_importantSelected);
             pnlContentMD_center.Controls.Add(btnMd_add);
             pnlContentMD_center.Controls.Add(lblMd_important);
@@ -141,6 +144,20 @@
             pnlContentMD_center.Name = "pnlContentMD_center";
             pnlContentMD_center.Size = new Size(1039, 108);
             pnlContentMD_center.TabIndex = 1;
+            // 
+            // lblMd_timePicker
+            // 
+            lblMd_timePicker.Cursor = Cursors.Hand;
+            lblMd_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMd_timePicker.Image = Properties.Resources.notification_32px;
+            lblMd_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
+            lblMd_timePicker.Location = new Point(125, 53);
+            lblMd_timePicker.Name = "lblMd_timePicker";
+            lblMd_timePicker.Padding = new Padding(3, 0, 3, 0);
+            lblMd_timePicker.Size = new Size(307, 44);
+            lblMd_timePicker.TabIndex = 8;
+            lblMd_timePicker.TextAlign = ContentAlignment.MiddleCenter;
+            lblMd_timePicker.Click += lblMd_timePicker_Click;
             // 
             // lblMd_importantSelected
             // 
@@ -212,12 +229,20 @@
             cpToolBar1.OnSortByChanged += CpToolBar1_OnSortByChanged;
             cpToolBar1.Load += cpToolBar1_Load;
             // 
+            // customeDateTime1
+            // 
+            customeDateTime1.Location = new Point(198, 281);
+            customeDateTime1.Name = "customeDateTime1";
+            customeDateTime1.Size = new Size(262, 367);
+            customeDateTime1.TabIndex = 3;
+            // 
             // Myday
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1179, 853);
+            Controls.Add(customeDateTime1);
             Controls.Add(cpToolBar1);
             Controls.Add(pnlContentMD_center);
             Controls.Add(pnlContentMD_bottom);
@@ -249,5 +274,7 @@
         private DataGridViewTextBoxColumn clDuedate_md;
         private DataGridViewImageColumn clImportance_md;
         private DataGridViewImageColumn clDone_md;
+        private Components.CustomeDateTime customeDateTime1;
+        private Label lblMd_timePicker;
     }
 }

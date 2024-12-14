@@ -31,6 +31,9 @@ namespace GUI.Panel
             listTasks = taskBUS.getAllTaskImportant(user.UserID);
             isImportant = true;
 
+            customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
+
+
             calendar = new MonthCalendar
             {
                 Visible = false,
@@ -41,7 +44,9 @@ namespace GUI.Panel
         }
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
         {
+
             lblImp_calendar.Text = e.Start.ToString("dd/MM/yyyy");
+            lblImp_timePicker.Left = lblImp_calendar.Right + 75;
             calendar.Visible = false;
         }
 
@@ -67,6 +72,14 @@ namespace GUI.Panel
             return true;
         }
 
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if (sender is CustomeDateTime)
+            {
+                lblImp_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+            }
+        }
+
         private void btnImp_add_Click(object sender, EventArgs e)
         {
             try
@@ -74,13 +87,17 @@ namespace GUI.Panel
                 if (checkValidation())
                 {
                     string dateString = lblImp_calendar.Text;
+                    string dataTimeString = lblImp_timePicker.Text;
                     TaskDTO newTask = new TaskDTO
                     {
                         Title = txtImportantTask.Text,
                         DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
-                        CreatedBy = user.UserID
+                        CreatedBy = user.UserID,
+                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+
+                        IsReminderSent = false
                     };
                     bool test = taskBUS.insert(newTask);
                     if (test)
@@ -108,6 +125,8 @@ namespace GUI.Panel
             txtImportantTask.Clear();
             lblImp_calendar.Text = "";
             isImportant = true;
+
+            
         }
 
         private void Important_Load(object sender, EventArgs e)
@@ -301,6 +320,12 @@ namespace GUI.Panel
             // Đăng ký sự kiện OnSortByChanged
             cpToolBar.OnSortByChanged -= CpToolBar_OnSortByChanged;
             cpToolBar.OnSortByChanged += CpToolBar_OnSortByChanged;
+        }
+
+        private void lblImp_timePicker_Click(object sender, EventArgs e)
+        {
+            customeDateTime1.Visible = true;
+
         }
     }
 }

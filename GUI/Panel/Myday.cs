@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using DTO;
 using Helper;
 using BUS;
+using GUI.Components;
 
 namespace GUI.Panel
 {
@@ -31,6 +32,8 @@ namespace GUI.Panel
             listTasks = taskBUS.getAllTaskCurrentDate(user.UserID);
             isImportant = false;
 
+            customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
+
             calendar = new MonthCalendar
             {
                 Visible = false,
@@ -46,8 +49,10 @@ namespace GUI.Panel
             lblMd_calendar.Text = e.Start.ToString("dd/MM/yyyy");
             lblMd_important.Left = lblMd_calendar.Right + 20;
             lblMd_importantSelected.Left = lblMd_calendar.Right + 20;
+            lblMd_timePicker.Left = lblMd_calendar.Right + 75;
             calendar.Visible = false;
         }
+
 
         private void lblMd_calendar_Click(object sender, EventArgs e)
         {
@@ -85,6 +90,14 @@ namespace GUI.Panel
             return true;
         }
 
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if (sender is CustomeDateTime)
+            {
+                lblMd_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+            }
+        }
+
         private void btnMd_add_Click(object sender, EventArgs e)
         {
             try
@@ -92,13 +105,17 @@ namespace GUI.Panel
                 if (checkValidation())
                 {
                     string dateString = lblMd_calendar.Text;
+                    string dataTimeString = lblMd_timePicker.Text;
                     TaskDTO newTask = new TaskDTO
                     {
                         Title = txtMydayTask.Text,
                         DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
-                        CreatedBy = user.UserID
+                        CreatedBy = user.UserID,
+                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+
+                        IsReminderSent = false
                     };
                     bool test = taskBUS.insert(newTask);
                     if (test)
@@ -320,6 +337,11 @@ namespace GUI.Panel
             // Đăng ký sự kiện OnSortByChanged
             cpToolBar1.OnSortByChanged -= CpToolBar1_OnSortByChanged;
             cpToolBar1.OnSortByChanged += CpToolBar1_OnSortByChanged;
+        }
+
+        private void lblMd_timePicker_Click(object sender, EventArgs e)
+        {
+            customeDateTime1.Visible = true;
         }
     }
 

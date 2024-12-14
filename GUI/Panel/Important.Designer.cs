@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             cpToolBar = new Components.cpToolBar();
             pnlContentImp_center = new System.Windows.Forms.Panel();
+            lblImp_timePicker = new Label();
             btnImp_add = new Button();
             lblImp_calendar = new Label();
             txtImportantTask = new TextBox();
@@ -41,6 +42,7 @@
             clDuedate_imp = new DataGridViewTextBoxColumn();
             clImportance_imp = new DataGridViewImageColumn();
             clDone_imp = new DataGridViewImageColumn();
+            customeDateTime1 = new Components.CustomeDateTime();
             toolTip_impCalendar = new ToolTip(components);
             toolTip_impImportant = new ToolTip(components);
             toolTip_impImportantSelected = new ToolTip(components);
@@ -63,6 +65,7 @@
             // 
             pnlContentImp_center.BackColor = Color.White;
             pnlContentImp_center.BorderStyle = BorderStyle.Fixed3D;
+            pnlContentImp_center.Controls.Add(lblImp_timePicker);
             pnlContentImp_center.Controls.Add(btnImp_add);
             pnlContentImp_center.Controls.Add(lblImp_calendar);
             pnlContentImp_center.Controls.Add(txtImportantTask);
@@ -70,6 +73,20 @@
             pnlContentImp_center.Name = "pnlContentImp_center";
             pnlContentImp_center.Size = new Size(1040, 108);
             pnlContentImp_center.TabIndex = 2;
+            // 
+            // lblImp_timePicker
+            // 
+            lblImp_timePicker.Cursor = Cursors.Hand;
+            lblImp_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblImp_timePicker.Image = Properties.Resources.notification_32px;
+            lblImp_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
+            lblImp_timePicker.Location = new Point(133, 53);
+            lblImp_timePicker.Name = "lblImp_timePicker";
+            lblImp_timePicker.Padding = new Padding(3, 0, 3, 0);
+            lblImp_timePicker.Size = new Size(307, 44);
+            lblImp_timePicker.TabIndex = 8;
+            lblImp_timePicker.TextAlign = ContentAlignment.MiddleCenter;
+            lblImp_timePicker.Click += lblImp_timePicker_Click;
             // 
             // btnImp_add
             // 
@@ -123,14 +140,14 @@
             tableImportant.BackgroundColor = Color.White;
             tableImportant.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableImportant.Columns.AddRange(new DataGridViewColumn[] { clTitle_imp, clDuedate_imp, clImportance_imp, clDone_imp });
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            tableImportant.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            tableImportant.DefaultCellStyle = dataGridViewCellStyle2;
             tableImportant.Dock = DockStyle.Fill;
             tableImportant.Location = new Point(0, 0);
             tableImportant.Name = "tableImportant";
@@ -181,12 +198,21 @@
             clDone_imp.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_imp.Width = 72;
             // 
+            // customeDateTime1
+            // 
+            customeDateTime1.Location = new Point(215, 267);
+            customeDateTime1.Name = "customeDateTime1";
+            customeDateTime1.Size = new Size(261, 353);
+            customeDateTime1.TabIndex = 4;
+            customeDateTime1.Visible = false;
+            // 
             // Important
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1179, 853);
+            Controls.Add(customeDateTime1);
             Controls.Add(pnlContentImp_bottom);
             Controls.Add(pnlContentImp_center);
             Controls.Add(cpToolBar);
@@ -217,5 +243,7 @@
         private DataGridViewTextBoxColumn clDuedate_imp;
         private DataGridViewImageColumn clImportance_imp;
         private DataGridViewImageColumn clDone_imp;
+        private Components.CustomeDateTime customeDateTime1;
+        private Label lblImp_timePicker;
     }
 }
