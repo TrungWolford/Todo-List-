@@ -24,7 +24,7 @@ namespace GUI
         private Important important;
         private Completed completed;
         private UserDTO user;
-
+        public event EventHandler OnFormClosed;
 
         public Main(UserDTO user)
         {
@@ -35,7 +35,7 @@ namespace GUI
             menuTaskBar.TopLevel = false;
             pnlMenutaskbar.Controls.Add(menuTaskBar);
             menuTaskBar.Dock = DockStyle.Fill;
-            menuTaskBar.Show();           
+            menuTaskBar.Show();
 
             myday = new Myday(user);
             important = new Important(user);
@@ -93,29 +93,37 @@ namespace GUI
         }
 
         private void CpSearching1_OnSearchTextChanged(object sender, string searchText)
-        {   
+        {
             if (pnlMainContent.Controls.Count > 0)
             {
                 Form activeForm = pnlMainContent.Controls[0] as Form;
                 if (activeForm is Myday mydayForm)
                 {
                     mydayForm.PerformSearch(searchText);
-                } else if (activeForm is Tasks tasksForm)
+                }
+                else if (activeForm is Tasks tasksForm)
                 {
                     tasksForm.PerformSearch(searchText);
-                } else if (activeForm is Important importantForm)
+                }
+                else if (activeForm is Important importantForm)
                 {
                     importantForm.PerformSearch(searchText);
-                } else if (activeForm is Completed completedForm)
+                }
+                else if (activeForm is Completed completedForm)
                 {
                     completedForm.PerformSearch(searchText);
-                } else if (activeForm is Group groupForm)
+                }
+                else if (activeForm is Group groupForm)
                 {
                     groupForm.PerformSearch(searchText);
                 }
             }
 
-            
+
+        }
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            OnFormClosed?.Invoke(sender, EventArgs.Empty);
         }
     }
 }
