@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            cpToolBarGroup3 = new Components.cpToolBarGroup(groupDTO, user, this);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Group));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlContentGroup_center = new System.Windows.Forms.Panel();
+            lblGroup_timePicker = new Label();
             lblGroup_importantSelected = new Label();
             btnGroup_add = new Button();
             lblGroup_important = new Label();
             lblGroup_calendar = new Label();
             txtGroupTask = new TextBox();
             pnlContentGroup_bottom = new System.Windows.Forms.Panel();
+            customeDateTime1 = new Components.CustomeDateTime();
             tableGroup = new DataGridView();
             clTitle_group = new DataGridViewTextBoxColumn();
             clDuedate_group = new DataGridViewTextBoxColumn();
             clImportance_group = new DataGridViewImageColumn();
             clDone_group = new DataGridViewImageColumn();
-            customeDateTime1 = new Components.CustomeDateTime(this); // thêm this
-            lblGroup_timePicker = new Label();
+            cpToolBarGroup3 = new Components.cpToolBarGroup(groupDTO, user, this);
             pnlContentGroup_center.SuspendLayout();
             pnlContentGroup_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableGroup).BeginInit();
@@ -65,6 +65,20 @@
             pnlContentGroup_center.Name = "pnlContentGroup_center";
             pnlContentGroup_center.Size = new Size(910, 82);
             pnlContentGroup_center.TabIndex = 3;
+            // 
+            // lblGroup_timePicker
+            // 
+            lblGroup_timePicker.Cursor = Cursors.Hand;
+            lblGroup_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblGroup_timePicker.Image = Properties.Resources.notification_32px;
+            lblGroup_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
+            lblGroup_timePicker.Location = new Point(125, 32);
+            lblGroup_timePicker.Name = "lblGroup_timePicker";
+            lblGroup_timePicker.Padding = new Padding(3, 0, 3, 0);
+            lblGroup_timePicker.Size = new Size(307, 42);
+            lblGroup_timePicker.TabIndex = 8;
+            lblGroup_timePicker.TextAlign = ContentAlignment.MiddleCenter;
+            lblGroup_timePicker.Click += lblTasks_timePicker_Click;
             // 
             // lblGroup_importantSelected
             // 
@@ -135,6 +149,22 @@
             pnlContentGroup_bottom.Size = new Size(910, 394);
             pnlContentGroup_bottom.TabIndex = 4;
             // 
+            // customeDateTime1
+            // 
+            customeDateTime1.Location = new Point(141, -30);
+            customeDateTime1.Margin = new Padding(3, 2, 3, 2);
+            customeDateTime1.Name = "customeDateTime1";
+            customeDateTime1.Size = new Size(257, 370);
+            customeDateTime1.TabIndex = 5;
+            customeDateTime1.Visible = false;
+            //
+            // cpToolBarGroup3
+            // 
+            cpToolBarGroup3.Location = new Point(71, 31);
+            cpToolBarGroup3.Name = "cpToolBarGroup3";
+            cpToolBarGroup3.Size = new Size(1040, 108);
+            cpToolBarGroup3.TabIndex = 5;
+            // 
             // tableGroup
             // 
             tableGroup.AllowUserToAddRows = false;
@@ -144,14 +174,14 @@
             tableGroup.BackgroundColor = Color.White;
             tableGroup.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableGroup.Columns.AddRange(new DataGridViewColumn[] { clTitle_group, clDuedate_group, clImportance_group, clDone_group });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(246, 246, 246);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            tableGroup.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            tableGroup.DefaultCellStyle = dataGridViewCellStyle1;
             tableGroup.Dock = DockStyle.Fill;
             tableGroup.Location = new Point(0, 0);
             tableGroup.Margin = new Padding(3, 2, 3, 2);
@@ -160,6 +190,7 @@
             tableGroup.Size = new Size(910, 394);
             tableGroup.TabIndex = 1;
             tableGroup.CellContentClick += tableGroup_CellContentClick;
+            tableGroup.CellDoubleClick += tableGroup_CellDoubleClick;
             // 
             // clTitle_group
             // 
@@ -203,36 +234,15 @@
             clDone_group.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_group.Width = 72;
             // 
-            // customeDateTime1
-            // 
-            customeDateTime1.Location = new Point(141, -30);
-            customeDateTime1.Name = "customeDateTime1";
-            customeDateTime1.Size = new Size(257, 370);
-            customeDateTime1.TabIndex = 5;
-            // 
-            // lblGroup_timePicker
-            // 
-            lblGroup_timePicker.Cursor = Cursors.Hand;
-            lblGroup_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblGroup_timePicker.Image = Properties.Resources.notification_32px;
-            lblGroup_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
-            lblGroup_timePicker.Location = new Point(139, 55);
-            lblGroup_timePicker.Name = "lblGroup_timePicker";
-            lblGroup_timePicker.Padding = new Padding(3, 0, 3, 0);
-            lblGroup_timePicker.Size = new Size(307, 54);
-            lblGroup_timePicker.TabIndex = 8;
-            lblGroup_timePicker.TextAlign = ContentAlignment.MiddleCenter;
-            lblGroup_timePicker.Click += lblTasks_timePicker_Click;
-            // 
             // Group
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1032, 640);
-            Controls.Add(cpToolBarGroup3);
             Controls.Add(pnlContentGroup_bottom);
             Controls.Add(pnlContentGroup_center);
+            Controls.Add(cpToolBarGroup3);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "Group";

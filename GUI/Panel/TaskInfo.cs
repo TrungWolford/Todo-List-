@@ -251,6 +251,9 @@ namespace GUI.Panel
 
         private void btn_detailDelete_Click(object sender, EventArgs e)
         {
+            // Xoa cac step
+            stepBUS.DeleteTaskStep(taskDTO.TaskID);
+
             // Xoa cac tep attachment
             taskInfoBus.DeleteTaskFiles(taskDTO.TaskID);
 

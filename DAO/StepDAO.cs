@@ -132,7 +132,20 @@ namespace DAO
             return step;
         }
 
-
+        public int DeleteTaskStep(int taskID)
+        {
+            string query = "DELETE FROM [Step] WHERE TaskID = @taskID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@taskID", SqlDbType.Int) { Value = taskID }
+            };
+            int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
+            if (rowsAffected > 0)
+            {
+                return rowsAffected;
+            }
+            return -1; // Không có cập nhật được thực hiện
+        }
         public int Delete(StepDTO t)
         {
             throw new NotImplementedException();

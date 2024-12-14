@@ -43,9 +43,10 @@
             // cpToolBar1
             // 
             cpToolBar1.BackColor = Color.Transparent;
-            cpToolBar1.Location = new Point(71, 31);
+            cpToolBar1.Location = new Point(62, 23);
+            cpToolBar1.Margin = new Padding(3, 2, 3, 2);
             cpToolBar1.Name = "cpToolBar1";
-            cpToolBar1.Size = new Size(1040, 108);
+            cpToolBar1.Size = new Size(910, 81);
             cpToolBar1.TabIndex = 0;
             cpToolBar1.OnSortByChanged += CpToolBar1_OnSortByChanged;
             cpToolBar1.Load += cpToolBar1_Load;
@@ -53,9 +54,10 @@
             // pnlContentCompleted_center
             // 
             pnlContentCompleted_center.Controls.Add(tableCompleted);
-            pnlContentCompleted_center.Location = new Point(71, 167);
+            pnlContentCompleted_center.Location = new Point(62, 125);
+            pnlContentCompleted_center.Margin = new Padding(3, 2, 3, 2);
             pnlContentCompleted_center.Name = "pnlContentCompleted_center";
-            pnlContentCompleted_center.Size = new Size(1040, 650);
+            pnlContentCompleted_center.Size = new Size(910, 488);
             pnlContentCompleted_center.TabIndex = 1;
             // 
             // tableCompleted
@@ -77,11 +79,13 @@
             tableCompleted.DefaultCellStyle = dataGridViewCellStyle1;
             tableCompleted.Dock = DockStyle.Fill;
             tableCompleted.Location = new Point(0, 0);
+            tableCompleted.Margin = new Padding(3, 2, 3, 2);
             tableCompleted.Name = "tableCompleted";
             tableCompleted.RowHeadersWidth = 51;
-            tableCompleted.Size = new Size(1040, 650);
+            tableCompleted.Size = new Size(910, 488);
             tableCompleted.TabIndex = 2;
             tableCompleted.CellContentClick += tableCompleted_CellContentClick;
+            tableCompleted.CellDoubleClick += tableCompleted_CellDoubleClick;
             // 
             // clTitle_cmp
             // 
@@ -127,13 +131,14 @@
             // 
             // Completed
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1179, 853);
+            ClientSize = new Size(1032, 640);
             Controls.Add(pnlContentCompleted_center);
             Controls.Add(cpToolBar1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Completed";
             Text = "Completed";
             Load += Completed_Load;

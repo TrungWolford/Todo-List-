@@ -25,6 +25,8 @@ namespace GUI.Panel
         public TaskBUS taskBUS;
         private GroupDTO groupDTO;
         private MenuTaskBar menuTaskBar;
+        private bool isSelectedReminder;
+
         public Group(UserDTO user, GroupDTO groupDTO, MenuTaskBar menuTaskBar)
         {
             this.user = user;
@@ -34,6 +36,7 @@ namespace GUI.Panel
             taskBUS = new TaskBUS();
             listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
             isImportant = false;
+            isSelectedReminder = false;
 
             customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
 
@@ -107,20 +110,37 @@ namespace GUI.Panel
             {
                 if (checkValidation())
                 {
+                    TaskDTO newTask;
                     string dateString = lblGroup_calendar.Text;
-                    string dataTimeString = lblGroup_timePicker.Text;
-                    TaskDTO newTask = new TaskDTO
+                    if (isSelectedReminder)
                     {
-                        Title = txtGroupTask.Text,
-                        DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        IsImportant = isImportant,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = user.UserID,
-                        GroupID = groupDTO.GroupID,
-                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                        string dataTimeString = lblGroup_timePicker.Text;
+                        newTask = new TaskDTO
+                        {
+                            Title = txtGroupTask.Text,
+                            DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                            IsImportant = isImportant,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = user.UserID,
+                            GroupID = groupDTO.GroupID,
+                            ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
 
-                        IsReminderSent = false
-                    };
+                            IsReminderSent = false
+                        };
+                    }
+                    else
+                    {
+                        newTask = new TaskDTO
+                        {
+                            Title = txtGroupTask.Text,
+                            DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                            IsImportant = isImportant,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = user.UserID,
+                            GroupID = groupDTO.GroupID,
+                            IsReminderSent = false
+                        };
+                    }
                     bool test = taskBUS.insert(newTask);
                     if (test)
                     {
@@ -296,6 +316,27 @@ namespace GUI.Panel
         private void lblTasks_timePicker_Click(object sender, EventArgs e)
         {
             customeDateTime1.Visible = true;
+        }
+
+        private void tableGroup_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = tableGroup.Columns[e.ColumnIndex].Name;
+                object cellValue = tableGroup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                var selectedTask = listTasks[e.RowIndex];
+                int taskid = selectedTask.TaskID;
+
+                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
+                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
+                taskInfoForm.ShowDialog();
+            }
+        }
+        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
+        {
+            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
+            loadDataTable(listTasks);
         }
     }
 }

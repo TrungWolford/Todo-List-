@@ -42,5 +42,9 @@ namespace BUS
         {
             return stepDAO.SelectByID(t);
         }
+        public void DeleteTaskStep(int taskID)
+        {
+            stepDAO.DeleteTaskStep(taskID);
+        }
     }
 }

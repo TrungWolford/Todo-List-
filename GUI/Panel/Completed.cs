@@ -186,5 +186,26 @@ namespace GUI.Panel
             cpToolBar1.OnSortByChanged -= CpToolBar1_OnSortByChanged;
             cpToolBar1.OnSortByChanged += CpToolBar1_OnSortByChanged;
         }
+
+        private void tableCompleted_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = tableCompleted.Columns[e.ColumnIndex].Name;
+                object cellValue = tableCompleted.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                var selectedTask = listTasks[e.RowIndex];
+                int taskid = selectedTask.TaskID;
+
+                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
+                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
+                taskInfoForm.ShowDialog();
+            }
+        }
+        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
+        {
+            listTasks = taskBUS.getAllTaskCompleted(user.UserID);
+            loadDataTable(listTasks);
+        }
     }
 }

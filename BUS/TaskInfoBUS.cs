@@ -51,7 +51,6 @@ namespace BUS
             dockerDAO.DeleteTaskFolderFromDocker(taskID);
             attachmentDAO.DeleteTaskAttachments(taskID);
         }
-
         public TaskDTO SelectByTaskID(int taskID)
         {
             return taskDAO.SelectByTaskID(taskID);
