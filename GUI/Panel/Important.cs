@@ -22,6 +22,7 @@ namespace GUI.Panel
         private bool isImportant;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
+        private bool isSelectedReminder;
         public Important(UserDTO user)
         {
             this.user = user;
@@ -30,6 +31,7 @@ namespace GUI.Panel
             taskBUS = new TaskBUS();
             listTasks = taskBUS.getAllTaskImportant(user.UserID);
             isImportant = true;
+            isSelectedReminder = false;
 
             customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
 
@@ -72,13 +74,7 @@ namespace GUI.Panel
             return true;
         }
 
-        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
-        {
-            if (sender is CustomeDateTime)
-            {
-                lblImp_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
-            }
-        }
+        
 
         private void btnImp_add_Click(object sender, EventArgs e)
         {
@@ -86,19 +82,36 @@ namespace GUI.Panel
             {
                 if (checkValidation())
                 {
+                    
+                    TaskDTO newTask;
                     string dateString = lblImp_calendar.Text;
-                    string dataTimeString = lblImp_timePicker.Text;
-                    TaskDTO newTask = new TaskDTO
+                    if (isSelectedReminder)
                     {
-                        Title = txtImportantTask.Text,
-                        DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        IsImportant = isImportant,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = user.UserID,
-                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                        string dataTimeString = lblImp_timePicker.Text;
+                        newTask = new TaskDTO
+                        {
+                            Title = txtImportantTask.Text,
+                            DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                            IsImportant = isImportant,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = user.UserID,
+                            ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
 
-                        IsReminderSent = false
-                    };
+                            IsReminderSent = false
+                        };
+                    }
+                    else
+                    {
+                        newTask = new TaskDTO
+                        {
+                            Title = txtImportantTask.Text,
+                            DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                            IsImportant = isImportant,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = user.UserID,
+                            IsReminderSent = false
+                        };
+                    }
                     bool test = taskBUS.insert(newTask);
                     if (test)
                     {
@@ -287,7 +300,27 @@ namespace GUI.Panel
                 }
             }
         }
+        private void tableImportant_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = tableImportant.Columns[e.ColumnIndex].Name;
+                object cellValue = tableImportant.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
 
+                var selectedTask = listTasks[e.RowIndex];
+                int taskid = selectedTask.TaskID;
+
+                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
+                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
+                taskInfoForm.ShowDialog();
+            }
+        }
+
+        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
+        {
+            listTasks = taskBUS.getAllTaskImportant(user.UserID);
+            loadDataTable(listTasks);
+        }
         public void PerformSearch(string searchText)
         {
 
@@ -325,7 +358,14 @@ namespace GUI.Panel
         private void lblImp_timePicker_Click(object sender, EventArgs e)
         {
             customeDateTime1.Visible = true;
-
+        }
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if (sender is CustomeDateTime)
+            {
+                lblImp_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+                isSelectedReminder = true;
+            }
         }
     }
 }

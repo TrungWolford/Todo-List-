@@ -28,7 +28,7 @@ namespace GUI.Panel
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
         public sortBUS sortBUS = new sortBUS();
-
+        private bool isSelectedReminder;
         public Tasks(UserDTO user)
         {
             this.user = user;
@@ -41,6 +41,7 @@ namespace GUI.Panel
             customeDateTime1.Visible = false;
             customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
             //completedDate = null;
+            isSelectedReminder = false;
 
             calendar = new MonthCalendar
             {
@@ -89,7 +90,6 @@ namespace GUI.Panel
         {
             customeDateTime1.Visible = true;
             //lblTasks_timePicker.Text = customeDateTime
-            
         }
 
         private void OnTimePicker_Choosed(object sender, DateTime dateTime)
@@ -97,6 +97,7 @@ namespace GUI.Panel
             if(sender is CustomeDateTime)
             {
                 lblTasks_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+                isSelectedReminder = true;
             }
         }
 
@@ -121,19 +122,35 @@ namespace GUI.Panel
             {
                 if (checkValidation())
                 {
+                    TaskDTO newTask;
                     string dateString = lblTasks_calendar.Text;
-                    string dataTimeString = lblTasks_timePicker.Text;
-                    TaskDTO newTask = new TaskDTO
+                    if(isSelectedReminder)
                     {
-                        Title = txtTasksTask.Text,
-                        DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        IsImportant = isImportant,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = user.UserID,
-                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                        string dataTimeString = lblTasks_timePicker.Text;
+                        newTask = new TaskDTO
+                        {
+                            Title = txtTasksTask.Text,
+                            DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                            IsImportant = isImportant,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = user.UserID,
+                            ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
 
-                        IsReminderSent = false
-                    };
+                            IsReminderSent = false
+                        };
+                    } else
+                    {
+                        newTask = new TaskDTO
+                        {
+                            Title = txtTasksTask.Text,
+                            DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                            IsImportant = isImportant,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = user.UserID,
+                            IsReminderSent = false
+                        };
+                    }
+                    
                     bool test = taskBUS.insert(newTask);
                     if (test)
                     {

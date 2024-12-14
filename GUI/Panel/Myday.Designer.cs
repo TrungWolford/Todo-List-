@@ -48,7 +48,7 @@
             toolTip_mdCalendar = new ToolTip(components);
             toolTip_mdImportant = new ToolTip(components);
             toolTip_mdImportantSelected = new ToolTip(components);
-            customeDateTime1 = new Components.CustomeDateTime(this);
+            customeDateTime1 = new Components.CustomeDateTime();
             pnlContentMD_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
             pnlContentMD_center.SuspendLayout();
@@ -58,9 +58,10 @@
             // 
             pnlContentMD_bottom.BackColor = Color.White;
             pnlContentMD_bottom.Controls.Add(tableMyday);
-            pnlContentMD_bottom.Location = new Point(71, 297);
+            pnlContentMD_bottom.Location = new Point(62, 223);
+            pnlContentMD_bottom.Margin = new Padding(3, 2, 3, 2);
             pnlContentMD_bottom.Name = "pnlContentMD_bottom";
-            pnlContentMD_bottom.Size = new Size(1040, 525);
+            pnlContentMD_bottom.Size = new Size(910, 394);
             pnlContentMD_bottom.TabIndex = 1;
             // 
             // tableMyday
@@ -82,11 +83,13 @@
             tableMyday.DefaultCellStyle = dataGridViewCellStyle1;
             tableMyday.Dock = DockStyle.Fill;
             tableMyday.Location = new Point(0, 0);
+            tableMyday.Margin = new Padding(3, 2, 3, 2);
             tableMyday.Name = "tableMyday";
             tableMyday.RowHeadersWidth = 51;
-            tableMyday.Size = new Size(1040, 525);
+            tableMyday.Size = new Size(910, 394);
             tableMyday.TabIndex = 0;
             tableMyday.CellContentClick += tableMyday_CellContentClick;
+            tableMyday.CellDoubleClick += tableTasks_CellDoubleClick;
             // 
             // clTitle_md
             // 
@@ -140,9 +143,10 @@
             pnlContentMD_center.Controls.Add(lblMd_important);
             pnlContentMD_center.Controls.Add(lblMd_calendar);
             pnlContentMD_center.Controls.Add(txtMydayTask);
-            pnlContentMD_center.Location = new Point(71, 167);
+            pnlContentMD_center.Location = new Point(62, 125);
+            pnlContentMD_center.Margin = new Padding(3, 2, 3, 2);
             pnlContentMD_center.Name = "pnlContentMD_center";
-            pnlContentMD_center.Size = new Size(1039, 108);
+            pnlContentMD_center.Size = new Size(910, 82);
             pnlContentMD_center.TabIndex = 1;
             // 
             // lblMd_timePicker
@@ -151,10 +155,10 @@
             lblMd_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMd_timePicker.Image = Properties.Resources.notification_32px;
             lblMd_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
-            lblMd_timePicker.Location = new Point(125, 53);
+            lblMd_timePicker.Location = new Point(109, 40);
             lblMd_timePicker.Name = "lblMd_timePicker";
             lblMd_timePicker.Padding = new Padding(3, 0, 3, 0);
-            lblMd_timePicker.Size = new Size(307, 44);
+            lblMd_timePicker.Size = new Size(269, 33);
             lblMd_timePicker.TabIndex = 8;
             lblMd_timePicker.TextAlign = ContentAlignment.MiddleCenter;
             lblMd_timePicker.Click += lblMd_timePicker_Click;
@@ -164,9 +168,9 @@
             lblMd_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblMd_importantSelected.Cursor = Cursors.Hand;
             lblMd_importantSelected.Image = (Image)resources.GetObject("lblMd_importantSelected.Image");
-            lblMd_importantSelected.Location = new Point(67, 51);
+            lblMd_importantSelected.Location = new Point(59, 38);
             lblMd_importantSelected.Name = "lblMd_importantSelected";
-            lblMd_importantSelected.Size = new Size(57, 44);
+            lblMd_importantSelected.Size = new Size(50, 33);
             lblMd_importantSelected.TabIndex = 4;
             toolTip_mdImportantSelected.SetToolTip(lblMd_importantSelected, "Remove importance level");
             lblMd_importantSelected.Visible = false;
@@ -174,9 +178,10 @@
             // 
             // btnMd_add
             // 
-            btnMd_add.Location = new Point(927, 51);
+            btnMd_add.Location = new Point(811, 38);
+            btnMd_add.Margin = new Padding(3, 2, 3, 2);
             btnMd_add.Name = "btnMd_add";
-            btnMd_add.Size = new Size(94, 44);
+            btnMd_add.Size = new Size(82, 33);
             btnMd_add.TabIndex = 3;
             btnMd_add.Text = "Add";
             btnMd_add.UseVisualStyleBackColor = true;
@@ -187,9 +192,9 @@
             lblMd_important.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblMd_important.Cursor = Cursors.Hand;
             lblMd_important.Image = (Image)resources.GetObject("lblMd_important.Image");
-            lblMd_important.Location = new Point(67, 51);
+            lblMd_important.Location = new Point(59, 38);
             lblMd_important.Name = "lblMd_important";
-            lblMd_important.Size = new Size(57, 44);
+            lblMd_important.Size = new Size(50, 33);
             lblMd_important.TabIndex = 2;
             toolTip_mdImportant.SetToolTip(lblMd_important, "Mark the task as important");
             lblMd_important.Click += lblMd_important_Click;
@@ -201,9 +206,9 @@
             lblMd_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMd_calendar.Image = Properties.Resources.calendar;
             lblMd_calendar.ImageAlign = ContentAlignment.MiddleLeft;
-            lblMd_calendar.Location = new Point(15, 51);
+            lblMd_calendar.Location = new Point(13, 38);
             lblMd_calendar.Name = "lblMd_calendar";
-            lblMd_calendar.Size = new Size(170, 44);
+            lblMd_calendar.Size = new Size(149, 33);
             lblMd_calendar.TabIndex = 1;
             lblMd_calendar.TextAlign = ContentAlignment.MiddleRight;
             toolTip_mdCalendar.SetToolTip(lblMd_calendar, "Add Due Date");
@@ -213,40 +218,45 @@
             // 
             txtMydayTask.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtMydayTask.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMydayTask.Location = new Point(-2, -3);
+            txtMydayTask.Location = new Point(-2, -2);
+            txtMydayTask.Margin = new Padding(3, 2, 3, 2);
             txtMydayTask.Name = "txtMydayTask";
             txtMydayTask.PlaceholderText = "New task";
-            txtMydayTask.Size = new Size(1035, 38);
+            txtMydayTask.Size = new Size(906, 32);
             txtMydayTask.TabIndex = 0;
             // 
             // cpToolBar1
             // 
             cpToolBar1.BackColor = Color.Transparent;
-            cpToolBar1.Location = new Point(71, 31);
+            cpToolBar1.Location = new Point(62, 23);
+            cpToolBar1.Margin = new Padding(3, 2, 3, 2);
             cpToolBar1.Name = "cpToolBar1";
-            cpToolBar1.Size = new Size(1040, 108);
+            cpToolBar1.Size = new Size(910, 81);
             cpToolBar1.TabIndex = 2;
             cpToolBar1.OnSortByChanged += CpToolBar1_OnSortByChanged;
             cpToolBar1.Load += cpToolBar1_Load;
             // 
             // customeDateTime1
             // 
-            customeDateTime1.Location = new Point(198, 281);
+            customeDateTime1.Location = new Point(173, 211);
+            customeDateTime1.Margin = new Padding(3, 2, 3, 2);
             customeDateTime1.Name = "customeDateTime1";
-            customeDateTime1.Size = new Size(262, 367);
+            customeDateTime1.Size = new Size(229, 275);
             customeDateTime1.TabIndex = 3;
+            customeDateTime1.Visible = false;
             // 
             // Myday
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1179, 853);
+            ClientSize = new Size(1032, 640);
             Controls.Add(customeDateTime1);
             Controls.Add(cpToolBar1);
             Controls.Add(pnlContentMD_center);
             Controls.Add(pnlContentMD_bottom);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Myday";
             Text = "Myday";
             Load += Myday_Load;
