@@ -160,7 +160,6 @@
             tableGroup.Size = new Size(910, 394);
             tableGroup.TabIndex = 1;
             tableGroup.CellContentClick += tableGroup_CellContentClick;
-            tableGroup.CellDoubleClick += tableGroup_CellDoubleClick;
             // 
             // clTitle_group
             // 
