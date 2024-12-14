@@ -32,7 +32,7 @@ namespace GUI.Panel
             this.menuTaskBar = menuTaskBar;
             InitializeComponent();
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
+            listTasks = taskBUS.getAllTaskByGroupID(user.UserID,groupDTO.GroupID);
             isImportant = false;
             calendar = new MonthCalendar
             {

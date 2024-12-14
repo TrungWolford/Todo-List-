@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using BUS;
+using DTO;
 using GUI.Components;
 using GUI.Panel;
 using System;
