@@ -350,6 +350,7 @@ namespace GUI.Panel
         private void cpToolBar1_Load(object sender, EventArgs e)
         {
             // Đăng ký sự kiện OnSortByChanged
+            cpToolBar1.OnSortByChanged -= CpTooBar1_OnSortByChanged;
             cpToolBar1.OnSortByChanged += CpTooBar1_OnSortByChanged;
         }
 
@@ -357,8 +358,6 @@ namespace GUI.Panel
 
         public void PerformSearch(string searchText)
         {
-            //listTasks = sortBUS.getAllTask(user.UserID);
-            // Lọc danh sách task dựa trên text tìm kiếm
 
             List<TaskDTO> filteredTasks = listTasks
                                 .Where(task =>
@@ -376,11 +375,7 @@ namespace GUI.Panel
             }
 
             Console.WriteLine(newList.Count);
-
-
-
+            loadDataTable(newList);
         }
-
-        
     }
 }

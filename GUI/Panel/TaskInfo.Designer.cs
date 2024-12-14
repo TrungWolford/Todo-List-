@@ -33,6 +33,8 @@
             lbl_iconImportant = new Label();
             txt_detailTitle = new TextBox();
             pnl_detailTop = new System.Windows.Forms.Panel();
+            btn_AddStep = new Button();
+            pnl_TaskStep = new FlowLayoutPanel();
             pnl_detailDuedate = new System.Windows.Forms.Panel();
             lbl_detailDueDate_icon = new Label();
             lbl_detailDueDate = new Label();
@@ -108,13 +110,37 @@
             // 
             // pnl_detailTop
             // 
+            pnl_detailTop.Controls.Add(btn_AddStep);
+            pnl_detailTop.Controls.Add(pnl_TaskStep);
             pnl_detailTop.Controls.Add(pnl_detailDuedate);
             pnl_detailTop.Controls.Add(pnl_detailTitle);
-            pnl_detailTop.Location = new Point(10, 21);
+            pnl_detailTop.Location = new Point(10, 9);
             pnl_detailTop.Margin = new Padding(0);
             pnl_detailTop.Name = "pnl_detailTop";
-            pnl_detailTop.Size = new Size(600, 110);
+            pnl_detailTop.Size = new Size(600, 216);
             pnl_detailTop.TabIndex = 1;
+            // 
+            // btn_AddStep
+            // 
+            btn_AddStep.AutoSize = true;
+            btn_AddStep.Location = new Point(486, 129);
+            btn_AddStep.Margin = new Padding(0);
+            btn_AddStep.Name = "btn_AddStep";
+            btn_AddStep.Size = new Size(95, 27);
+            btn_AddStep.TabIndex = 4;
+            btn_AddStep.Text = "Add Step";
+            btn_AddStep.UseVisualStyleBackColor = true;
+            btn_AddStep.Click += btn_AddStep_Click;
+            // 
+            // pnl_TaskStep
+            // 
+            pnl_TaskStep.AutoScroll = true;
+            pnl_TaskStep.BorderStyle = BorderStyle.FixedSingle;
+            pnl_TaskStep.Location = new Point(20, 49);
+            pnl_TaskStep.Margin = new Padding(0);
+            pnl_TaskStep.Name = "pnl_TaskStep";
+            pnl_TaskStep.Size = new Size(560, 80);
+            pnl_TaskStep.TabIndex = 3;
             // 
             // pnl_detailDuedate
             // 
@@ -122,7 +148,7 @@
             pnl_detailDuedate.BorderStyle = BorderStyle.FixedSingle;
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate_icon);
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate);
-            pnl_detailDuedate.Location = new Point(20, 59);
+            pnl_detailDuedate.Location = new Point(20, 166);
             pnl_detailDuedate.Margin = new Padding(0);
             pnl_detailDuedate.Name = "pnl_detailDuedate";
             pnl_detailDuedate.Size = new Size(560, 40);
@@ -162,10 +188,10 @@
             pnl_detailMiddle.Controls.Add(pnl_FileItems);
             pnl_detailMiddle.Controls.Add(txt_detailDescription);
             pnl_detailMiddle.Controls.Add(label19);
-            pnl_detailMiddle.Location = new Point(10, 148);
+            pnl_detailMiddle.Location = new Point(9, 235);
             pnl_detailMiddle.Margin = new Padding(0);
             pnl_detailMiddle.Name = "pnl_detailMiddle";
-            pnl_detailMiddle.Size = new Size(600, 433);
+            pnl_detailMiddle.Size = new Size(600, 402);
             pnl_detailMiddle.TabIndex = 2;
             // 
             // pnl_detailAddFile_Title
@@ -174,7 +200,7 @@
             pnl_detailAddFile_Title.BorderStyle = BorderStyle.FixedSingle;
             pnl_detailAddFile_Title.Controls.Add(lbl_detailAddFile);
             pnl_detailAddFile_Title.Controls.Add(lbl_detailAddFile_icon);
-            pnl_detailAddFile_Title.Location = new Point(18, 9);
+            pnl_detailAddFile_Title.Location = new Point(21, 10);
             pnl_detailAddFile_Title.Margin = new Padding(0);
             pnl_detailAddFile_Title.Name = "pnl_detailAddFile_Title";
             pnl_detailAddFile_Title.Size = new Size(560, 40);
@@ -213,7 +239,7 @@
             // 
             pnl_FileItems.AutoScroll = true;
             pnl_FileItems.BorderStyle = BorderStyle.FixedSingle;
-            pnl_FileItems.Location = new Point(20, 58);
+            pnl_FileItems.Location = new Point(21, 50);
             pnl_FileItems.Margin = new Padding(0);
             pnl_FileItems.Name = "pnl_FileItems";
             pnl_FileItems.Size = new Size(560, 171);
@@ -222,7 +248,7 @@
             // txt_detailDescription
             // 
             txt_detailDescription.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_detailDescription.Location = new Point(20, 296);
+            txt_detailDescription.Location = new Point(21, 272);
             txt_detailDescription.Margin = new Padding(0);
             txt_detailDescription.MaxLength = 255;
             txt_detailDescription.Multiline = true;
@@ -237,7 +263,7 @@
             label19.BackColor = Color.White;
             label19.BorderStyle = BorderStyle.FixedSingle;
             label19.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label19.Location = new Point(20, 250);
+            label19.Location = new Point(21, 232);
             label19.Margin = new Padding(0);
             label19.Name = "label19";
             label19.Size = new Size(560, 40);
@@ -250,9 +276,9 @@
             pnl_detailBottom.Controls.Add(btn_detailDelete);
             pnl_detailBottom.Controls.Add(btn_detailSave);
             pnl_detailBottom.Controls.Add(pnl_createdDate);
-            pnl_detailBottom.Location = new Point(10, 594);
+            pnl_detailBottom.Location = new Point(10, 640);
             pnl_detailBottom.Name = "pnl_detailBottom";
-            pnl_detailBottom.Size = new Size(600, 105);
+            pnl_detailBottom.Size = new Size(600, 59);
             pnl_detailBottom.TabIndex = 3;
             // 
             // btn_detailDelete
@@ -261,7 +287,7 @@
             btn_detailDelete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_detailDelete.Image = Properties.Resources.bin1;
             btn_detailDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_detailDelete.Location = new Point(453, 59);
+            btn_detailDelete.Location = new Point(450, 12);
             btn_detailDelete.Margin = new Padding(0);
             btn_detailDelete.Name = "btn_detailDelete";
             btn_detailDelete.Padding = new Padding(10, 0, 10, 0);
@@ -278,7 +304,7 @@
             btn_detailSave.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_detailSave.Image = Properties.Resources.notDone_24;
             btn_detailSave.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_detailSave.Location = new Point(18, 59);
+            btn_detailSave.Location = new Point(15, 12);
             btn_detailSave.Margin = new Padding(0);
             btn_detailSave.Name = "btn_detailSave";
             btn_detailSave.Padding = new Padding(20, 0, 20, 0);
@@ -293,7 +319,7 @@
             // 
             pnl_createdDate.Controls.Add(lbl_createdDate);
             pnl_createdDate.Controls.Add(label14);
-            pnl_createdDate.Location = new Point(137, 62);
+            pnl_createdDate.Location = new Point(134, 15);
             pnl_createdDate.Name = "pnl_createdDate";
             pnl_createdDate.Size = new Size(314, 40);
             pnl_createdDate.TabIndex = 9;
@@ -330,6 +356,7 @@
             pnl_detailTitle.ResumeLayout(false);
             pnl_detailTitle.PerformLayout();
             pnl_detailTop.ResumeLayout(false);
+            pnl_detailTop.PerformLayout();
             pnl_detailDuedate.ResumeLayout(false);
             pnl_detailMiddle.ResumeLayout(false);
             pnl_detailMiddle.PerformLayout();
@@ -363,5 +390,7 @@
         private Label lbl_doneIcon;
         private Button btn_detailSave;
         private Button btn_detailDelete;
+        private FlowLayoutPanel pnl_TaskStep;
+        private Button btn_AddStep;
     }
 }

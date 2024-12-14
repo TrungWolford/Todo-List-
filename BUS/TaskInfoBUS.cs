@@ -11,7 +11,6 @@ namespace BUS
 {
     public class TaskInfoBUS
     {
-        public List<TaskDTO> listTask;
         private TaskDAO taskDAO = TaskDAO.Instance;
         private AttachmentDAO attachmentDAO = AttachmentDAO.Instance;
 

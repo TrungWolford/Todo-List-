@@ -21,26 +21,29 @@ namespace GUI.Panel
         private MonthCalendar calendar;
         private List<string> filesToUpload;
         private List<string> taskFiles;
+        private List<TaskStep> stepList;
 
         TaskInfoBUS taskInfoBus;
         AttachmentBUS attachmentBUS;
+        StepBUS stepBUS;
         TaskDTO taskDTO;
         UserDTO sessionUser;
-        int TaskID;
-        public TaskInfo(int TaskID, UserDTO user)
+        int taskID;
+        public TaskInfo(int taskID, UserDTO user)
         {
             InitializeComponent();
             sessionUser = user;
             StartPosition = FormStartPosition.CenterScreen;
-            this.TaskID = TaskID;
-            Console.WriteLine(TaskID);
+            this.taskID = taskID;
+            Console.WriteLine(taskID);
 
             taskInfoBus = new TaskInfoBUS();
             attachmentBUS = new AttachmentBUS();
+            stepBUS = new StepBUS();
 
             // File của task 
             filesToUpload = new List<string>();
-            taskFiles = attachmentBUS.GetTaskFiles(TaskID);
+            taskFiles = attachmentBUS.GetTaskFiles(taskID);
             // Nếu Task đã có file từ trước thì load
             if (taskFiles.Count > 0)
             {
@@ -57,11 +60,14 @@ namespace GUI.Panel
 
             // Tải thông tin của task
             LoadTaskInfoData();
+
+            // Tải thông tin của step
+            LoadStepList();
         }
 
         private void LoadTaskInfoData()
         {
-            taskDTO = taskInfoBus.SelectByTaskID(TaskID);
+            taskDTO = taskInfoBus.SelectByTaskID(taskID);
             txt_detailTitle.Text = taskDTO.Title;
             txt_detailDescription.Text = taskDTO.Description;
             lbl_detailDueDate.Text = taskDTO.DueDate.ToString("dd/MM/yyyy");
@@ -132,7 +138,7 @@ namespace GUI.Panel
                 if (!filesToUpload.Remove(item.FileFullPath))
                 {
                     taskInfoBus.DeleteFile(item.FileFullPath);
-                    attachmentBUS.DeleteFromAttachment(item.FileFullPath, TaskID, sessionUser.UserID);
+                    attachmentBUS.DeleteFromAttachment(item.FileFullPath, taskID, sessionUser.UserID);
                 };
                 MessageBox.Show("Xóa thành công!");
                 item.Dispose();
@@ -169,15 +175,52 @@ namespace GUI.Panel
 
             foreach (string localFilePath in filesToUpload)
             {
-                string fileUrl = taskInfoBus.UploadFile(localFilePath, TaskID); // Gọi BUS để lưu file
+                string fileUrl = taskInfoBus.UploadFile(localFilePath, taskID); // Gọi BUS để lưu file
                 savedFileUrls.Add(fileUrl); // Lưu URL của file được lưu
             }
 
             // Cập nhật URL file vào cơ sở dữ liệu
             foreach (string fileUrl in savedFileUrls)
             {
-                attachmentBUS.AddToAttachment(fileUrl, TaskID, sessionUser.UserID); // Lưu URL vào DB
+                attachmentBUS.AddToAttachment(fileUrl, taskID, sessionUser.UserID); // Lưu URL vào DB
             }
+
+            // Cập nhật thông tin step vào csdl
+            foreach(Control control in pnl_TaskStep.Controls)
+            {
+                if (control is TaskStep step)
+                {
+                    // Nếu stepID = 0 ( step mới chưa tồn tại trong db)
+                    if(step.stepID == 0)
+                    {
+                        // Nếu stepName ko rỗng thì mới thêm vào db
+                        if(step.stepName != "")
+                        {
+                            StepDTO newStep = new StepDTO();
+                            newStep.StepName = step.stepName;
+                            newStep.IsDone = step.isDone;
+                            newStep.TaskID = taskID;
+                            stepBUS.Insert(newStep);
+                        }
+                    } 
+                    else // Nếu step này đã tồn tại trong db thì cập nhật
+                    {
+                        // Nếu stepName rỗng thì xóa step
+                        if(step.stepName == "")
+                        {
+                            stepBUS.Delete(step.stepID);
+                        } 
+                        else
+                        {
+                            StepDTO updateStep = stepBUS.SelectByID(step.stepID);
+                            updateStep.StepName = step.stepName;
+                            updateStep.IsDone = step.isDone;
+                            stepBUS.Update(updateStep);
+                        }
+                    }
+                }
+            }
+
             // Cập nhật thông tin của task vào database
             taskInfoBus.UpdateTaskInfo(taskDTO);
 
@@ -252,5 +295,35 @@ namespace GUI.Panel
             }
         }
 
+        private void btn_AddStep_Click(object sender, EventArgs e)
+        {
+            TaskStep taskStep = new TaskStep();
+            taskStep.OnStepRemove += Step_OnStepRemove;
+            pnl_TaskStep.Controls.Add(taskStep);
+        }
+        private void LoadStepList()
+        {
+            List<StepDTO> stepDTOs = stepBUS.StepListByTaskID(taskID);
+            foreach(StepDTO stepDTO in stepDTOs)
+            {
+                TaskStep taskStep = new TaskStep(stepDTO.StepID, stepDTO.StepName, stepDTO.IsDone);
+                taskStep.OnStepRemove += Step_OnStepRemove;
+                pnl_TaskStep.Controls.Add(taskStep);
+            }
+        }
+        private void Step_OnStepRemove(object sender, EventArgs e)
+        {
+            if(sender is TaskStep step)
+            {
+                if(step.stepID != 0)
+                {
+                    stepBUS.Delete(step.stepID);
+                }
+
+                pnl_FileItems.Controls.Remove(step);
+                MessageBox.Show("Xóa thành công!");
+                step.Dispose();
+            }
+        }
     }
 }
