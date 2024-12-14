@@ -34,6 +34,10 @@ namespace GUI.Panel
             taskBUS = new TaskBUS();
             listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
             isImportant = false;
+
+            customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
+
+
             calendar = new MonthCalendar
             {
                 Visible = false,
@@ -74,6 +78,14 @@ namespace GUI.Panel
             isImportant = true;
         }
 
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if (sender is CustomeDateTime)
+            {
+                lblGroup_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+            }
+        }
+
         private bool checkValidation()
         {
             if (Validation.isEmpty(lblGroup_calendar.Text))
@@ -96,6 +108,7 @@ namespace GUI.Panel
                 if (checkValidation())
                 {
                     string dateString = lblGroup_calendar.Text;
+                    string dataTimeString = lblGroup_timePicker.Text;
                     TaskDTO newTask = new TaskDTO
                     {
                         Title = txtGroupTask.Text,
@@ -103,7 +116,8 @@ namespace GUI.Panel
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
                         CreatedBy = user.UserID,
-                        GroupID = groupDTO.GroupID
+                        GroupID = groupDTO.GroupID,
+                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
 
                         IsReminderSent = false
                     };
@@ -279,25 +293,9 @@ namespace GUI.Panel
             loadDataTable(newList);
         }
 
-        private void tableGroup_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void lblTasks_timePicker_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                string columnName = tableGroup.Columns[e.ColumnIndex].Name;
-                object cellValue = tableGroup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-
-                var selectedTask = listTasks[e.RowIndex];
-                int taskid = selectedTask.TaskID;
-
-                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
-                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
-                taskInfoForm.ShowDialog();
-            }
-        }
-        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
-        {
-            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
-            loadDataTable(listTasks);
+            customeDateTime1.Visible = true;
         }
     }
 }
