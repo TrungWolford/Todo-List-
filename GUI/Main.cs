@@ -125,5 +125,10 @@ namespace GUI
         {
             OnFormClosed?.Invoke(sender, EventArgs.Empty);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -32,10 +32,12 @@
             pnlTitleMain = new Label();
             lbl_titleMain = new Label();
             pnlMenutaskbar = new System.Windows.Forms.Panel();
+            button1 = new Button();
             pnlMainContent = new System.Windows.Forms.Panel();
             cpSearching1 = new Components.cpSearching();
             lbl_titleInfoUser = new Label();
             pnlTitleMain.SuspendLayout();
+            pnlMenutaskbar.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTitleMain
@@ -63,12 +65,26 @@
             // pnlMenutaskbar
             // 
             pnlMenutaskbar.BackColor = Color.White;
+            pnlMenutaskbar.Controls.Add(button1);
             pnlMenutaskbar.Dock = DockStyle.Left;
             pnlMenutaskbar.Location = new Point(0, 60);
             pnlMenutaskbar.Margin = new Padding(3, 2, 3, 2);
             pnlMenutaskbar.Name = "pnlMenutaskbar";
             pnlMenutaskbar.Size = new Size(197, 673);
             pnlMenutaskbar.TabIndex = 2;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Tomato;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(0, 643);
+            button1.Name = "button1";
+            button1.Size = new Size(197, 30);
+            button1.TabIndex = 0;
+            button1.Text = "Đăng xuất";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // pnlMainContent
             // 
@@ -116,6 +132,7 @@
             FormClosed += Main_FormClosed;
             pnlTitleMain.ResumeLayout(false);
             pnlTitleMain.PerformLayout();
+            pnlMenutaskbar.ResumeLayout(false);
             ResumeLayout(false);
         }
         #endregion
@@ -125,5 +142,6 @@
         private System.Windows.Forms.Panel pnlMainContent;
         private Components.cpSearching cpSearching1;
         private Label lbl_titleInfoUser;
+        private Button button1;
     }
 }

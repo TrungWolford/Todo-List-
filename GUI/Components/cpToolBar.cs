@@ -55,7 +55,10 @@ namespace GUI.Components
             {
                 lblTop_title.Text = "Tasks";
             }
-            else
+            else if (formChild is Completed)
+            {
+                lblTop_title.Text = "Completed";
+            } else
             {
                 lblTop_title.Text = "";
             }
