@@ -51,6 +51,9 @@
             pnl_createdDate = new System.Windows.Forms.Panel();
             lbl_createdDate = new Label();
             label14 = new Label();
+            panel1 = new System.Windows.Forms.Panel();
+            label1 = new Label();
+            label2 = new Label();
             pnl_detailTitle.SuspendLayout();
             pnl_detailTop.SuspendLayout();
             pnl_detailDuedate.SuspendLayout();
@@ -58,6 +61,7 @@
             pnl_detailAddFile_Title.SuspendLayout();
             pnl_detailBottom.SuspendLayout();
             pnl_createdDate.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnl_detailTitle
@@ -110,6 +114,7 @@
             // 
             // pnl_detailTop
             // 
+            pnl_detailTop.Controls.Add(panel1);
             pnl_detailTop.Controls.Add(btn_AddStep);
             pnl_detailTop.Controls.Add(pnl_TaskStep);
             pnl_detailTop.Controls.Add(pnl_detailDuedate);
@@ -117,7 +122,7 @@
             pnl_detailTop.Location = new Point(10, 9);
             pnl_detailTop.Margin = new Padding(0);
             pnl_detailTop.Name = "pnl_detailTop";
-            pnl_detailTop.Size = new Size(600, 216);
+            pnl_detailTop.Size = new Size(599, 268);
             pnl_detailTop.TabIndex = 1;
             // 
             // btn_AddStep
@@ -148,7 +153,7 @@
             pnl_detailDuedate.BorderStyle = BorderStyle.FixedSingle;
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate_icon);
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate);
-            pnl_detailDuedate.Location = new Point(20, 166);
+            pnl_detailDuedate.Location = new Point(21, 164);
             pnl_detailDuedate.Margin = new Padding(0);
             pnl_detailDuedate.Name = "pnl_detailDuedate";
             pnl_detailDuedate.Size = new Size(560, 40);
@@ -174,7 +179,7 @@
             lbl_detailDueDate.Location = new Point(46, 0);
             lbl_detailDueDate.Margin = new Padding(0);
             lbl_detailDueDate.Name = "lbl_detailDueDate";
-            lbl_detailDueDate.Size = new Size(514, 40);
+            lbl_detailDueDate.Size = new Size(400, 40);
             lbl_detailDueDate.TabIndex = 6;
             lbl_detailDueDate.Text = "10/10/2024";
             lbl_detailDueDate.TextAlign = ContentAlignment.MiddleLeft;
@@ -188,10 +193,10 @@
             pnl_detailMiddle.Controls.Add(pnl_FileItems);
             pnl_detailMiddle.Controls.Add(txt_detailDescription);
             pnl_detailMiddle.Controls.Add(label19);
-            pnl_detailMiddle.Location = new Point(9, 235);
+            pnl_detailMiddle.Location = new Point(9, 277);
             pnl_detailMiddle.Margin = new Padding(0);
             pnl_detailMiddle.Name = "pnl_detailMiddle";
-            pnl_detailMiddle.Size = new Size(600, 402);
+            pnl_detailMiddle.Size = new Size(600, 360);
             pnl_detailMiddle.TabIndex = 2;
             // 
             // pnl_detailAddFile_Title
@@ -242,13 +247,13 @@
             pnl_FileItems.Location = new Point(21, 50);
             pnl_FileItems.Margin = new Padding(0);
             pnl_FileItems.Name = "pnl_FileItems";
-            pnl_FileItems.Size = new Size(560, 171);
+            pnl_FileItems.Size = new Size(560, 130);
             pnl_FileItems.TabIndex = 13;
             // 
             // txt_detailDescription
             // 
             txt_detailDescription.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_detailDescription.Location = new Point(21, 272);
+            txt_detailDescription.Location = new Point(21, 231);
             txt_detailDescription.Margin = new Padding(0);
             txt_detailDescription.MaxLength = 255;
             txt_detailDescription.Multiline = true;
@@ -263,7 +268,7 @@
             label19.BackColor = Color.White;
             label19.BorderStyle = BorderStyle.FixedSingle;
             label19.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label19.Location = new Point(21, 232);
+            label19.Location = new Point(21, 191);
             label19.Margin = new Padding(0);
             label19.Name = "label19";
             label19.Size = new Size(560, 40);
@@ -343,11 +348,45 @@
             label14.TabIndex = 0;
             label14.Text = "Created on:";
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(label2);
+            panel1.Location = new Point(20, 215);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(560, 40);
+            panel1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.Transparent;
+            label1.Image = Properties.Resources.calendar;
+            label1.Location = new Point(0, 0);
+            label1.Margin = new Padding(0);
+            label1.Name = "label1";
+            label1.Size = new Size(40, 40);
+            label1.TabIndex = 7;
+            // 
+            // label2
+            // 
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(46, 0);
+            label2.Margin = new Padding(0);
+            label2.Name = "label2";
+            label2.Size = new Size(401, 40);
+            label2.TabIndex = 6;
+            label2.Text = "10/10/2024";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // TaskInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(624, 711);
+            ClientSize = new Size(621, 711);
             Controls.Add(pnl_detailBottom);
             Controls.Add(pnl_detailMiddle);
             Controls.Add(pnl_detailTop);
@@ -364,6 +403,7 @@
             pnl_detailBottom.ResumeLayout(false);
             pnl_createdDate.ResumeLayout(false);
             pnl_createdDate.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -392,5 +432,8 @@
         private Button btn_detailDelete;
         private FlowLayoutPanel pnl_TaskStep;
         private Button btn_AddStep;
+        private System.Windows.Forms.Panel panel1;
+        private Label label1;
+        private Label label2;
     }
 }
