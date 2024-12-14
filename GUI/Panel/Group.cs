@@ -32,8 +32,12 @@ namespace GUI.Panel
             this.menuTaskBar = menuTaskBar;
             InitializeComponent();
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.getAllTaskByGroupID(user.UserID,groupDTO.GroupID);
+            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
             isImportant = false;
+
+            customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
+
+
             calendar = new MonthCalendar
             {
                 Visible = false,
@@ -42,7 +46,7 @@ namespace GUI.Panel
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
             cpToolBarGroup3.OnExitChangeMember += menuTaskBar.RefreshGroupList;
-            
+
         }
 
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
@@ -74,6 +78,14 @@ namespace GUI.Panel
             isImportant = true;
         }
 
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if (sender is CustomeDateTime)
+            {
+                lblGroup_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+            }
+        }
+
         private bool checkValidation()
         {
             if (Validation.isEmpty(lblGroup_calendar.Text))
@@ -96,6 +108,7 @@ namespace GUI.Panel
                 if (checkValidation())
                 {
                     string dateString = lblGroup_calendar.Text;
+                    string dataTimeString = lblGroup_timePicker.Text;
                     TaskDTO newTask = new TaskDTO
                     {
                         Title = txtGroupTask.Text,
@@ -103,7 +116,10 @@ namespace GUI.Panel
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
                         CreatedBy = user.UserID,
-                        GroupID = groupDTO.GroupID
+                        GroupID = groupDTO.GroupID,
+                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+
+                        IsReminderSent = false
                     };
                     bool test = taskBUS.insert(newTask);
                     if (test)
@@ -273,6 +289,11 @@ namespace GUI.Panel
 
             Console.WriteLine(newList.Count);
             loadDataTable(newList);
+        }
+
+        private void lblTasks_timePicker_Click(object sender, EventArgs e)
+        {
+            customeDateTime1.Visible = true;
         }
     }
 }
