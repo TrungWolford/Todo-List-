@@ -58,6 +58,10 @@ namespace GUI.Panel
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
 
+            // Notification
+            customeDateTime1.Visible = false;
+            customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
+
             // Tải thông tin của task
             LoadTaskInfoData();
 
@@ -80,6 +84,7 @@ namespace GUI.Panel
             {
                 lbl_iconImportant.Image = Properties.Resources.ImportantSelected_24px;
             }
+            lblTasks_timePicker.Text = taskDTO.ReminderTime?.ToString("dd/MM/yyyy h:mm:ss tt");
         }
         private void LoadAttachmentFiles()
         {
@@ -186,15 +191,15 @@ namespace GUI.Panel
             }
 
             // Cập nhật thông tin step vào csdl
-            foreach(Control control in pnl_TaskStep.Controls)
+            foreach (Control control in pnl_TaskStep.Controls)
             {
                 if (control is TaskStep step)
                 {
                     // Nếu stepID = 0 ( step mới chưa tồn tại trong db)
-                    if(step.stepID == 0)
+                    if (step.stepID == 0)
                     {
                         // Nếu stepName ko rỗng thì mới thêm vào db
-                        if(step.stepName != "")
+                        if (step.stepName != "")
                         {
                             StepDTO newStep = new StepDTO();
                             newStep.StepName = step.stepName;
@@ -202,14 +207,14 @@ namespace GUI.Panel
                             newStep.TaskID = taskID;
                             stepBUS.Insert(newStep);
                         }
-                    } 
+                    }
                     else // Nếu step này đã tồn tại trong db thì cập nhật
                     {
                         // Nếu stepName rỗng thì xóa step
-                        if(step.stepName == "")
+                        if (step.stepName == "")
                         {
                             stepBUS.Delete(step.stepID);
-                        } 
+                        }
                         else
                         {
                             StepDTO updateStep = stepBUS.SelectByID(step.stepID);
@@ -220,6 +225,9 @@ namespace GUI.Panel
                     }
                 }
             }
+
+            string dataTimeString = lblTasks_timePicker.Text;
+            taskDTO.ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
 
             // Cập nhật thông tin của task vào database
             taskInfoBus.UpdateTaskInfo(taskDTO);
@@ -304,7 +312,7 @@ namespace GUI.Panel
         private void LoadStepList()
         {
             List<StepDTO> stepDTOs = stepBUS.StepListByTaskID(taskID);
-            foreach(StepDTO stepDTO in stepDTOs)
+            foreach (StepDTO stepDTO in stepDTOs)
             {
                 TaskStep taskStep = new TaskStep(stepDTO.StepID, stepDTO.StepName, stepDTO.IsDone);
                 taskStep.OnStepRemove += Step_OnStepRemove;
@@ -313,9 +321,9 @@ namespace GUI.Panel
         }
         private void Step_OnStepRemove(object sender, EventArgs e)
         {
-            if(sender is TaskStep step)
+            if (sender is TaskStep step)
             {
-                if(step.stepID != 0)
+                if (step.stepID != 0)
                 {
                     stepBUS.Delete(step.stepID);
                 }
@@ -323,6 +331,19 @@ namespace GUI.Panel
                 pnl_FileItems.Controls.Remove(step);
                 MessageBox.Show("Xóa thành công!");
                 step.Dispose();
+            }
+        }
+
+        private void lblTasks_timePicker_Click(object sender, EventArgs e)
+        {
+            customeDateTime1.Visible = true;
+            //lblTasks_timePicker.Text = customeDateTime
+        }
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if (sender is CustomeDateTime)
+            {
+                lblTasks_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
             }
         }
     }

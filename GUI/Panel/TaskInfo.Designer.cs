@@ -33,9 +33,14 @@
             lbl_iconImportant = new Label();
             txt_detailTitle = new TextBox();
             pnl_detailTop = new System.Windows.Forms.Panel();
+            panel1 = new System.Windows.Forms.Panel();
+            label4 = new Label();
+            label1 = new Label();
+            lblTasks_timePicker = new Label();
             btn_AddStep = new Button();
             pnl_TaskStep = new FlowLayoutPanel();
             pnl_detailDuedate = new System.Windows.Forms.Panel();
+            label3 = new Label();
             lbl_detailDueDate_icon = new Label();
             lbl_detailDueDate = new Label();
             pnl_detailMiddle = new System.Windows.Forms.Panel();
@@ -51,17 +56,15 @@
             pnl_createdDate = new System.Windows.Forms.Panel();
             lbl_createdDate = new Label();
             label14 = new Label();
-            panel1 = new System.Windows.Forms.Panel();
-            label1 = new Label();
-            label2 = new Label();
+            customeDateTime1 = new Components.CustomeDateTime();
             pnl_detailTitle.SuspendLayout();
             pnl_detailTop.SuspendLayout();
+            panel1.SuspendLayout();
             pnl_detailDuedate.SuspendLayout();
             pnl_detailMiddle.SuspendLayout();
             pnl_detailAddFile_Title.SuspendLayout();
             pnl_detailBottom.SuspendLayout();
             pnl_createdDate.SuspendLayout();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnl_detailTitle
@@ -125,6 +128,57 @@
             pnl_detailTop.Size = new Size(599, 268);
             pnl_detailTop.TabIndex = 1;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(lblTasks_timePicker);
+            panel1.Location = new Point(20, 215);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(560, 40);
+            panel1.TabIndex = 8;
+            panel1.Click += lblTasks_timePicker_Click;
+            // 
+            // label4
+            // 
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(428, -1);
+            label4.Margin = new Padding(0);
+            label4.Name = "label4";
+            label4.Size = new Size(131, 40);
+            label4.TabIndex = 9;
+            label4.Text = "Notification";
+            label4.TextAlign = ContentAlignment.MiddleRight;
+            label4.Click += lblTasks_timePicker_Click;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.Transparent;
+            label1.Image = Properties.Resources.notification_32px;
+            label1.Location = new Point(0, 0);
+            label1.Margin = new Padding(0);
+            label1.Name = "label1";
+            label1.Size = new Size(40, 40);
+            label1.TabIndex = 7;
+            label1.Click += lblTasks_timePicker_Click;
+            // 
+            // lblTasks_timePicker
+            // 
+            lblTasks_timePicker.BackColor = Color.Transparent;
+            lblTasks_timePicker.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTasks_timePicker.Location = new Point(46, 0);
+            lblTasks_timePicker.Margin = new Padding(0);
+            lblTasks_timePicker.Name = "lblTasks_timePicker";
+            lblTasks_timePicker.Size = new Size(381, 40);
+            lblTasks_timePicker.TabIndex = 6;
+            lblTasks_timePicker.Text = "10/10/2024";
+            lblTasks_timePicker.TextAlign = ContentAlignment.MiddleLeft;
+            lblTasks_timePicker.Click += lblTasks_timePicker_Click;
+            // 
             // btn_AddStep
             // 
             btn_AddStep.AutoSize = true;
@@ -151,6 +205,7 @@
             // 
             pnl_detailDuedate.BackColor = Color.White;
             pnl_detailDuedate.BorderStyle = BorderStyle.FixedSingle;
+            pnl_detailDuedate.Controls.Add(label3);
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate_icon);
             pnl_detailDuedate.Controls.Add(lbl_detailDueDate);
             pnl_detailDuedate.Location = new Point(21, 164);
@@ -158,6 +213,18 @@
             pnl_detailDuedate.Name = "pnl_detailDuedate";
             pnl_detailDuedate.Size = new Size(560, 40);
             pnl_detailDuedate.TabIndex = 2;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(428, 0);
+            label3.Margin = new Padding(0);
+            label3.Name = "label3";
+            label3.Size = new Size(131, 40);
+            label3.TabIndex = 8;
+            label3.Text = "Due date";
+            label3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lbl_detailDueDate_icon
             // 
@@ -179,7 +246,7 @@
             lbl_detailDueDate.Location = new Point(46, 0);
             lbl_detailDueDate.Margin = new Padding(0);
             lbl_detailDueDate.Name = "lbl_detailDueDate";
-            lbl_detailDueDate.Size = new Size(400, 40);
+            lbl_detailDueDate.Size = new Size(380, 40);
             lbl_detailDueDate.TabIndex = 6;
             lbl_detailDueDate.Text = "10/10/2024";
             lbl_detailDueDate.TextAlign = ContentAlignment.MiddleLeft;
@@ -348,45 +415,20 @@
             label14.TabIndex = 0;
             label14.Text = "Created on:";
             // 
-            // panel1
+            // customeDateTime1
             // 
-            panel1.BackColor = Color.White;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(label2);
-            panel1.Location = new Point(20, 215);
-            panel1.Margin = new Padding(0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(560, 40);
-            panel1.TabIndex = 8;
-            // 
-            // label1
-            // 
-            label1.BackColor = Color.Transparent;
-            label1.Image = Properties.Resources.calendar;
-            label1.Location = new Point(0, 0);
-            label1.Margin = new Padding(0);
-            label1.Name = "label1";
-            label1.Size = new Size(40, 40);
-            label1.TabIndex = 7;
-            // 
-            // label2
-            // 
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(46, 0);
-            label2.Margin = new Padding(0);
-            label2.Name = "label2";
-            label2.Size = new Size(401, 40);
-            label2.TabIndex = 6;
-            label2.Text = "10/10/2024";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            customeDateTime1.Location = new Point(34, 265);
+            customeDateTime1.Margin = new Padding(3, 2, 3, 2);
+            customeDateTime1.Name = "customeDateTime1";
+            customeDateTime1.Size = new Size(228, 294);
+            customeDateTime1.TabIndex = 0;
             // 
             // TaskInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(621, 711);
+            Controls.Add(customeDateTime1);
             Controls.Add(pnl_detailBottom);
             Controls.Add(pnl_detailMiddle);
             Controls.Add(pnl_detailTop);
@@ -396,6 +438,7 @@
             pnl_detailTitle.PerformLayout();
             pnl_detailTop.ResumeLayout(false);
             pnl_detailTop.PerformLayout();
+            panel1.ResumeLayout(false);
             pnl_detailDuedate.ResumeLayout(false);
             pnl_detailMiddle.ResumeLayout(false);
             pnl_detailMiddle.PerformLayout();
@@ -403,7 +446,6 @@
             pnl_detailBottom.ResumeLayout(false);
             pnl_createdDate.ResumeLayout(false);
             pnl_createdDate.PerformLayout();
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -434,6 +476,9 @@
         private Button btn_AddStep;
         private System.Windows.Forms.Panel panel1;
         private Label label1;
-        private Label label2;
+        private Label lblTasks_timePicker;
+        private Label label4;
+        private Label label3;
+        private Components.CustomeDateTime customeDateTime1;
     }
 }
