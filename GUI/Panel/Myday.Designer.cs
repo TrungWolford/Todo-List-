@@ -44,7 +44,7 @@
             lblMd_important = new Label();
             lblMd_calendar = new Label();
             txtMydayTask = new TextBox();
-            cpToolBar1 = new Components.cpToolBar();
+            cpToolBar1 = new Components.cpToolBar(this);
             toolTip_mdCalendar = new ToolTip(components);
             toolTip_mdImportant = new ToolTip(components);
             toolTip_mdImportantSelected = new ToolTip(components);

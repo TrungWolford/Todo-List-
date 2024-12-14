@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tasks));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar();
+            cpToolBar1 = new Components.cpToolBar(this);
             pnlContentTasks_center = new System.Windows.Forms.Panel();
             lblTasks_timePicker = new Label();
             lblTasks_importantSelected = new Label();

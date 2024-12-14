@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar();
+            cpToolBar1 = new Components.cpToolBar(this);
             pnlContentCompleted_center = new System.Windows.Forms.Panel();
             tableCompleted = new DataGridView();
             clTitle_cmp = new DataGridViewTextBoxColumn();
