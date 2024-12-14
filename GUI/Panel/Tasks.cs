@@ -38,6 +38,8 @@ namespace GUI.Panel
             listTasks = taskBUS.getAllByUserID(user.UserID);
             isImportant = false;
             isReminder = false;
+            customeDateTime1.Visible = false;
+            customeDateTime1.OnCustomDateTime_Choosed += OnTimePicker_Choosed;
             //completedDate = null;
 
             calendar = new MonthCalendar
@@ -46,7 +48,7 @@ namespace GUI.Panel
                 MaxSelectionCount = 1
             };
 
-           
+
 
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
@@ -83,6 +85,21 @@ namespace GUI.Panel
             isImportant = false;
         }
 
+        private void lblTasks_timePicker_Click(object sender, EventArgs e)
+        {
+            customeDateTime1.Visible = true;
+            //lblTasks_timePicker.Text = customeDateTime
+            
+        }
+
+        private void OnTimePicker_Choosed(object sender, DateTime dateTime)
+        {
+            if(sender is CustomeDateTime)
+            {
+                lblTasks_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+            }
+        }
+
         private bool checkValidation()
         {
             if (Validation.isEmpty(lblTasks_calendar.Text))
@@ -105,6 +122,7 @@ namespace GUI.Panel
                 if (checkValidation())
                 {
                     string dateString = lblTasks_calendar.Text;
+                    string dataTimeString = lblTasks_timePicker.Text;
                     TaskDTO newTask = new TaskDTO
                     {
                         Title = txtTasksTask.Text,
@@ -112,8 +130,8 @@ namespace GUI.Panel
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
                         CreatedBy = user.UserID,
-                        //ReminderTime = DateTime.ParseExact(dateString, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
-                        ReminderTime = new DateTime(2024, 12, 14, 15, 06, 0), // Năm, Tháng, Ngày, Giờ, Phút, Giây
+                        ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+
                         IsReminderSent = false
                     };
                     bool test = taskBUS.insert(newTask);
@@ -377,5 +395,7 @@ namespace GUI.Panel
             Console.WriteLine(newList.Count);
             loadDataTable(newList);
         }
+
+        
     }
 }

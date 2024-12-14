@@ -49,6 +49,7 @@
             toolTip_tasksImportant = new ToolTip(components);
             toolTip_tasksImportantSelected = new ToolTip(components);
             toolTip_tasksRemindMe = new ToolTip(components);
+            customeDateTime1 = new Components.CustomeDateTime();
             pnlContentTasks_center.SuspendLayout();
             pnlContentTasks_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableTasks).BeginInit();
@@ -87,10 +88,11 @@
             lblTasks_timePicker.Location = new Point(139, 51);
             lblTasks_timePicker.Name = "lblTasks_timePicker";
             lblTasks_timePicker.Padding = new Padding(3, 0, 3, 0);
-            lblTasks_timePicker.Size = new Size(214, 44);
+            lblTasks_timePicker.Size = new Size(307, 44);
             lblTasks_timePicker.TabIndex = 7;
             lblTasks_timePicker.TextAlign = ContentAlignment.MiddleCenter;
             toolTip_tasksRemindMe.SetToolTip(lblTasks_timePicker, "Remind Me");
+            lblTasks_timePicker.Click += lblTasks_timePicker_Click;
             // 
             // lblTasks_importantSelected
             // 
@@ -229,12 +231,20 @@
             clDone_tasks.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_tasks.Width = 82;
             // 
+            // customeDateTime1
+            // 
+            customeDateTime1.Location = new Point(212, 281);
+            customeDateTime1.Name = "customeDateTime1";
+            customeDateTime1.Size = new Size(262, 380);
+            customeDateTime1.TabIndex = 4;
+            // 
             // Tasks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1179, 853);
+            Controls.Add(customeDateTime1);
             Controls.Add(pnlContentTasks_bottom);
             Controls.Add(pnlContentTasks_center);
             Controls.Add(cpToolBar1);
@@ -269,5 +279,6 @@
         private DataGridViewImageColumn clDone_tasks;
         private Label lblTasks_timePicker;
         private ToolTip toolTip_tasksRemindMe;
+        private Components.CustomeDateTime customeDateTime1;
     }
 }
