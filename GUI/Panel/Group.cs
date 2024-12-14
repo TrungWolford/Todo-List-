@@ -32,7 +32,7 @@ namespace GUI.Panel
             this.menuTaskBar = menuTaskBar;
             InitializeComponent();
             taskBUS = new TaskBUS();
-            listTasks = taskBUS.getAllTaskByGroupID(user.UserID,groupDTO.GroupID);
+            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
             isImportant = false;
             calendar = new MonthCalendar
             {
@@ -42,7 +42,7 @@ namespace GUI.Panel
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
             cpToolBarGroup3.OnExitChangeMember += menuTaskBar.RefreshGroupList;
-            
+
         }
 
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
@@ -104,6 +104,8 @@ namespace GUI.Panel
                         CreatedDate = DateTime.Now,
                         CreatedBy = user.UserID,
                         GroupID = groupDTO.GroupID
+
+                        IsReminderSent = false
                     };
                     bool test = taskBUS.insert(newTask);
                     if (test)
@@ -275,6 +277,27 @@ namespace GUI.Panel
 
             Console.WriteLine(newList.Count);
             loadDataTable(newList);
+        }
+
+        private void tableGroup_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = tableGroup.Columns[e.ColumnIndex].Name;
+                object cellValue = tableGroup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                var selectedTask = listTasks[e.RowIndex];
+                int taskid = selectedTask.TaskID;
+
+                TaskInfo taskInfoForm = new TaskInfo(taskid, user);
+                taskInfoForm.OnTaskInfoUpdate += TaskInfo_OnTaskInfoUpdate;
+                taskInfoForm.ShowDialog();
+            }
+        }
+        public void TaskInfo_OnTaskInfoUpdate(object sender, EventArgs e)
+        {
+            listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
+            loadDataTable(listTasks);
         }
     }
 }

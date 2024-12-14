@@ -198,6 +198,7 @@ namespace GUI.Panel
         {
             if (tasks == null || tasks.Count == 0)
             {
+                tableImportant.Rows.Clear();
                 return;
             }
 
