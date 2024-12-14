@@ -69,9 +69,11 @@ namespace GUI
                         UserDTO user = UserDAO.Instance.selectedByName(userDTO.UserName);
                         
                         Main main = new Main(user);
-                        
-                        main.Show();
+                        main.OnFormClosed += OnMainFormClosed;
+
                         this.Hide();
+                        main.ShowDialog();
+                        this.Show();
                     } else
                     {
                         MessageBox.Show("Username or password is wrong!", "Error",
@@ -95,6 +97,11 @@ namespace GUI
         private void checkbox_showpwd_CheckedChanged(object sender, EventArgs e)
         {
             txt_password.PasswordChar = checkbox_showpwd.Checked ? '\0' : '*';
+        }
+        private void OnMainFormClosed(object sender, EventArgs e)
+        {
+            txt_username.Text = "";
+            txt_password.Text = "";
         }
     }
 }

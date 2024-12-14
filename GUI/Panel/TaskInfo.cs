@@ -29,6 +29,9 @@ namespace GUI.Panel
         TaskDTO taskDTO;
         UserDTO sessionUser;
         int taskID;
+
+        private bool isSelectedReminder;
+
         public TaskInfo(int taskID, UserDTO user)
         {
             InitializeComponent();
@@ -36,6 +39,7 @@ namespace GUI.Panel
             StartPosition = FormStartPosition.CenterScreen;
             this.taskID = taskID;
             Console.WriteLine(taskID);
+            isSelectedReminder = false;
 
             taskInfoBus = new TaskInfoBUS();
             attachmentBUS = new AttachmentBUS();
@@ -145,7 +149,7 @@ namespace GUI.Panel
                     taskInfoBus.DeleteFile(item.FileFullPath);
                     attachmentBUS.DeleteFromAttachment(item.FileFullPath, taskID, sessionUser.UserID);
                 };
-                MessageBox.Show("Xóa thành công!");
+                MessageBox.Show("Delete successfully!");
                 item.Dispose();
             }
         }
@@ -157,11 +161,11 @@ namespace GUI.Panel
                 if (taskFiles.Contains(item.FileFullPath))
                 {
                     taskInfoBus.DownloadFile(item.FileFullPath);
-                    MessageBox.Show("Đã lưu file vào thư mục C:/Downloads");
+                    MessageBox.Show("File save into path: C:/Downloads");
                 }
                 else
                 {
-                    MessageBox.Show("Chỉ có thể tải những file đã upload");
+                    MessageBox.Show("You can only download uploaded files");
                 }
             }
         }
@@ -225,9 +229,15 @@ namespace GUI.Panel
                     }
                 }
             }
-
-            string dataTimeString = lblTasks_timePicker.Text;
-            taskDTO.ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            if (isSelectedReminder)
+            {
+                string dataTimeString = lblTasks_timePicker.Text;
+                taskDTO.ReminderTime = DateTime.ParseExact(dataTimeString, "dd/MM/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            } else
+            {
+                taskDTO.ReminderTime = null;
+            }
+            
 
             // Cập nhật thông tin của task vào database
             taskInfoBus.UpdateTaskInfo(taskDTO);
@@ -235,7 +245,7 @@ namespace GUI.Panel
             // Gửi sự kiện đến form main để load lại dataTable
             OnTaskInfoUpdate?.Invoke(this, EventArgs.Empty);
 
-            MessageBox.Show("Lưu thành công");
+            MessageBox.Show("Save successfully!");
             this.Close();
         }
 
@@ -250,7 +260,7 @@ namespace GUI.Panel
             // Gửi sự kiện đến form main để load lại dataTable
             OnTaskInfoUpdate?.Invoke(this, EventArgs.Empty);
 
-            MessageBox.Show("Xóa thành công");
+            MessageBox.Show("Delete successfully");
             this.Close();
         }
         private void pnl_detailAddFile_MouseEnter(object sender, EventArgs e)
@@ -277,13 +287,13 @@ namespace GUI.Panel
             {
                 taskDTO.CompletedDate = DateTime.Now;
                 lbl_doneIcon.Image = Properties.Resources.done_24;
-                MessageBox.Show("Đã đánh dấu hoàn thành!");
+                MessageBox.Show("Marked done");
             }
             else
             {
                 taskDTO.CompletedDate = null;
                 lbl_doneIcon.Image = Properties.Resources.notDone_24;
-                MessageBox.Show("Đã đánh chưa hoàn thành!");
+                MessageBox.Show("Marked not done");
             }
         }
 
@@ -293,13 +303,13 @@ namespace GUI.Panel
             {
                 taskDTO.IsImportant = false;
                 lbl_iconImportant.Image = Properties.Resources.Important_24px;
-                MessageBox.Show("Đã đánh dấu quan trọng!");
+                MessageBox.Show("Marked not important");
             }
             else
             {
                 taskDTO.IsImportant = true;
                 lbl_iconImportant.Image = Properties.Resources.ImportantSelected_24px;
-                MessageBox.Show("Đã đánh dấu quan trọng!");
+                MessageBox.Show("Marked important");
             }
         }
 
@@ -329,7 +339,7 @@ namespace GUI.Panel
                 }
 
                 pnl_FileItems.Controls.Remove(step);
-                MessageBox.Show("Xóa thành công!");
+                MessageBox.Show("Delete successfully");
                 step.Dispose();
             }
         }
@@ -344,6 +354,7 @@ namespace GUI.Panel
             if (sender is CustomeDateTime)
             {
                 lblTasks_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
+                isSelectedReminder = true;
             }
         }
     }

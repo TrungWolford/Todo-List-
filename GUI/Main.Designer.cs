@@ -45,7 +45,7 @@
             pnlTitleMain.Dock = DockStyle.Top;
             pnlTitleMain.Location = new Point(0, 0);
             pnlTitleMain.Name = "pnlTitleMain";
-            pnlTitleMain.Size = new Size(1422, 80);
+            pnlTitleMain.Size = new Size(1244, 60);
             pnlTitleMain.TabIndex = 1;
             // 
             // lbl_titleMain
@@ -53,9 +53,9 @@
             lbl_titleMain.AutoSize = true;
             lbl_titleMain.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_titleMain.ForeColor = Color.White;
-            lbl_titleMain.Location = new Point(12, 14);
+            lbl_titleMain.Location = new Point(10, 10);
             lbl_titleMain.Name = "lbl_titleMain";
-            lbl_titleMain.Size = new Size(213, 46);
+            lbl_titleMain.Size = new Size(173, 37);
             lbl_titleMain.TabIndex = 0;
             lbl_titleMain.Text = "CS Todo List";
             lbl_titleMain.TextAlign = ContentAlignment.MiddleLeft;
@@ -64,52 +64,56 @@
             // 
             pnlMenutaskbar.BackColor = Color.White;
             pnlMenutaskbar.Dock = DockStyle.Left;
-            pnlMenutaskbar.Location = new Point(0, 80);
+            pnlMenutaskbar.Location = new Point(0, 60);
+            pnlMenutaskbar.Margin = new Padding(3, 2, 3, 2);
             pnlMenutaskbar.Name = "pnlMenutaskbar";
-            pnlMenutaskbar.Size = new Size(225, 897);
+            pnlMenutaskbar.Size = new Size(197, 673);
             pnlMenutaskbar.TabIndex = 2;
             // 
             // pnlMainContent
             // 
             pnlMainContent.Dock = DockStyle.Fill;
-            pnlMainContent.Location = new Point(225, 80);
+            pnlMainContent.Location = new Point(197, 60);
+            pnlMainContent.Margin = new Padding(3, 2, 3, 2);
             pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1197, 897);
+            pnlMainContent.Size = new Size(1047, 673);
             pnlMainContent.TabIndex = 3;
             // 
             // cpSearching1
             // 
             cpSearching1.BackColor = Color.FromArgb(37, 100, 207);
-            cpSearching1.Location = new Point(494, 0);
+            cpSearching1.Location = new Point(432, 0);
+            cpSearching1.Margin = new Padding(3, 2, 3, 2);
             cpSearching1.Name = "cpSearching1";
-            cpSearching1.Size = new Size(569, 72);
+            cpSearching1.Size = new Size(498, 54);
             cpSearching1.TabIndex = 4;
-            //cpSearching1.OnSearchTextChanged += cpSearching1_OnSearchTextChanged;
             // 
             // lbl_titleInfoUser
             // 
             lbl_titleInfoUser.BackColor = Color.FromArgb(37, 100, 207);
             lbl_titleInfoUser.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_titleInfoUser.ForeColor = Color.White;
-            lbl_titleInfoUser.Location = new Point(1213, 16);
+            lbl_titleInfoUser.Location = new Point(1061, 12);
             lbl_titleInfoUser.Name = "lbl_titleInfoUser";
-            lbl_titleInfoUser.Size = new Size(197, 46);
+            lbl_titleInfoUser.Size = new Size(172, 34);
             lbl_titleInfoUser.TabIndex = 5;
             lbl_titleInfoUser.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1422, 977);
+            ClientSize = new Size(1244, 733);
             Controls.Add(lbl_titleInfoUser);
             Controls.Add(cpSearching1);
             Controls.Add(pnlMainContent);
             Controls.Add(pnlMenutaskbar);
             Controls.Add(pnlTitleMain);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Main";
             Text = "CS Todo List";
+            FormClosed += Main_FormClosed;
             pnlTitleMain.ResumeLayout(false);
             pnlTitleMain.PerformLayout();
             ResumeLayout(false);

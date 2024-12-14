@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             cpToolBar = new Components.cpToolBar();
             pnlContentImp_center = new System.Windows.Forms.Panel();
             lblImp_timePicker = new Label();
@@ -54,9 +54,10 @@
             // cpToolBar
             // 
             cpToolBar.BackColor = SystemColors.ControlDark;
-            cpToolBar.Location = new Point(71, 31);
+            cpToolBar.Location = new Point(62, 23);
+            cpToolBar.Margin = new Padding(3, 2, 3, 2);
             cpToolBar.Name = "cpToolBar";
-            cpToolBar.Size = new Size(1040, 108);
+            cpToolBar.Size = new Size(910, 81);
             cpToolBar.TabIndex = 0;
             cpToolBar.OnSortByChanged += CpToolBar_OnSortByChanged;
             cpToolBar.Load += cpToolBar_Load;
@@ -69,9 +70,10 @@
             pnlContentImp_center.Controls.Add(btnImp_add);
             pnlContentImp_center.Controls.Add(lblImp_calendar);
             pnlContentImp_center.Controls.Add(txtImportantTask);
-            pnlContentImp_center.Location = new Point(71, 167);
+            pnlContentImp_center.Location = new Point(62, 125);
+            pnlContentImp_center.Margin = new Padding(3, 2, 3, 2);
             pnlContentImp_center.Name = "pnlContentImp_center";
-            pnlContentImp_center.Size = new Size(1040, 108);
+            pnlContentImp_center.Size = new Size(910, 82);
             pnlContentImp_center.TabIndex = 2;
             // 
             // lblImp_timePicker
@@ -80,19 +82,20 @@
             lblImp_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblImp_timePicker.Image = Properties.Resources.notification_32px;
             lblImp_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
-            lblImp_timePicker.Location = new Point(133, 53);
+            lblImp_timePicker.Location = new Point(116, 40);
             lblImp_timePicker.Name = "lblImp_timePicker";
             lblImp_timePicker.Padding = new Padding(3, 0, 3, 0);
-            lblImp_timePicker.Size = new Size(307, 44);
+            lblImp_timePicker.Size = new Size(269, 33);
             lblImp_timePicker.TabIndex = 8;
             lblImp_timePicker.TextAlign = ContentAlignment.MiddleCenter;
             lblImp_timePicker.Click += lblImp_timePicker_Click;
             // 
             // btnImp_add
             // 
-            btnImp_add.Location = new Point(927, 51);
+            btnImp_add.Location = new Point(811, 38);
+            btnImp_add.Margin = new Padding(3, 2, 3, 2);
             btnImp_add.Name = "btnImp_add";
-            btnImp_add.Size = new Size(94, 44);
+            btnImp_add.Size = new Size(82, 33);
             btnImp_add.TabIndex = 3;
             btnImp_add.Text = "Add";
             btnImp_add.UseVisualStyleBackColor = true;
@@ -105,9 +108,9 @@
             lblImp_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblImp_calendar.Image = Properties.Resources.calendar;
             lblImp_calendar.ImageAlign = ContentAlignment.MiddleLeft;
-            lblImp_calendar.Location = new Point(15, 51);
+            lblImp_calendar.Location = new Point(13, 38);
             lblImp_calendar.Name = "lblImp_calendar";
-            lblImp_calendar.Size = new Size(170, 44);
+            lblImp_calendar.Size = new Size(149, 33);
             lblImp_calendar.TabIndex = 1;
             lblImp_calendar.TextAlign = ContentAlignment.MiddleRight;
             toolTip_impCalendar.SetToolTip(lblImp_calendar, "Add Due Date");
@@ -118,17 +121,19 @@
             txtImportantTask.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtImportantTask.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtImportantTask.Location = new Point(-2, -2);
+            txtImportantTask.Margin = new Padding(3, 2, 3, 2);
             txtImportantTask.Name = "txtImportantTask";
             txtImportantTask.PlaceholderText = "New task";
-            txtImportantTask.Size = new Size(1035, 38);
+            txtImportantTask.Size = new Size(906, 32);
             txtImportantTask.TabIndex = 0;
             // 
             // pnlContentImp_bottom
             // 
             pnlContentImp_bottom.Controls.Add(tableImportant);
-            pnlContentImp_bottom.Location = new Point(71, 297);
+            pnlContentImp_bottom.Location = new Point(62, 223);
+            pnlContentImp_bottom.Margin = new Padding(3, 2, 3, 2);
             pnlContentImp_bottom.Name = "pnlContentImp_bottom";
-            pnlContentImp_bottom.Size = new Size(1040, 525);
+            pnlContentImp_bottom.Size = new Size(910, 394);
             pnlContentImp_bottom.TabIndex = 3;
             // 
             // tableImportant
@@ -140,21 +145,23 @@
             tableImportant.BackgroundColor = Color.White;
             tableImportant.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableImportant.Columns.AddRange(new DataGridViewColumn[] { clTitle_imp, clDuedate_imp, clImportance_imp, clDone_imp });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(246, 246, 246);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            tableImportant.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(246, 246, 246);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            tableImportant.DefaultCellStyle = dataGridViewCellStyle1;
             tableImportant.Dock = DockStyle.Fill;
             tableImportant.Location = new Point(0, 0);
+            tableImportant.Margin = new Padding(3, 2, 3, 2);
             tableImportant.Name = "tableImportant";
             tableImportant.RowHeadersWidth = 51;
-            tableImportant.Size = new Size(1040, 525);
+            tableImportant.Size = new Size(910, 394);
             tableImportant.TabIndex = 1;
             tableImportant.CellContentClick += tableImportant_CellContentClick;
+            tableImportant.CellDoubleClick += tableImportant_CellDoubleClick;
             // 
             // clTitle_imp
             // 
@@ -200,23 +207,25 @@
             // 
             // customeDateTime1
             // 
-            customeDateTime1.Location = new Point(215, 267);
+            customeDateTime1.Location = new Point(188, 200);
+            customeDateTime1.Margin = new Padding(3, 2, 3, 2);
             customeDateTime1.Name = "customeDateTime1";
-            customeDateTime1.Size = new Size(261, 353);
+            customeDateTime1.Size = new Size(228, 265);
             customeDateTime1.TabIndex = 4;
             customeDateTime1.Visible = false;
             // 
             // Important
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1179, 853);
+            ClientSize = new Size(1032, 640);
             Controls.Add(customeDateTime1);
             Controls.Add(pnlContentImp_bottom);
             Controls.Add(pnlContentImp_center);
             Controls.Add(cpToolBar);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Important";
             Text = "Important";
             Load += Important_Load;

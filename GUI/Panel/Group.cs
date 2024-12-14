@@ -157,8 +157,10 @@ namespace GUI.Panel
         {
             if (tasks == null || tasks.Count == 0)
             {
+                tableGroup.Rows.Clear();
                 return;
             }
+
             tableGroup.Rows.Clear();
 
             foreach (var task in tasks)
