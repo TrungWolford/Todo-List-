@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using BUS;
+using DTO;
 using GUI.Components;
 using GUI.Panel;
 using System;
@@ -85,11 +86,25 @@ namespace GUI
             //}
             //else
 
-            
+
+            //if (tasks != null && !tasks.IsDisposed)
+            //{
+            //    Console.WriteLine(searchText);
+            //    tasks.PerformSearch(searchText);
+
+            //}
+            if (tasks == null || tasks.IsDisposed)
+            {
+                tasks = new Tasks(user);
+                setForm(tasks);
+            }
+
+            // Thực hiện tìm kiếm trong Tasks
             if (tasks != null && !tasks.IsDisposed)
             {
                 Console.WriteLine(searchText);
                 tasks.PerformSearch(searchText);
+                setForm(tasks);
             }
         }
     }

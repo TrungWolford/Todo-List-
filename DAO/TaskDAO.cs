@@ -23,10 +23,9 @@ namespace DAO
         public int Insert(TaskDTO task)
         {
             // sua TaskID
-            string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy, GroupID) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy, @groupID); SELECT SCOPE_IDENTITY();";
+            string query = "INSERT INTO Task (Title, Description, DueDate, CreatedDate, IsImportant, IsDeleted, CompletedDate, CreatedBy, GroupID, ReminderTime, IsReminderSent) VALUES (@title, @description, @dueDate, @createdDate, @isImportant, @isDeleted, @completedDate, @createdBy, @groupID, @reminderTime, @isReminderSent); SELECT SCOPE_IDENTITY();";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
-
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = task.Title },
                 new SqlParameter("@description", SqlDbType.NVarChar) { Value = task.Description ?? (object)DBNull.Value},
                 new SqlParameter("@dueDate", SqlDbType.NVarChar) { Value = task.DueDate },
@@ -35,7 +34,9 @@ namespace DAO
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
                 new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy },
-                new SqlParameter("@groupID", SqlDbType.Int) { Value = task.GroupID ?? (object)DBNull.Value}
+                new SqlParameter("@groupID", SqlDbType.Int) { Value = task.GroupID ?? (object)DBNull.Value},
+                new SqlParameter("@reminderTime", SqlDbType.DateTime) { Value = task.ReminderTime ?? (object)DBNull.Value},
+                new SqlParameter("@isReminderSent", SqlDbType.Bit) { Value = task.IsReminderSent }
             };
             // Lấy ID tự tăng của row vừa tạo và gán vào DTO
             object result = DatabaseAccess.ExecuteScalar(query, parameters);
@@ -49,7 +50,7 @@ namespace DAO
         }
         public int Update(TaskDTO task)
         {
-            string query = "UPDATE Task SET Title = @title, Description = @description, DueDate = @dueDate, CreatedDate = @createdDate, IsImportant = @isImportant , IsDeleted = @isDeleted , CompletedDate = @completedDate , CreatedBy = @createdBy WHERE TaskID = @taskID";
+            string query = "UPDATE Task SET Title = @title, Description = @description, DueDate = @dueDate, CreatedDate = @createdDate, IsImportant = @isImportant , IsDeleted = @isDeleted , CompletedDate = @completedDate , CreatedBy = @createdBy, ReminderTime=@reminderTime, IsReminderSent=@isReminderSent WHERE TaskID = @taskID";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@title", SqlDbType.NVarChar) { Value = task.Title },
@@ -60,6 +61,8 @@ namespace DAO
                 new SqlParameter("@isDeleted", SqlDbType.Bit) { Value = task.IsDeleted },
                 new SqlParameter("@completedDate", SqlDbType.DateTime) { Value = task.CompletedDate ?? (object)DBNull.Value},
                 new SqlParameter("@createdBy", SqlDbType.Int) { Value = task.CreatedBy },
+                new SqlParameter("@reminderTime", SqlDbType.DateTime) { Value = task.ReminderTime ?? (object)DBNull.Value},
+                new SqlParameter("@isReminderSent", SqlDbType.Bit) { Value = task.IsReminderSent },
                 new SqlParameter("@taskID", SqlDbType.Int) { Value = task.TaskID }
             };
             int rowsAffected = DatabaseAccess.ExecuteNonQuery(query, parameters);
@@ -110,7 +113,10 @@ namespace DAO
                         IsImportant = reader.GetBoolean(reader.GetOrdinal("IsImportant")),
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
-                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy"))
+                        CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))
                     };
                 }
             }
@@ -137,7 +143,9 @@ namespace DAO
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
                         CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
-                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))                        
                     };
                     listTask.Add(task);
                 }
@@ -170,7 +178,9 @@ namespace DAO
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
                         CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
-                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))
                     };
                     listTaskByID.Add(task);
                 }
@@ -205,7 +215,9 @@ namespace DAO
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
                         CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
-                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))
                     };
                     listTaskCurrentDate.Add(task);
                 }
@@ -237,7 +249,9 @@ namespace DAO
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
                         CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
-                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))
                     };
                     listTaskImportant.Add(task);
                 }
@@ -301,7 +315,9 @@ namespace DAO
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
                         CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
-                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))
                     };
                     listTaskImportant.Add(task);
                 }
@@ -309,8 +325,8 @@ namespace DAO
 
             return listTaskImportant;
         }
-
-        public List<TaskDTO> selectedAllTaskByGroupID( int groupID)
+    
+        public List<TaskDTO> selectedAllTaskByGroupID(int userID, int groupID)
         {
             List<TaskDTO> listTasks = new List<TaskDTO>();
             string query = @"
@@ -339,7 +355,9 @@ namespace DAO
                         IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted")),
                         CompletedDate = reader.IsDBNull(reader.GetOrdinal("CompletedDate")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("CompletedDate")),
                         CreatedBy = reader.GetInt32(reader.GetOrdinal("CreatedBy")),
-                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID"))
+                        GroupID = reader.IsDBNull(reader.GetOrdinal("GroupID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("GroupID")),
+                        ReminderTime = reader.IsDBNull(reader.GetOrdinal("ReminderTime")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("ReminderTime")),
+                        IsReminderSent = reader.GetBoolean(reader.GetOrdinal("IsReminderSent"))
                     };
                     listTasks.Add(task);
                 }
@@ -347,5 +365,7 @@ namespace DAO
 
             return listTasks;
         }
+
+        
     }
 }

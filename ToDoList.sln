@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "database", "database\database.csproj", "{2E1DB3BC-FB42-4082-BB4B-507229C7C590}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helper", "Helper\Helper.csproj", "{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailReminderService", "EmailReminderService\EmailReminderService.csproj", "{FA6AD484-3DEB-40F4-97FA-EADAE6CDE5CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CA5BA77-59B4-4920-8DBA-9EBEB87B2B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6AD484-3DEB-40F4-97FA-EADAE6CDE5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6AD484-3DEB-40F4-97FA-EADAE6CDE5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6AD484-3DEB-40F4-97FA-EADAE6CDE5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6AD484-3DEB-40F4-97FA-EADAE6CDE5CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,11 +24,10 @@ namespace GUI.Panel
         private MonthCalendar calendar;
         private UserDTO user;
         private bool isImportant;
-        //private DateTime? completedDate;
+        private bool isReminder;
         public TaskBUS taskBUS;
         public List<TaskDTO> listTasks;
         public sortBUS sortBUS = new sortBUS();
-        
 
         public Tasks(UserDTO user)
         {
@@ -38,6 +37,7 @@ namespace GUI.Panel
             taskBUS = new TaskBUS();
             listTasks = taskBUS.getAllByUserID(user.UserID);
             isImportant = false;
+            isReminder = false;
             //completedDate = null;
 
             calendar = new MonthCalendar
@@ -45,6 +45,9 @@ namespace GUI.Panel
                 Visible = false,
                 MaxSelectionCount = 1
             };
+
+           
+
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
         }
@@ -53,8 +56,11 @@ namespace GUI.Panel
             lblTasks_calendar.Text = e.Start.ToString("dd/MM/yyyy");
             lblTasks_important.Left = lblTasks_calendar.Right + 20;
             lblTasks_importantSelected.Left = lblTasks_calendar.Right + 20;
+            lblTasks_timePicker.Left = lblTasks_calendar.Right + 75;
             calendar.Visible = false;
         }
+
+
 
         private void lblTasks_calendar_Click(object sender, EventArgs e)
         {
@@ -105,7 +111,10 @@ namespace GUI.Panel
                         DueDate = DateTime.ParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                         IsImportant = isImportant,
                         CreatedDate = DateTime.Now,
-                        CreatedBy = user.UserID
+                        CreatedBy = user.UserID,
+                        //ReminderTime = DateTime.ParseExact(dateString, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                        ReminderTime = new DateTime(2024, 12, 14, 15, 06, 0), // Năm, Tháng, Ngày, Giờ, Phút, Giây
+                        IsReminderSent = false
                     };
                     bool test = taskBUS.insert(newTask);
                     if (test)
@@ -197,8 +206,8 @@ namespace GUI.Panel
 
         public void loadDataTable(List<TaskDTO> tasks)
         {
-           /* tableTasks.SuspendLayout(); // Tạm dừng cập nhật giao diện
-            tableTasks.Rows.Clear();   // Xóa tất cả các hàng cũ*/
+            /* tableTasks.SuspendLayout(); // Tạm dừng cập nhật giao diện
+             tableTasks.Rows.Clear();   // Xóa tất cả các hàng cũ*/
 
             if (tasks == null || tasks.Count == 0)
             {
@@ -231,13 +240,13 @@ namespace GUI.Panel
                     tableTasks.Rows[rowIndex].Cells["clDone_tasks"].Value = Properties.Resources.done_24;
                 }
             }
-            tableTasks.ResumeLayout();
+            //tableTasks.ResumeLayout();
             tableTasks.Refresh();
         }
 
         private void tableTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
             if (e.RowIndex >= 0 && e.ColumnIndex == tableTasks.Columns["clImportance_tasks"].Index)
             {
                 try
@@ -368,22 +377,10 @@ namespace GUI.Panel
 
             Console.WriteLine(newList.Count);
 
-            //loadDataTable2("", filteredTasks);
-            //loadDataTable(newList);
-            loadDataTable(filteredTasks);
 
-            //if (tableTasks.InvokeRequired)
-            //{
-            //    tableTasks.Invoke((System.Windows.Forms.MethodInvoker)(() => loadDataTable2("", newList)));
-
-            //}
-            //else
-            //{
-            ////loadDataTable2("", newList);
-            //    loadDataTable(newList);
-            //}
 
         }
 
+        
     }
 }
