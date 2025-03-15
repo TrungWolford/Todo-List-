@@ -46,30 +46,33 @@
             // 
             // btnQuestion1
             // 
-            btnQuestion1.Location = new Point(360, 377);
+            btnQuestion1.Location = new Point(217, 377);
             btnQuestion1.Name = "btnQuestion1";
-            btnQuestion1.Size = new Size(184, 29);
+            btnQuestion1.Size = new Size(502, 29);
             btnQuestion1.TabIndex = 1;
-            btnQuestion1.Text = "button1";
+            btnQuestion1.Text = "Làm sao để duy trì thói quen sử dụng To-Do List hàng ngày?";
             btnQuestion1.UseVisualStyleBackColor = true;
+            btnQuestion1.Click += btnQuestion1_Click;
             // 
             // btnQuestion2
             // 
-            btnQuestion2.Location = new Point(360, 428);
+            btnQuestion2.Location = new Point(141, 432);
             btnQuestion2.Name = "btnQuestion2";
-            btnQuestion2.Size = new Size(184, 29);
+            btnQuestion2.Size = new Size(653, 29);
             btnQuestion2.TabIndex = 2;
-            btnQuestion2.Text = "button2";
+            btnQuestion2.Text = "Có phương pháp nào giúp hoàn thành To-Do List mà không bị stress?";
             btnQuestion2.UseVisualStyleBackColor = true;
+            btnQuestion2.Click += btnQuestion2_Click;
             // 
             // btnQuestion3
             // 
-            btnQuestion3.Location = new Point(360, 478);
+            btnQuestion3.Location = new Point(248, 493);
             btnQuestion3.Name = "btnQuestion3";
-            btnQuestion3.Size = new Size(184, 29);
+            btnQuestion3.Size = new Size(422, 29);
             btnQuestion3.TabIndex = 3;
-            btnQuestion3.Text = "button3";
+            btnQuestion3.Text = "Làm sao để đánh giá hiệu quả của To-Do List?";
             btnQuestion3.UseVisualStyleBackColor = true;
+            btnQuestion3.Click += btnQuestion3_Click;
             // 
             // txtInput
             // 
@@ -84,7 +87,7 @@
             btnSend.Name = "btnSend";
             btnSend.Size = new Size(94, 29);
             btnSend.TabIndex = 5;
-            btnSend.Text = "button4";
+            btnSend.Text = "Gửi";
             btnSend.UseVisualStyleBackColor = true;
             btnSend.Click += btnSend_Click;
             // 

@@ -19,7 +19,7 @@ namespace GUI.Panel
 {
     public partial class ChatBotForm : Form
     {
-        private static readonly string apiKey = "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";
+        private static readonly string apiKey = "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";
         private static readonly string apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         private static string GetConnectionString()
@@ -52,7 +52,8 @@ namespace GUI.Panel
 
             string response = await GetDeepSeekResponse(userMessage);
 
-            txtOutput.Invoke((MethodInvoker)delegate {
+            txtOutput.Invoke((MethodInvoker)delegate
+            {
                 txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
             });
 
@@ -111,17 +112,17 @@ namespace GUI.Panel
 
         private void btnQuestion1_Click(object sender, EventArgs e)
         {
-            SendPredefinedMessage("Làm thế nào để học AI giỏi hơn");
+            SendPredefinedMessage("Làm sao để duy trì thói quen sử dụng To-Do List hàng ngày?");
         }
 
         private void btnQuestion2_Click(object sender, EventArgs e)
         {
-            SendPredefinedMessage("Lộ trình học để trở thành một fullstack java developer trong vòng 12 tháng?");
+            SendPredefinedMessage("Có phương pháp nào giúp hoàn thành To-Do List mà không bị stress?");
         }
 
         private void btnQuestion3_Click(object sender, EventArgs e)
         {
-            SendPredefinedMessage("Làm sao để giỏi thuật toán?");
+            SendPredefinedMessage("Làm sao để đánh giá hiệu quả của To-Do List?");
         }
 
         private void SendPredefinedMessage(string message)
