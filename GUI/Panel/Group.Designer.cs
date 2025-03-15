@@ -44,7 +44,7 @@
             clDuedate_group = new DataGridViewTextBoxColumn();
             clImportance_group = new DataGridViewImageColumn();
             clDone_group = new DataGridViewImageColumn();
-            cpToolBarGroup3 = new Components.cpToolBarGroup(groupDTO, user, this);
+            chatBot1 = new Components.chatBot();
             pnlContentGroup_center.SuspendLayout();
             pnlContentGroup_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableGroup).BeginInit();
@@ -52,6 +52,7 @@
             // 
             // pnlContentGroup_center
             // 
+            pnlContentGroup_center.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentGroup_center.BackColor = Color.White;
             pnlContentGroup_center.BorderStyle = BorderStyle.Fixed3D;
             pnlContentGroup_center.Controls.Add(lblGroup_timePicker);
@@ -60,44 +61,44 @@
             pnlContentGroup_center.Controls.Add(lblGroup_important);
             pnlContentGroup_center.Controls.Add(lblGroup_calendar);
             pnlContentGroup_center.Controls.Add(txtGroupTask);
-            pnlContentGroup_center.Location = new Point(62, 125);
-            pnlContentGroup_center.Margin = new Padding(3, 2, 3, 2);
+            pnlContentGroup_center.Location = new Point(71, 167);
             pnlContentGroup_center.Name = "pnlContentGroup_center";
-            pnlContentGroup_center.Size = new Size(910, 82);
+            pnlContentGroup_center.Size = new Size(1039, 108);
             pnlContentGroup_center.TabIndex = 3;
             // 
             // lblGroup_timePicker
             // 
+            lblGroup_timePicker.Anchor = AnchorStyles.Left;
             lblGroup_timePicker.Cursor = Cursors.Hand;
             lblGroup_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblGroup_timePicker.Image = Properties.Resources.notification_32px;
             lblGroup_timePicker.ImageAlign = ContentAlignment.MiddleLeft;
-            lblGroup_timePicker.Location = new Point(125, 32);
+            lblGroup_timePicker.Location = new Point(147, 43);
             lblGroup_timePicker.Name = "lblGroup_timePicker";
             lblGroup_timePicker.Padding = new Padding(3, 0, 3, 0);
-            lblGroup_timePicker.Size = new Size(307, 42);
+            lblGroup_timePicker.Size = new Size(351, 56);
             lblGroup_timePicker.TabIndex = 8;
             lblGroup_timePicker.TextAlign = ContentAlignment.MiddleCenter;
             lblGroup_timePicker.Click += lblTasks_timePicker_Click;
             // 
             // lblGroup_importantSelected
             // 
-            lblGroup_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblGroup_importantSelected.Anchor = AnchorStyles.Left;
             lblGroup_importantSelected.Cursor = Cursors.Hand;
             lblGroup_importantSelected.Image = (Image)resources.GetObject("lblGroup_importantSelected.Image");
-            lblGroup_importantSelected.Location = new Point(59, 41);
+            lblGroup_importantSelected.Location = new Point(67, 55);
             lblGroup_importantSelected.Name = "lblGroup_importantSelected";
-            lblGroup_importantSelected.Size = new Size(50, 33);
+            lblGroup_importantSelected.Size = new Size(57, 44);
             lblGroup_importantSelected.TabIndex = 6;
             lblGroup_importantSelected.Visible = false;
             lblGroup_importantSelected.Click += lblGroup_importantSelected_Click;
             // 
             // btnGroup_add
             // 
-            btnGroup_add.Location = new Point(811, 38);
-            btnGroup_add.Margin = new Padding(3, 2, 3, 2);
+            btnGroup_add.Anchor = AnchorStyles.Right;
+            btnGroup_add.Location = new Point(927, 51);
             btnGroup_add.Name = "btnGroup_add";
-            btnGroup_add.Size = new Size(82, 33);
+            btnGroup_add.Size = new Size(94, 44);
             btnGroup_add.TabIndex = 3;
             btnGroup_add.Text = "Add";
             btnGroup_add.UseVisualStyleBackColor = true;
@@ -108,22 +109,22 @@
             lblGroup_important.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblGroup_important.Cursor = Cursors.Hand;
             lblGroup_important.Image = (Image)resources.GetObject("lblGroup_important.Image");
-            lblGroup_important.Location = new Point(59, 41);
+            lblGroup_important.Location = new Point(67, 55);
             lblGroup_important.Name = "lblGroup_important";
-            lblGroup_important.Size = new Size(50, 33);
+            lblGroup_important.Size = new Size(57, 44);
             lblGroup_important.TabIndex = 2;
             lblGroup_important.Click += lblGroup_important_Click;
             // 
             // lblGroup_calendar
             // 
-            lblGroup_calendar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblGroup_calendar.Anchor = AnchorStyles.Left;
             lblGroup_calendar.Cursor = Cursors.Hand;
             lblGroup_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblGroup_calendar.Image = Properties.Resources.calendar;
             lblGroup_calendar.ImageAlign = ContentAlignment.MiddleLeft;
-            lblGroup_calendar.Location = new Point(13, 41);
+            lblGroup_calendar.Location = new Point(15, 55);
             lblGroup_calendar.Name = "lblGroup_calendar";
-            lblGroup_calendar.Size = new Size(149, 33);
+            lblGroup_calendar.Size = new Size(170, 44);
             lblGroup_calendar.TabIndex = 1;
             lblGroup_calendar.TextAlign = ContentAlignment.MiddleRight;
             lblGroup_calendar.Click += lblGroup_calendar_Click;
@@ -132,38 +133,30 @@
             // 
             txtGroupTask.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtGroupTask.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtGroupTask.Location = new Point(-2, -2);
-            txtGroupTask.Margin = new Padding(3, 2, 3, 2);
+            txtGroupTask.Location = new Point(-2, -3);
             txtGroupTask.Name = "txtGroupTask";
             txtGroupTask.PlaceholderText = "New task";
-            txtGroupTask.Size = new Size(906, 32);
+            txtGroupTask.Size = new Size(1035, 38);
             txtGroupTask.TabIndex = 0;
+            txtGroupTask.TextChanged += txtGroupTask_TextChanged;
             // 
             // pnlContentGroup_bottom
             // 
+            pnlContentGroup_bottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentGroup_bottom.Controls.Add(customeDateTime1);
             pnlContentGroup_bottom.Controls.Add(tableGroup);
-            pnlContentGroup_bottom.Location = new Point(62, 227);
-            pnlContentGroup_bottom.Margin = new Padding(3, 2, 3, 2);
+            pnlContentGroup_bottom.Location = new Point(71, 303);
             pnlContentGroup_bottom.Name = "pnlContentGroup_bottom";
-            pnlContentGroup_bottom.Size = new Size(910, 394);
+            pnlContentGroup_bottom.Size = new Size(1040, 525);
             pnlContentGroup_bottom.TabIndex = 4;
             // 
             // customeDateTime1
             // 
-            customeDateTime1.Location = new Point(141, -30);
-            customeDateTime1.Margin = new Padding(3, 2, 3, 2);
+            customeDateTime1.Location = new Point(161, -40);
             customeDateTime1.Name = "customeDateTime1";
-            customeDateTime1.Size = new Size(257, 370);
+            customeDateTime1.Size = new Size(294, 493);
             customeDateTime1.TabIndex = 5;
             customeDateTime1.Visible = false;
-            //
-            // cpToolBarGroup3
-            // 
-            cpToolBarGroup3.Location = new Point(71, 31);
-            cpToolBarGroup3.Name = "cpToolBarGroup3";
-            cpToolBarGroup3.Size = new Size(1040, 108);
-            cpToolBarGroup3.TabIndex = 5;
             // 
             // tableGroup
             // 
@@ -171,6 +164,7 @@
             tableGroup.AllowUserToDeleteRows = false;
             tableGroup.AllowUserToResizeColumns = false;
             tableGroup.AllowUserToResizeRows = false;
+            tableGroup.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableGroup.BackgroundColor = Color.White;
             tableGroup.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableGroup.Columns.AddRange(new DataGridViewColumn[] { clTitle_group, clDuedate_group, clImportance_group, clDone_group });
@@ -182,12 +176,10 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             tableGroup.DefaultCellStyle = dataGridViewCellStyle1;
-            tableGroup.Dock = DockStyle.Fill;
-            tableGroup.Location = new Point(0, 0);
-            tableGroup.Margin = new Padding(3, 2, 3, 2);
+            tableGroup.Location = new Point(0, 3);
             tableGroup.Name = "tableGroup";
             tableGroup.RowHeadersWidth = 51;
-            tableGroup.Size = new Size(910, 394);
+            tableGroup.Size = new Size(1035, 522);
             tableGroup.TabIndex = 1;
             tableGroup.CellContentClick += tableGroup_CellContentClick;
             tableGroup.CellDoubleClick += tableGroup_CellDoubleClick;
@@ -234,17 +226,25 @@
             clDone_group.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_group.Width = 72;
             // 
+            // chatBot1
+            // 
+            chatBot1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            chatBot1.Cursor = Cursors.Hand;
+            chatBot1.Location = new Point(1117, 773);
+            chatBot1.Name = "chatBot1";
+            chatBot1.Size = new Size(50, 68);
+            chatBot1.TabIndex = 6;
+            // 
             // Group
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1032, 640);
+            ClientSize = new Size(1179, 853);
+            Controls.Add(chatBot1);
             Controls.Add(pnlContentGroup_bottom);
             Controls.Add(pnlContentGroup_center);
-            Controls.Add(cpToolBarGroup3);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "Group";
             Text = "Group";
             Load += Group_Load;
@@ -273,5 +273,6 @@
         private Components.cpToolBarGroup cpToolBarGroup3;
         private Components.CustomeDateTime customeDateTime1;
         private Label lblGroup_timePicker;
+        private Components.chatBot chatBot1;
     }
 }

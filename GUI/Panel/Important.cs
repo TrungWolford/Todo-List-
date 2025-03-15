@@ -43,6 +43,8 @@ namespace GUI.Panel
             };
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
+
+            tableImportant.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
         {

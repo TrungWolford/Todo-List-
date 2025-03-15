@@ -48,8 +48,12 @@ namespace GUI.Panel
             };
             calendar.DateSelected += Calendar_DateSelected;
             Controls.Add(calendar);
-            cpToolBarGroup3.OnExitChangeMember += menuTaskBar.RefreshGroupList;
+            if (cpToolBarGroup3 != null)
+            {
+                cpToolBarGroup3.OnExitChangeMember += menuTaskBar.RefreshGroupList;
+            }
 
+            tableGroup.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void Calendar_DateSelected(object? sender, DateRangeEventArgs e)
@@ -337,6 +341,11 @@ namespace GUI.Panel
         {
             listTasks = taskBUS.getAllTaskByGroupID(user.UserID, groupDTO.GroupID);
             loadDataTable(listTasks);
+        }
+
+        private void txtGroupTask_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -29,35 +29,38 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar();
             pnlContentCompleted_center = new System.Windows.Forms.Panel();
             tableCompleted = new DataGridView();
             clTitle_cmp = new DataGridViewTextBoxColumn();
             clDuedate_cmp = new DataGridViewTextBoxColumn();
             clImportance_cmp = new DataGridViewImageColumn();
             clDone_cmp = new DataGridViewImageColumn();
+            chatBot1 = new Components.chatBot();
+            panel1 = new System.Windows.Forms.Panel();
             pnlContentCompleted_center.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableCompleted).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // cpToolBar1
             // 
+            cpToolBar1.Anchor = AnchorStyles.Top;
             cpToolBar1.BackColor = Color.Transparent;
-            cpToolBar1.Location = new Point(62, 23);
-            cpToolBar1.Margin = new Padding(3, 2, 3, 2);
+            cpToolBar1.Location = new Point(64, 24);
             cpToolBar1.Name = "cpToolBar1";
-            cpToolBar1.Size = new Size(910, 81);
+            cpToolBar1.Size = new Size(1040, 108);
             cpToolBar1.TabIndex = 0;
             cpToolBar1.OnSortByChanged += CpToolBar1_OnSortByChanged;
             cpToolBar1.Load += cpToolBar1_Load;
             // 
             // pnlContentCompleted_center
             // 
+            pnlContentCompleted_center.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentCompleted_center.Controls.Add(tableCompleted);
-            pnlContentCompleted_center.Location = new Point(62, 125);
-            pnlContentCompleted_center.Margin = new Padding(3, 2, 3, 2);
+            pnlContentCompleted_center.Location = new Point(71, 167);
             pnlContentCompleted_center.Name = "pnlContentCompleted_center";
-            pnlContentCompleted_center.Size = new Size(910, 488);
+            pnlContentCompleted_center.Size = new Size(1040, 651);
             pnlContentCompleted_center.TabIndex = 1;
             // 
             // tableCompleted
@@ -66,6 +69,7 @@
             tableCompleted.AllowUserToDeleteRows = false;
             tableCompleted.AllowUserToResizeColumns = false;
             tableCompleted.AllowUserToResizeRows = false;
+            tableCompleted.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableCompleted.BackgroundColor = Color.White;
             tableCompleted.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableCompleted.Columns.AddRange(new DataGridViewColumn[] { clTitle_cmp, clDuedate_cmp, clImportance_cmp, clDone_cmp });
@@ -77,12 +81,10 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             tableCompleted.DefaultCellStyle = dataGridViewCellStyle1;
-            tableCompleted.Dock = DockStyle.Fill;
-            tableCompleted.Location = new Point(0, 0);
-            tableCompleted.Margin = new Padding(3, 2, 3, 2);
+            tableCompleted.Location = new Point(3, 3);
             tableCompleted.Name = "tableCompleted";
             tableCompleted.RowHeadersWidth = 51;
-            tableCompleted.Size = new Size(910, 488);
+            tableCompleted.Size = new Size(1037, 648);
             tableCompleted.TabIndex = 2;
             tableCompleted.CellContentClick += tableCompleted_CellContentClick;
             tableCompleted.CellDoubleClick += tableCompleted_CellDoubleClick;
@@ -129,21 +131,40 @@
             clDone_cmp.SortMode = DataGridViewColumnSortMode.Automatic;
             clDone_cmp.Width = 72;
             // 
+            // chatBot1
+            // 
+            chatBot1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            chatBot1.Cursor = Cursors.Hand;
+            chatBot1.Location = new Point(1117, 773);
+            chatBot1.Name = "chatBot1";
+            chatBot1.Size = new Size(50, 68);
+            chatBot1.TabIndex = 6;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(cpToolBar1);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1179, 853);
+            panel1.TabIndex = 7;
+            // 
             // Completed
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
-            ClientSize = new Size(1032, 640);
+            ClientSize = new Size(1179, 853);
+            Controls.Add(chatBot1);
             Controls.Add(pnlContentCompleted_center);
-            Controls.Add(cpToolBar1);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "Completed";
             Text = "Completed";
             Load += Completed_Load;
             pnlContentCompleted_center.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tableCompleted).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -156,5 +177,7 @@
         private DataGridViewTextBoxColumn clDuedate_cmp;
         private DataGridViewImageColumn clImportance_cmp;
         private DataGridViewImageColumn clDone_cmp;
+        private Components.chatBot chatBot1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

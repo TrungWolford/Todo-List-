@@ -26,6 +26,7 @@ namespace GUI.Panel
             taskBUS = new TaskBUS();
             listTasks = taskBUS.getAllTaskCompleted(user.UserID);
             isImportant = false;
+            tableCompleted.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void Completed_Load(object sender, EventArgs e)
