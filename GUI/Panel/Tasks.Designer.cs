@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tasks));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            cpToolBar1 = new Components.cpToolBar(this);
+            cpToolBar1 = new Components.cpToolBar();
             pnlContentTasks_center = new System.Windows.Forms.Panel();
             lblTasks_timePicker = new Label();
             lblTasks_importantSelected = new Label();
@@ -50,6 +50,8 @@
             toolTip_tasksImportantSelected = new ToolTip(components);
             toolTip_tasksRemindMe = new ToolTip(components);
             customeDateTime1 = new Components.CustomeDateTime();
+            chatBot1 = new Components.chatBot();
+            panel1 = new System.Windows.Forms.Panel();
             pnlContentTasks_center.SuspendLayout();
             pnlContentTasks_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableTasks).BeginInit();
@@ -57,6 +59,7 @@
             // 
             // cpToolBar1
             // 
+            cpToolBar1.Anchor = AnchorStyles.Top;
             cpToolBar1.BackColor = Color.Transparent;
             cpToolBar1.Location = new Point(71, 31);
             cpToolBar1.Name = "cpToolBar1";
@@ -66,6 +69,7 @@
             // 
             // pnlContentTasks_center
             // 
+            pnlContentTasks_center.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentTasks_center.BackColor = Color.White;
             pnlContentTasks_center.BorderStyle = BorderStyle.Fixed3D;
             pnlContentTasks_center.Controls.Add(lblTasks_timePicker);
@@ -81,6 +85,7 @@
             // 
             // lblTasks_timePicker
             // 
+            lblTasks_timePicker.Anchor = AnchorStyles.Left;
             lblTasks_timePicker.Cursor = Cursors.Hand;
             lblTasks_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTasks_timePicker.Image = Properties.Resources.notification_32px;
@@ -96,7 +101,7 @@
             // 
             // lblTasks_importantSelected
             // 
-            lblTasks_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblTasks_importantSelected.Anchor = AnchorStyles.Left;
             lblTasks_importantSelected.Cursor = Cursors.Hand;
             lblTasks_importantSelected.Image = (Image)resources.GetObject("lblTasks_importantSelected.Image");
             lblTasks_importantSelected.Location = new Point(67, 51);
@@ -109,6 +114,7 @@
             // 
             // btnTasks_add
             // 
+            btnTasks_add.Anchor = AnchorStyles.Right;
             btnTasks_add.Location = new Point(927, 51);
             btnTasks_add.Name = "btnTasks_add";
             btnTasks_add.Size = new Size(94, 44);
@@ -131,7 +137,7 @@
             // 
             // lblTasks_calendar
             // 
-            lblTasks_calendar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblTasks_calendar.Anchor = AnchorStyles.Left;
             lblTasks_calendar.Cursor = Cursors.Hand;
             lblTasks_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTasks_calendar.Image = Properties.Resources.calendar;
@@ -156,6 +162,7 @@
             // 
             // pnlContentTasks_bottom
             // 
+            pnlContentTasks_bottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentTasks_bottom.Controls.Add(tableTasks);
             pnlContentTasks_bottom.Location = new Point(71, 297);
             pnlContentTasks_bottom.Name = "pnlContentTasks_bottom";
@@ -168,6 +175,7 @@
             tableTasks.AllowUserToDeleteRows = false;
             tableTasks.AllowUserToResizeColumns = false;
             tableTasks.AllowUserToResizeRows = false;
+            tableTasks.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableTasks.BackgroundColor = Color.White;
             tableTasks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableTasks.Columns.AddRange(new DataGridViewColumn[] { clTitle_tasks, clDuedate_tasks, clImportance_tasks, clDone_tasks });
@@ -179,11 +187,10 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             tableTasks.DefaultCellStyle = dataGridViewCellStyle1;
-            tableTasks.Dock = DockStyle.Fill;
-            tableTasks.Location = new Point(0, 0);
+            tableTasks.Location = new Point(3, 3);
             tableTasks.Name = "tableTasks";
             tableTasks.RowHeadersWidth = 51;
-            tableTasks.Size = new Size(1040, 525);
+            tableTasks.Size = new Size(1037, 522);
             tableTasks.TabIndex = 2;
             tableTasks.CellClick += tableTasks_CellContentClick;
             tableTasks.CellContentClick += tableTasks_CellContentClick;
@@ -238,16 +245,35 @@
             customeDateTime1.Size = new Size(262, 380);
             customeDateTime1.TabIndex = 4;
             // 
+            // chatBot1
+            // 
+            chatBot1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            chatBot1.Cursor = Cursors.Hand;
+            chatBot1.Location = new Point(1117, 773);
+            chatBot1.Name = "chatBot1";
+            chatBot1.Size = new Size(50, 68);
+            chatBot1.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1179, 853);
+            panel1.TabIndex = 6;
+            // 
             // Tasks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1179, 853);
+            Controls.Add(chatBot1);
             Controls.Add(customeDateTime1);
             Controls.Add(pnlContentTasks_bottom);
             Controls.Add(pnlContentTasks_center);
             Controls.Add(cpToolBar1);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Tasks";
             Text = "Tasks";
@@ -280,5 +306,7 @@
         private Label lblTasks_timePicker;
         private ToolTip toolTip_tasksRemindMe;
         private Components.CustomeDateTime customeDateTime1;
+        private Components.chatBot chatBot1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

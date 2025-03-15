@@ -77,7 +77,6 @@ namespace DAO
             {
                 sqlCmd.Parameters.AddRange(parameters.ToArray());
             }
-
             return sqlCmd.ExecuteReader();
         }
 

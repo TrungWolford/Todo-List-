@@ -50,6 +50,7 @@
             toolTip_mdImportantSelected = new ToolTip(components);
             customeDateTime1 = new Components.CustomeDateTime();
             chatBot1 = new Components.chatBot();
+            panel1 = new System.Windows.Forms.Panel();
             pnlContentMD_bottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tableMyday).BeginInit();
             pnlContentMD_center.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // pnlContentMD_bottom
             // 
+            pnlContentMD_bottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentMD_bottom.BackColor = Color.White;
             pnlContentMD_bottom.Controls.Add(tableMyday);
             pnlContentMD_bottom.Location = new Point(71, 297);
@@ -70,6 +72,7 @@
             tableMyday.AllowUserToDeleteRows = false;
             tableMyday.AllowUserToResizeColumns = false;
             tableMyday.AllowUserToResizeRows = false;
+            tableMyday.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableMyday.BackgroundColor = Color.White;
             tableMyday.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableMyday.Columns.AddRange(new DataGridViewColumn[] { clTitle_md, clDuedate_md, clImportance_md, clDone_md });
@@ -81,11 +84,10 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             tableMyday.DefaultCellStyle = dataGridViewCellStyle1;
-            tableMyday.Dock = DockStyle.Fill;
-            tableMyday.Location = new Point(0, 0);
+            tableMyday.Location = new Point(3, 3);
             tableMyday.Name = "tableMyday";
             tableMyday.RowHeadersWidth = 51;
-            tableMyday.Size = new Size(1040, 525);
+            tableMyday.Size = new Size(1037, 522);
             tableMyday.TabIndex = 0;
             tableMyday.CellContentClick += tableMyday_CellContentClick;
             tableMyday.CellDoubleClick += tableTasks_CellDoubleClick;
@@ -134,6 +136,7 @@
             // 
             // pnlContentMD_center
             // 
+            pnlContentMD_center.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlContentMD_center.BackColor = Color.White;
             pnlContentMD_center.BorderStyle = BorderStyle.Fixed3D;
             pnlContentMD_center.Controls.Add(lblMd_timePicker);
@@ -149,6 +152,7 @@
             // 
             // lblMd_timePicker
             // 
+            lblMd_timePicker.Anchor = AnchorStyles.Left;
             lblMd_timePicker.Cursor = Cursors.Hand;
             lblMd_timePicker.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMd_timePicker.Image = Properties.Resources.notification_32px;
@@ -163,7 +167,7 @@
             // 
             // lblMd_importantSelected
             // 
-            lblMd_importantSelected.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblMd_importantSelected.Anchor = AnchorStyles.Left;
             lblMd_importantSelected.Cursor = Cursors.Hand;
             lblMd_importantSelected.Image = (Image)resources.GetObject("lblMd_importantSelected.Image");
             lblMd_importantSelected.Location = new Point(67, 51);
@@ -176,6 +180,7 @@
             // 
             // btnMd_add
             // 
+            btnMd_add.Anchor = AnchorStyles.Right;
             btnMd_add.Location = new Point(927, 51);
             btnMd_add.Name = "btnMd_add";
             btnMd_add.Size = new Size(94, 44);
@@ -198,7 +203,7 @@
             // 
             // lblMd_calendar
             // 
-            lblMd_calendar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblMd_calendar.Anchor = AnchorStyles.Left;
             lblMd_calendar.Cursor = Cursors.Hand;
             lblMd_calendar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMd_calendar.Image = Properties.Resources.calendar;
@@ -223,6 +228,7 @@
             // 
             // cpToolBar1
             // 
+            cpToolBar1.Anchor = AnchorStyles.Top;
             cpToolBar1.BackColor = Color.Transparent;
             cpToolBar1.Location = new Point(71, 31);
             cpToolBar1.Name = "cpToolBar1";
@@ -241,12 +247,21 @@
             // 
             // chatBot1
             // 
+            chatBot1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             chatBot1.Cursor = Cursors.Hand;
-            chatBot1.Location = new Point(1077, 608);
+            chatBot1.Location = new Point(1117, 773);
             chatBot1.Name = "chatBot1";
-            chatBot1.Size = new Size(127, 146);
+            chatBot1.Size = new Size(50, 68);
             chatBot1.TabIndex = 4;
             chatBot1.Load += chatBot1_Load;
+            // 
+            // panel1
+            // 
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1179, 853);
+            panel1.TabIndex = 5;
             // 
             // Myday
             // 
@@ -259,6 +274,7 @@
             Controls.Add(cpToolBar1);
             Controls.Add(pnlContentMD_center);
             Controls.Add(pnlContentMD_bottom);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Myday";
             Text = "Myday";
@@ -290,5 +306,6 @@
         private Components.CustomeDateTime customeDateTime1;
         private Label lblMd_timePicker;
         private Components.chatBot chatBot1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

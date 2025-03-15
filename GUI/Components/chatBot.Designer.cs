@@ -40,7 +40,7 @@
             iconAI.Image = Properties.Resources.ai_512px;
             iconAI.Location = new Point(0, 0);
             iconAI.Name = "iconAI";
-            iconAI.Size = new Size(96, 91);
+            iconAI.Size = new Size(62, 56);
             iconAI.SizeMode = PictureBoxSizeMode.Zoom;
             iconAI.TabIndex = 1;
             iconAI.TabStop = false;
@@ -52,7 +52,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(96, 91);
+            panel1.Size = new Size(62, 56);
             panel1.TabIndex = 2;
             // 
             // chatBot
@@ -61,7 +61,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Name = "chatBot";
-            Size = new Size(96, 91);
+            Size = new Size(62, 56);
             ((System.ComponentModel.ISupportInitialize)iconAI).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
