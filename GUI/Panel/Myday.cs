@@ -111,7 +111,7 @@ namespace GUI.Panel
             return true;
         }
 
-        
+
 
         private void btnMd_add_Click(object sender, EventArgs e)
         {
@@ -119,7 +119,7 @@ namespace GUI.Panel
             {
                 if (checkValidation())
                 {
-                    
+
                     TaskDTO newTask;
                     string dateString = lblMd_calendar.Text;
                     if (isSelectedReminder)
@@ -382,6 +382,11 @@ namespace GUI.Panel
                 lblMd_timePicker.Text = dateTime.ToString("dd/MM/yyyy h:mm:ss tt");
                 isSelectedReminder = true;
             }
+        }
+
+        private void chatBot1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
