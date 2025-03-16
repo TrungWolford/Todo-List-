@@ -40,13 +40,11 @@
             lbl_asking = new Label();
             lbl_toRegisterFrame = new Label();
             checkbox_showpwd = new CheckBox();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(37, 100, 207);
-            panel1.Controls.Add(lbl_title);
             panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(700, 75);
@@ -55,13 +53,14 @@
             // lbl_title
             // 
             lbl_title.AutoSize = true;
+            lbl_title.BackColor = Color.FromArgb(37, 100, 207);
             lbl_title.Font = new Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_title.ForeColor = Color.White;
-            lbl_title.Location = new Point(206, 8);
+            lbl_title.Location = new Point(258, 9);
             lbl_title.Name = "lbl_title";
-            lbl_title.Size = new Size(276, 60);
+            lbl_title.Size = new Size(153, 60);
             lbl_title.TabIndex = 0;
-            lbl_title.Text = "CS Todo List";
+            lbl_title.Text = "AI-DO";
             lbl_title.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lbl_login
@@ -174,6 +173,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 603);
+            Controls.Add(lbl_title);
             Controls.Add(checkbox_showpwd);
             Controls.Add(lbl_toRegisterFrame);
             Controls.Add(lbl_asking);
@@ -187,8 +187,6 @@
             Controls.Add(panel1);
             Name = "Login";
             Text = "CS Todo List";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

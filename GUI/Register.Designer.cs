@@ -44,14 +44,12 @@
             txt_usernameReg = new TextBox();
             lbl_usernameReg = new Label();
             lbl_sologanReg = new Label();
-            panel1Reg.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
             // panel1Reg
             // 
             panel1Reg.BackColor = Color.FromArgb(37, 100, 207);
-            panel1Reg.Controls.Add(lbl_titleReg);
             panel1Reg.Location = new Point(1, 1);
             panel1Reg.Name = "panel1Reg";
             panel1Reg.Size = new Size(700, 75);
@@ -60,13 +58,14 @@
             // lbl_titleReg
             // 
             lbl_titleReg.AutoSize = true;
+            lbl_titleReg.BackColor = Color.FromArgb(37, 100, 207);
             lbl_titleReg.Font = new Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbl_titleReg.ForeColor = Color.White;
-            lbl_titleReg.Location = new Point(206, 8);
+            lbl_titleReg.Location = new Point(256, 9);
             lbl_titleReg.Name = "lbl_titleReg";
-            lbl_titleReg.Size = new Size(276, 60);
+            lbl_titleReg.Size = new Size(153, 60);
             lbl_titleReg.TabIndex = 0;
-            lbl_titleReg.Text = "CS Todo List";
+            lbl_titleReg.Text = "AI-DO";
             lbl_titleReg.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lbl_register
@@ -223,15 +222,15 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 603);
+            Controls.Add(lbl_titleReg);
             Controls.Add(panel2);
             Controls.Add(panel1Reg);
             Name = "Register";
             Text = "CS Todo List";
-            panel1Reg.ResumeLayout(false);
-            panel1Reg.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

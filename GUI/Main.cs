@@ -130,5 +130,10 @@ namespace GUI
         {
             this.Close();
         }
+
+        private void lbl_titleMain_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
