@@ -19,7 +19,7 @@ namespace GUI.Panel
 {
     public partial class ChatBotForm : Form
     {
-        private static readonly string apiKey = "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";
+        private static readonly string apiKey = "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";
         private static readonly string apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         private static string GetConnectionString()
@@ -35,6 +35,30 @@ namespace GUI.Panel
             txtOutput.ScrollBars = ScrollBars.Vertical;
         }
 
+        //private async void btnSend_Click(object sender, EventArgs e)
+        //{
+        //    string userMessage = txtInput.Text.Trim();
+        //    if (string.IsNullOrWhiteSpace(userMessage)) return;
+
+        //    txtOutput.AppendText($"Bạn: {userMessage}\r\n");
+        //    txtInput.Clear();
+
+        //    string dbAnswer = GetAnswerFromDatabase(userMessage);
+        //    if (dbAnswer != null)
+        //    {
+        //        txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
+        //        return;
+        //    }
+
+        //    string response = await GetDeepSeekResponse(userMessage);
+
+        //    txtOutput.Invoke((MethodInvoker)delegate
+        //    {
+        //        txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
+        //    });
+
+        //    Console.WriteLine("API Key: " + apiKey);
+        //}
         private async void btnSend_Click(object sender, EventArgs e)
         {
             string userMessage = txtInput.Text.Trim();
@@ -43,21 +67,21 @@ namespace GUI.Panel
             txtOutput.AppendText($"Bạn: {userMessage}\r\n");
             txtInput.Clear();
 
-            string dbAnswer = GetAnswerFromDatabase(userMessage);
+            // Kiểm tra câu trả lời trong database bằng thuật toán tìm kiếm
+            string dbAnswer = GetBestMatchAnswer(userMessage);
             if (dbAnswer != null)
             {
                 txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
                 return;
             }
 
+            // Nếu không có câu phù hợp, gọi API DeepSeek
             string response = await GetDeepSeekResponse(userMessage);
 
             txtOutput.Invoke((MethodInvoker)delegate
             {
                 txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
             });
-
-            Console.WriteLine("API Key: " + apiKey);
         }
 
         private static async Task<string> GetDeepSeekResponse(string userMessage)
@@ -165,6 +189,60 @@ namespace GUI.Panel
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        // Tìm câu trả lời tốt nhất dựa trên số từ trùng khớp
+        private static string GetBestMatchAnswer(string userQuestion)
+        {
+            Dictionary<string, string> questionsWithAnswers = LoadQuestionsFromDB();
+            string bestMatchQuestion = FindBestMatchingQuestion(userQuestion, questionsWithAnswers.Keys.ToList());
+
+            return bestMatchQuestion != null ? questionsWithAnswers[bestMatchQuestion] : null;
+        }
+
+        // Lấy danh sách câu hỏi từ database
+        private static Dictionary<string, string> LoadQuestionsFromDB()
+        {
+            Dictionary<string, string> questionsWithAnswers = new Dictionary<string, string>();
+            string connectionString = GetConnectionString();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Question, Answer FROM ChatQA";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string question = reader.GetString(0);
+                        string answer = reader.GetString(1);
+                        questionsWithAnswers[question] = answer;
+                    }
+                }
+            }
+            return questionsWithAnswers;
+        }
+
+        // Tìm câu hỏi có ít nhất 10 từ trùng khớp
+        private static string FindBestMatchingQuestion(string userQuestion, List<string> existingQuestions)
+        {
+            string bestMatch = null;
+            int maxMatchCount = 0;
+            HashSet<string> userWords = new HashSet<string>(userQuestion.ToLower().Split(' '));
+
+            foreach (var question in existingQuestions)
+            {
+                HashSet<string> questionWords = new HashSet<string>(question.ToLower().Split(' '));
+                int matchCount = userWords.Intersect(questionWords).Count();
+
+                if (matchCount >= 10 && matchCount > maxMatchCount) // Ít nhất 4 từ trùng
+                {
+                    maxMatchCount = matchCount;
+                    bestMatch = question;
+                }
+            }
+            return bestMatch;
         }
     }
 }

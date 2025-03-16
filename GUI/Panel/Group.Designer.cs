@@ -45,9 +45,10 @@
             clImportance_group = new DataGridViewImageColumn();
             clDone_group = new DataGridViewImageColumn();
             chatBot1 = new Components.chatBot();
+            cpToolBarGroup4 = new Components.cpToolBarGroup(groupDTO, user, this);
             pnlContentGroup_center.SuspendLayout();
             pnlContentGroup_bottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tableGroup).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tableGroup).BeginInit(); 
             SuspendLayout();
             // 
             // pnlContentGroup_center
@@ -235,12 +236,20 @@
             chatBot1.Size = new Size(50, 68);
             chatBot1.TabIndex = 6;
             // 
+            // cpToolBarGroup4
+            // 
+            cpToolBarGroup4.Location = new Point(71, 12);
+            cpToolBarGroup4.Name = "cpToolBarGroup4";
+            cpToolBarGroup4.Size = new Size(1039, 128);
+            cpToolBarGroup4.TabIndex = 7;
+            // 
             // Group
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(246, 246, 246);
             ClientSize = new Size(1179, 853);
+            Controls.Add(cpToolBarGroup4);
             Controls.Add(chatBot1);
             Controls.Add(pnlContentGroup_bottom);
             Controls.Add(pnlContentGroup_center);
@@ -274,5 +283,6 @@
         private Components.CustomeDateTime customeDateTime1;
         private Label lblGroup_timePicker;
         private Components.chatBot chatBot1;
+        private Components.cpToolBarGroup cpToolBarGroup4;
     }
 }
