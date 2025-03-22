@@ -14,12 +14,17 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Configuration;
 using System.Data.SqlClient;
+using Accord.MachineLearning.Text;
+using Accord.Statistics.Filters;
+using Microsoft.ML;
+using Microsoft.ML.Transforms.Text;
+using MathNet.Numerics.LinearAlgebra;
 
 namespace GUI.Panel
 {
     public partial class ChatBotForm : Form
     {
-        private static readonly string apiKey = "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";
+        private static readonly string apiKey = "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";
         private static readonly string apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         private static string GetConnectionString()
@@ -35,30 +40,6 @@ namespace GUI.Panel
             txtOutput.ScrollBars = ScrollBars.Vertical;
         }
 
-        //private async void btnSend_Click(object sender, EventArgs e)
-        //{
-        //    string userMessage = txtInput.Text.Trim();
-        //    if (string.IsNullOrWhiteSpace(userMessage)) return;
-
-        //    txtOutput.AppendText($"Bạn: {userMessage}\r\n");
-        //    txtInput.Clear();
-
-        //    string dbAnswer = GetAnswerFromDatabase(userMessage);
-        //    if (dbAnswer != null)
-        //    {
-        //        txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
-        //        return;
-        //    }
-
-        //    string response = await GetDeepSeekResponse(userMessage);
-
-        //    txtOutput.Invoke((MethodInvoker)delegate
-        //    {
-        //        txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
-        //    });
-
-        //    Console.WriteLine("API Key: " + apiKey);
-        //}
         private async void btnSend_Click(object sender, EventArgs e)
         {
             string userMessage = txtInput.Text.Trim();
@@ -67,15 +48,13 @@ namespace GUI.Panel
             txtOutput.AppendText($"Bạn: {userMessage}\r\n");
             txtInput.Clear();
 
-            // Kiểm tra câu hỏi trong database trước
-            string dbAnswer = GetAnswerFromDatabase(userMessage);
+            string dbAnswer = GetBestAnswerFromDatabase(userMessage);
             if (dbAnswer != null)
             {
                 txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
-                return; // Nếu tìm thấy câu trả lời, kết thúc hàm ở đây
+                return;
             }
 
-            // Nếu không có câu trả lời, gọi API DeepSeek
             string response = await GetDeepSeekResponse(userMessage);
 
             txtOutput.Invoke((MethodInvoker)delegate
@@ -83,7 +62,6 @@ namespace GUI.Panel
                 txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
             });
 
-            // Lưu câu hỏi và câu trả lời mới vào database
             SaveAnswerToDatabase(userMessage, response);
         }
 
@@ -115,19 +93,6 @@ namespace GUI.Panel
             }
         }
 
-
-        private static string LoadApiKey()
-        {
-            string filePath = "appsettings.json";
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                JObject config = JObject.Parse(json);
-                return config["OpenAI"]?["ApiKey"]?.ToString() ?? string.Empty;
-            }
-            return string.Empty;
-        }
-
         private void btnQuestion1_Click(object sender, EventArgs e)
         {
             SendPredefinedMessage("Làm sao để duy trì thói quen sử dụng To-Do List hàng ngày?");
@@ -150,22 +115,53 @@ namespace GUI.Panel
             btnSend.PerformClick();
         }
 
+        //private static string GetBestAnswerFromDatabase(string userQuestion)
+        //{
+        //    Dictionary<string, string> qaPairs = LoadQuestionsFromDB();
+        //    if (qaPairs.Count == 0) return null;
 
-        private static string GetAnswerFromDatabase(string userQuestion)
+        //    var documents = qaPairs.Keys.ToList();
+        //    var vectorizer = new TfIdfVectorizer();
+        //    vectorizer.Learn(documents);
+        //    var matrix = vectorizer.Transform(documents);
+
+        //    var userVector = vectorizer.Transform(new List<string> { userQuestion })[0];
+        //    double maxSimilarity = 0;
+        //    string bestMatch = null;
+
+        //    for (int i = 0; i < documents.Count; i++)
+        //    {
+        //        double similarity = CosineSimilarity(userVector, matrix[i]);
+        //        if (similarity > maxSimilarity)
+        //        {
+        //            maxSimilarity = similarity;
+        //            bestMatch = documents[i];
+        //        }
+        //    }
+
+        //    return maxSimilarity > 0.5 ? qaPairs[bestMatch] : null;
+        //}
+
+        private static string GetBestAnswerFromDatabase(string userQuestion)
         {
-            string connectionString = GetConnectionString();
-            string query = "SELECT Answer FROM ChatQA WHERE Question = @question";
+            Dictionary<string, string> qaPairs = LoadQuestionsFromDB();
+            if (qaPairs.Count == 0) return null;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var vectorizer = new TfIdfVectorizer();
+            string bestAnswer = vectorizer.FindMostSimilarQuestion(userQuestion, qaPairs);
+            return string.IsNullOrEmpty(bestAnswer) ? null : bestAnswer;
+        }
+
+        private static double CosineSimilarity(double[] vec1, double[] vec2)
+        {
+            double dotProduct = 0, normA = 0, normB = 0;
+            for (int i = 0; i < vec1.Length; i++)
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@question", userQuestion);
-                    object result = command.ExecuteScalar();
-                    return result != null ? result.ToString() : null;
-                }
+                dotProduct += vec1[i] * vec2[i];
+                normA += Math.Pow(vec1[i], 2);
+                normB += Math.Pow(vec2[i], 2);
             }
+            return dotProduct / (Math.Sqrt(normA) * Math.Sqrt(normB));
         }
 
         private static void SaveAnswerToDatabase(string question, string answer)
@@ -185,16 +181,6 @@ namespace GUI.Panel
             }
         }
 
-        // Tìm câu trả lời tốt nhất dựa trên số từ trùng khớp
-        private static string GetBestMatchAnswer(string userQuestion)
-        {
-            Dictionary<string, string> questionsWithAnswers = LoadQuestionsFromDB();
-            string bestMatchQuestion = FindBestMatchingQuestion(userQuestion, questionsWithAnswers.Keys.ToList());
-
-            return bestMatchQuestion != null ? questionsWithAnswers[bestMatchQuestion] : null;
-        }
-
-        // Lấy danh sách câu hỏi từ database
         private static Dictionary<string, string> LoadQuestionsFromDB()
         {
             Dictionary<string, string> questionsWithAnswers = new Dictionary<string, string>();
@@ -216,27 +202,6 @@ namespace GUI.Panel
                 }
             }
             return questionsWithAnswers;
-        }
-
-        // Tìm câu hỏi có ít nhất 10 từ trùng khớp
-        private static string FindBestMatchingQuestion(string userQuestion, List<string> existingQuestions)
-        {
-            string bestMatch = null;
-            int maxMatchCount = 0;
-            HashSet<string> userWords = new HashSet<string>(userQuestion.ToLower().Split(' '));
-
-            foreach (var question in existingQuestions)
-            {
-                HashSet<string> questionWords = new HashSet<string>(question.ToLower().Split(' '));
-                int matchCount = userWords.Intersect(questionWords).Count();
-
-                if (matchCount >= 10 && matchCount > maxMatchCount) // Ít nhất 4 từ trùng
-                {
-                    maxMatchCount = matchCount; 
-                    bestMatch = question;
-                }
-            }
-            return bestMatch;
         }
     }
 }
