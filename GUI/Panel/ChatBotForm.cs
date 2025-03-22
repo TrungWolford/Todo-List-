@@ -19,7 +19,7 @@ namespace GUI.Panel
 {
     public partial class ChatBotForm : Form
     {
-        private static readonly string apiKey = "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";
+        private static readonly string apiKey = "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";
         private static readonly string apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
         private static string GetConnectionString()
@@ -67,60 +67,54 @@ namespace GUI.Panel
             txtOutput.AppendText($"Bạn: {userMessage}\r\n");
             txtInput.Clear();
 
-            // Kiểm tra câu trả lời trong database bằng thuật toán tìm kiếm
-            string dbAnswer = GetBestMatchAnswer(userMessage);
+            // Kiểm tra câu hỏi trong database trước
+            string dbAnswer = GetAnswerFromDatabase(userMessage);
             if (dbAnswer != null)
             {
                 txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
-                return;
+                return; // Nếu tìm thấy câu trả lời, kết thúc hàm ở đây
             }
 
-            // Nếu không có câu phù hợp, gọi API DeepSeek
+            // Nếu không có câu trả lời, gọi API DeepSeek
             string response = await GetDeepSeekResponse(userMessage);
 
             txtOutput.Invoke((MethodInvoker)delegate
             {
                 txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
             });
+
+            // Lưu câu hỏi và câu trả lời mới vào database
+            SaveAnswerToDatabase(userMessage, response);
         }
 
         private static async Task<string> GetDeepSeekResponse(string userMessage)
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thêm API Key vào Header
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + apiKey);
 
-                // Tạo dữ liệu JSON gửi lên API
                 var requestBody = new
                 {
-                    model = "deepseek/deepseek-r1:free", // Sử dụng model miễn phí
-                    messages = new[]
-                    {
-        new { role = "user", content = userMessage }
-    }
+                    model = "deepseek/deepseek-r1:free",
+                    messages = new[] { new { role = "user", content = userMessage } }
                 };
 
                 string jsonRequest = JsonConvert.SerializeObject(requestBody);
-
-                // Định dạng JSON request với Content-Type
                 var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
-                // Gửi request đến API
                 HttpResponseMessage response = await client.PostAsync(apiUrl, content);
                 string responseString = await response.Content.ReadAsStringAsync();
 
-                // Xử lý JSON phản hồi từ API
                 dynamic responseData = JsonConvert.DeserializeObject(responseString);
                 if (responseData?.choices != null && responseData.choices.Count > 0)
                 {
                     return responseData.choices[0].message.content.ToString();
                 }
-                Console.WriteLine("JSON Request: " + jsonRequest);
 
                 return "❌ Không có phản hồi từ DeepSeek.";
             }
         }
+
 
         private static string LoadApiKey()
         {
@@ -159,7 +153,7 @@ namespace GUI.Panel
 
         private static string GetAnswerFromDatabase(string userQuestion)
         {
-            string connectionString = GetConnectionString(); // Lấy chuỗi kết nối từ App.config
+            string connectionString = GetConnectionString();
             string query = "SELECT Answer FROM ChatQA WHERE Question = @question";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -238,7 +232,7 @@ namespace GUI.Panel
 
                 if (matchCount >= 10 && matchCount > maxMatchCount) // Ít nhất 4 từ trùng
                 {
-                    maxMatchCount = matchCount;
+                    maxMatchCount = matchCount; 
                     bestMatch = question;
                 }
             }
