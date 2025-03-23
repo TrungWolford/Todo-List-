@@ -28,21 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtOutput = new TextBox();
             btnQuestion1 = new Button();
             btnQuestion2 = new Button();
             btnQuestion3 = new Button();
             txtInput = new TextBox();
             btnSend = new Button();
+            txtOutput = new RichTextBox();
             SuspendLayout();
-            // 
-            // txtOutput
-            // 
-            txtOutput.Location = new Point(54, 68);
-            txtOutput.Multiline = true;
-            txtOutput.Name = "txtOutput";
-            txtOutput.Size = new Size(823, 281);
-            txtOutput.TabIndex = 0;
             // 
             // btnQuestion1
             // 
@@ -91,17 +83,25 @@
             btnSend.UseVisualStyleBackColor = true;
             btnSend.Click += btnSend_Click;
             // 
+            // txtOutput
+            // 
+            txtOutput.Location = new Point(70, 66);
+            txtOutput.Name = "txtOutput";
+            txtOutput.Size = new Size(807, 287);
+            txtOutput.TabIndex = 6;
+            txtOutput.Text = "";
+            // 
             // ChatBotForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(936, 616);
+            Controls.Add(txtOutput);
             Controls.Add(btnSend);
             Controls.Add(txtInput);
             Controls.Add(btnQuestion3);
             Controls.Add(btnQuestion2);
             Controls.Add(btnQuestion1);
-            Controls.Add(txtOutput);
             Name = "ChatBotForm";
             Text = "ChatBotForm";
             ResumeLayout(false);
@@ -109,12 +109,11 @@
         }
 
         #endregion
-
-        private TextBox txtOutput;
         private Button btnQuestion1;
         private Button btnQuestion2;
         private Button btnQuestion3;
         private TextBox txtInput;
         private Button btnSend;
+        private RichTextBox txtOutput;
     }
 }

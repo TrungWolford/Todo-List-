@@ -32,60 +32,31 @@ namespace GUI.Panel
             this.StartPosition = FormStartPosition.CenterScreen;
             txtOutput.Multiline = true;
             txtOutput.WordWrap = true;
-            txtOutput.ScrollBars = ScrollBars.Vertical;
+            //txtOutput.ScrollBars = ScrollBars.Vertical;
+            txtOutput.ScrollBars = RichTextBoxScrollBars.Vertical;
         }
 
-        //private async void btnSend_Click(object sender, EventArgs e)
-        //{
-        //    string userMessage = txtInput.Text.Trim();
-        //    if (string.IsNullOrWhiteSpace(userMessage)) return;
-
-        //    txtOutput.AppendText($"Bạn: {userMessage}\r\n");
-        //    txtInput.Clear();
-
-        //    string dbAnswer = GetAnswerFromDatabase(userMessage);
-        //    if (dbAnswer != null)
-        //    {
-        //        txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
-        //        return;
-        //    }
-
-        //    string response = await GetDeepSeekResponse(userMessage);
-
-        //    txtOutput.Invoke((MethodInvoker)delegate
-        //    {
-        //        txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
-        //    });
-
-        //    Console.WriteLine("API Key: " + apiKey);
-        //}
         private async void btnSend_Click(object sender, EventArgs e)
         {
             string userMessage = txtInput.Text.Trim();
             if (string.IsNullOrWhiteSpace(userMessage)) return;
 
-            txtOutput.AppendText($"Bạn: {userMessage}\r\n");
+            AppendMessage(userMessage, true); // User message (bên phải)
             txtInput.Clear();
 
-            // Kiểm tra câu hỏi trong database trước
             string dbAnswer = GetAnswerFromDatabase(userMessage);
             if (dbAnswer != null)
             {
-                txtOutput.AppendText($"Chatbot: {dbAnswer}\r\n\r\n");
-                return; // Nếu tìm thấy câu trả lời, kết thúc hàm ở đây
+                AppendMessage(dbAnswer, false); // Chatbot message (bên trái)
+                return;
             }
 
-            // Nếu không có câu trả lời, gọi API DeepSeek
             string response = await GetDeepSeekResponse(userMessage);
+            AppendMessage(response, false); // Chatbot message (bên trái)
 
-            txtOutput.Invoke((MethodInvoker)delegate
-            {
-                txtOutput.AppendText($"Chatbot: {response}\r\n\r\n");
-            });
-
-            // Lưu câu hỏi và câu trả lời mới vào database
             SaveAnswerToDatabase(userMessage, response);
         }
+
 
         private static async Task<string> GetDeepSeekResponse(string userMessage)
         {
@@ -237,6 +208,27 @@ namespace GUI.Panel
                 }
             }
             return bestMatch;
+        }
+
+        private void AppendMessage(string message, bool isUser)
+        {
+            txtOutput.SelectionStart = txtOutput.TextLength;
+            txtOutput.SelectionLength = 0;
+
+            if (isUser)
+            {
+                txtOutput.SelectionAlignment = HorizontalAlignment.Right; // Căn phải
+                txtOutput.SelectionColor = Color.Blue; // Màu xanh cho user
+                txtOutput.AppendText($"Bạn: {message}\r\n\r\n");
+            }
+            else
+            {
+                txtOutput.SelectionAlignment = HorizontalAlignment.Left; // Căn trái
+                txtOutput.SelectionColor = Color.Green; // Màu xanh lá cho chatbot
+                txtOutput.AppendText($"Chatbot: {message}\r\n\r\n");
+            }
+
+            txtOutput.SelectionColor = txtOutput.ForeColor; // Reset màu về mặc định
         }
     }
 }

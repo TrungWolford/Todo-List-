@@ -33,12 +33,14 @@ namespace GUI
 
             // Chạy giao diện Login Form
             var loginForm = new Login();
+            var chatbotForm = new ChatBotForm();
 
             // Chạy host và form cùng lúc
             Task.Run(() => host.RunAsync());
-            Application.Run(loginForm);
+            //Application.Run(loginForm);
+            Application.Run(chatbotForm);
             //Application.Run(new Login());
-            
+
         }
     }
 }
